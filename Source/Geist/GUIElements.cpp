@@ -1,21 +1,20 @@
 #include <fstream>
-#include <string>
-#include <sstream>
 #include <memory>
+#include <sstream>
+#include <string>
 
-#include "Gui.h"
 #include "GUIElements.h"
 #include "Globals.h"
+#include "Gui.h"
 
 using namespace std;
 
-
-
 //  GUITEXTBUTTON
 
-void GuiTextButton::Init(int ID, int posx, int posy, int width, int height,
-	std::string text, Font* font, Color textcolor, Color backgroundcolor, Color bordercolor,
-	int group, int active)
+void GuiTextButton::Init(
+	int ID, int posx, int posy, int width, int height, std::string text, Font* font,
+	Color textcolor, Color backgroundcolor, Color bordercolor, int group, int active
+)
 {
 	if (font == nullptr)
 	{
@@ -60,32 +59,28 @@ void GuiTextButton::Update()
 	m_Clicked = false;
 	m_Down = false;
 
-	if (!m_Gui->m_AcceptingInput)
-		return;
+	if (!m_Gui->m_AcceptingInput) return;
 
 	if (m_Visible && m_Active)
 	{
-		if (IsMouseInRect(m_Gui->m_GuiX + int(m_Pos.x),
-			m_Gui->m_GuiY + int(m_Pos.y),
-			m_Width,
-			m_Height))
+		if (IsMouseInRect(
+				m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y), m_Width, m_Height
+			))
 		{
 			m_Hovered = true;
 		}
 
-		if (IsLeftButtonDownInRect(m_Gui->m_GuiX + int(m_Pos.x),
-			m_Gui->m_GuiY + int(m_Pos.y),
-			m_Width,
-			m_Height))
+		if (IsLeftButtonDownInRect(
+				m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y), m_Width, m_Height
+			))
 		{
 			m_Hovered = false;
 			m_Down = true;
 		}
 
-		else if (WasLeftButtonClickedInRect(m_Gui->m_GuiX + int(m_Pos.x),
-			m_Gui->m_GuiY + int(m_Pos.y),
-			m_Width,
-			m_Height))
+		else if (WasLeftButtonClickedInRect(
+					 m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y), m_Width, m_Height
+				 ))
 		{
 			m_Down = false;
 			m_Hovered = false;
@@ -97,72 +92,118 @@ void GuiTextButton::Update()
 
 void GuiTextButton::Draw()
 {
-	if (m_Visible == false)
-		return;
+	if (m_Visible == false) return;
 
 	if (!m_Active)
 	{
-		DrawRectangleRounded(Rectangle{ m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y),
-		m_Width, m_Height },
-			0.5f, 1, m_BackgroundColor);
-
-		DrawRectangleRoundedLines(Rectangle{ m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y),
-			m_Width, m_Height },
+		DrawRectangleRounded(
+			Rectangle{
+				m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y), m_Width, m_Height
+			},
 			0.5f,
-                        1,
-                        m_Gui->m_Scale,
-                        m_BorderColor);
+			1,
+			m_BackgroundColor
+		);
 
-		DrawStringCentered(m_Gui->m_Font.get(), m_Font->baseSize, m_String,
-			Vector2 {m_Gui->m_GuiX + int(m_Pos.x) + (m_Width / 2), m_Gui->m_GuiY + int(m_Pos.y + (m_Height * .6f))},
-			Color{ 25, 25, 25, 255 });
+		DrawRectangleRoundedLines(
+			Rectangle{
+				m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y), m_Width, m_Height
+			},
+			0.5f,
+			1,
+			m_Gui->m_Scale,
+			m_BorderColor
+		);
+
+		DrawStringCentered(
+			m_Gui->m_Font.get(),
+			m_Font->baseSize,
+			m_String,
+			Vector2{
+				m_Gui->m_GuiX + int(m_Pos.x) + (m_Width / 2),
+				m_Gui->m_GuiY + int(m_Pos.y + (m_Height * .6f))
+			},
+			Color{25, 25, 25, 255}
+		);
 
 		return;
 	}
 
 	if (!m_Down)
 	{
-		DrawRectangleRounded(Rectangle{ m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y),
-			m_Width, m_Height },
-			0.5f, 1, m_BackgroundColor);
+		DrawRectangleRounded(
+			Rectangle{
+				m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y), m_Width, m_Height
+			},
+			0.5f,
+			1,
+			m_BackgroundColor
+		);
 
-		DrawRectangleRoundedLines(Rectangle{ m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y),
-			m_Width, m_Height },
-			0.5f, 1,
-                                m_Gui->m_Scale,
-                                m_BorderColor);
+		DrawRectangleRoundedLines(
+			Rectangle{
+				m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y), m_Width, m_Height
+			},
+			0.5f,
+			1,
+			m_Gui->m_Scale,
+			m_BorderColor
+		);
 
-		DrawStringCentered(m_Gui->m_Font.get(), m_Font->baseSize , m_String,
-			Vector2 {m_Gui->m_GuiX + int(m_Pos.x) + (m_Width / 2), m_Gui->m_GuiY + int(m_Pos.y + (m_Height * .6f))},
-			m_TextColor);
+		DrawStringCentered(
+			m_Gui->m_Font.get(),
+			m_Font->baseSize,
+			m_String,
+			Vector2{
+				m_Gui->m_GuiX + int(m_Pos.x) + (m_Width / 2),
+				m_Gui->m_GuiY + int(m_Pos.y + (m_Height * .6f))
+			},
+			m_TextColor
+		);
 	}
 	else
 	{
-		DrawRectangleRounded(Rectangle{ m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y),
-			m_Width, m_Height },
-			0.5f, 1, m_BorderColor);
+		DrawRectangleRounded(
+			Rectangle{
+				m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y), m_Width, m_Height
+			},
+			0.5f,
+			1,
+			m_BorderColor
+		);
 
-		DrawRectangleRoundedLines(Rectangle{ m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y),
-			m_Width, m_Height },
-			0.5f, 1,
-                                m_Gui->m_Scale,
-                                m_BackgroundColor);
+		DrawRectangleRoundedLines(
+			Rectangle{
+				m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y), m_Width, m_Height
+			},
+			0.5f,
+			1,
+			m_Gui->m_Scale,
+			m_BackgroundColor
+		);
 
-		DrawStringCentered(m_Font, m_Font->baseSize, m_String,
-			Vector2 {m_Gui->m_GuiX + int(m_Pos.x) + (m_Width / 2), m_Gui->m_GuiY + int(m_Pos.y + (m_Height * .6f))},
-			m_BackgroundColor);
+		DrawStringCentered(
+			m_Font,
+			m_Font->baseSize,
+			m_String,
+			Vector2{
+				m_Gui->m_GuiX + int(m_Pos.x) + (m_Width / 2),
+				m_Gui->m_GuiY + int(m_Pos.y + (m_Height * .6f))
+			},
+			m_BackgroundColor
+		);
 	}
 };
 
-int GuiTextButton::GetValue()
-{
-	return m_Clicked;
-}
+int GuiTextButton::GetValue() { return m_Clicked; }
 
 //  GUIICONBUTTON
 
-void GuiIconButton::Init(int ID, int posx, int posy, shared_ptr<Sprite> upbutton, shared_ptr<Sprite> downbutton,
-	shared_ptr<Sprite> inactivebutton, std::string text, Font* font, Color fontcolor, int group, int active, bool canbeheld)
+void GuiIconButton::Init(
+	int ID, int posx, int posy, shared_ptr<Sprite> upbutton, shared_ptr<Sprite> downbutton,
+	shared_ptr<Sprite> inactivebutton, std::string text, Font* font, Color fontcolor, int group,
+	int active, bool canbeheld
+)
 {
 	if (upbutton == nullptr)
 	{
@@ -195,13 +236,11 @@ void GuiIconButton::Init(int ID, int posx, int posy, shared_ptr<Sprite> upbutton
 
 void GuiIconButton::Draw()
 {
-	if (m_Visible == false)
-		return;
+	if (m_Visible == false) return;
 
 	//  Bobbing doesn't actually move the element, it just causes it to be drawn slightly higher or lower on the y axis.  You have to manually set bobbing for the button.
 	int yoffset = 0;
-	if (m_Bobbing)
-		yoffset = int(sin(GetTime() * 10) * m_Height * .025f);
+	if (m_Bobbing) yoffset = int(sin(GetTime() * 10) * m_Height * .025f);
 
 	bool _ReturnState = false;
 	//  First off, if it's inactive, draw it inactive and that's it.
@@ -210,14 +249,22 @@ void GuiIconButton::Draw()
 		if (m_InactiveTexture)
 		{
 			m_InactiveTexture->DrawScaled(
-				Rectangle{ m_Gui->m_GuiX + (m_Pos.x), m_Gui->m_GuiY + (m_Pos.y), m_Width, m_Height },
-				Vector2{ 0, 0 }, 0, m_Color);
+				Rectangle{m_Gui->m_GuiX + (m_Pos.x), m_Gui->m_GuiY + (m_Pos.y), m_Width, m_Height},
+				Vector2{0, 0},
+				0,
+				m_Color
+			);
 		}
 		else
 		{
 			m_UpTexture->DrawScaled(
-				Rectangle{ m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y), m_Width, m_Height },
-				Vector2{ 0, 0 }, 0, m_Color);
+				Rectangle{
+					m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y), m_Width, m_Height
+				},
+				Vector2{0, 0},
+				0,
+				m_Color
+			);
 		}
 	}
 	else
@@ -228,21 +275,45 @@ void GuiIconButton::Draw()
 			{
 
 				m_DownTexture->DrawScaled(
-					Rectangle{ m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y) + yoffset, m_Width, m_Height },
-					Vector2{ 0, 0 }, 0, m_Color);
+					Rectangle{
+						m_Gui->m_GuiX + int(m_Pos.x),
+						m_Gui->m_GuiY + int(m_Pos.y) + yoffset,
+						m_Width,
+						m_Height
+					},
+					Vector2{0, 0},
+					0,
+					m_Color
+				);
 			}
 			else
 			{
 				m_UpTexture->DrawScaled(
-					Rectangle{ m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y) + yoffset, m_Width, m_Height },
-					Vector2{ 0, 0 }, 0, m_Color);
+					Rectangle{
+						m_Gui->m_GuiX + int(m_Pos.x),
+						m_Gui->m_GuiY + int(m_Pos.y) + yoffset,
+						m_Width,
+						m_Height
+					},
+					Vector2{0, 0},
+					0,
+					m_Color
+				);
 			}
 		}
 		else
 		{
 			m_UpTexture->DrawScaled(
-				Rectangle{ m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y) + yoffset, m_Width, m_Height },
-				Vector2{ 0, 0 }, 0, m_Color);
+				Rectangle{
+					m_Gui->m_GuiX + int(m_Pos.x),
+					m_Gui->m_GuiY + int(m_Pos.y) + yoffset,
+					m_Width,
+					m_Height
+				},
+				Vector2{0, 0},
+				0,
+				m_Color
+			);
 		}
 	}
 };
@@ -254,23 +325,26 @@ void GuiIconButton::Update()
 	m_Clicked = false;
 	m_Down = false;
 
-	if (!m_Gui->m_AcceptingInput)
-		return;
+	if (!m_Gui->m_AcceptingInput) return;
 
 	if (m_Visible && m_Active)
 	{
-		if (IsMouseInRect(m_Gui->m_GuiX + int(m_Pos.x),
-			m_Gui->m_GuiY + int(m_Pos.y),
-			int(m_Width),
-			int(m_Height)))
+		if (IsMouseInRect(
+				m_Gui->m_GuiX + int(m_Pos.x),
+				m_Gui->m_GuiY + int(m_Pos.y),
+				int(m_Width),
+				int(m_Height)
+			))
 		{
 			m_Hovered = true;
 		}
 
-		if (IsLeftButtonDownInRect(m_Gui->m_GuiX + int(m_Pos.x),
-			m_Gui->m_GuiY + int(m_Pos.y),
-			int(m_Width),
-			int(m_Height)))
+		if (IsLeftButtonDownInRect(
+				m_Gui->m_GuiX + int(m_Pos.x),
+				m_Gui->m_GuiY + int(m_Pos.y),
+				int(m_Width),
+				int(m_Height)
+			))
 		{
 			m_Hovered = false;
 			m_Down = true;
@@ -280,10 +354,12 @@ void GuiIconButton::Update()
 			}
 		}
 
-		else if (WasLeftButtonClickedInRect(m_Gui->m_GuiX + int(m_Pos.x),
-			m_Gui->m_GuiY + int(m_Pos.y),
-			int(m_Width),
-			int(m_Height)))
+		else if (WasLeftButtonClickedInRect(
+					 m_Gui->m_GuiX + int(m_Pos.x),
+					 m_Gui->m_GuiY + int(m_Pos.y),
+					 int(m_Width),
+					 int(m_Height)
+				 ))
 		{
 			m_Down = false;
 			m_Hovered = false;
@@ -296,16 +372,14 @@ void GuiIconButton::Update()
 	}
 };
 
-int GuiIconButton::GetValue()
-{
-	return m_Clicked;
-}
-
+int GuiIconButton::GetValue() { return m_Clicked; }
 
 //  GUISCROLLBAR
 
-void GuiScrollBar::Init(int ID, int valuerange, int posx, int posy, int width, int height, bool vertical,
-	Color spurcolor, Color backgroundcolor, int group, int active, bool shadowed)
+void GuiScrollBar::Init(
+	int ID, int valuerange, int posx, int posy, int width, int height, bool vertical,
+	Color spurcolor, Color backgroundcolor, int group, int active, bool shadowed
+)
 {
 	m_Type = GUI_SCROLLBAR;
 	m_ValueRange = valuerange;
@@ -324,10 +398,14 @@ void GuiScrollBar::Init(int ID, int valuerange, int posx, int posy, int width, i
 	m_Shadowed = shadowed;
 }
 
-void GuiScrollBar::Init(int ID, int valuerange, int posx, int posy, int width, int height, bool vertical,
-	std::shared_ptr<Sprite> activeLeft, std::shared_ptr<Sprite> activeRight, std::shared_ptr<Sprite> activeCenter, std::shared_ptr<Sprite> spurActive,
-	std::shared_ptr<Sprite> inactiveLeft, std::shared_ptr<Sprite> inactiveRight, std::shared_ptr<Sprite> inactiveCenter,
-	std::shared_ptr<Sprite> spurInactive, int group, int active, bool shadowed)
+void GuiScrollBar::Init(
+	int ID, int valuerange, int posx, int posy, int width, int height, bool vertical,
+	std::shared_ptr<Sprite> activeLeft, std::shared_ptr<Sprite> activeRight,
+	std::shared_ptr<Sprite> activeCenter, std::shared_ptr<Sprite> spurActive,
+	std::shared_ptr<Sprite> inactiveLeft, std::shared_ptr<Sprite> inactiveRight,
+	std::shared_ptr<Sprite> inactiveCenter, std::shared_ptr<Sprite> spurInactive, int group,
+	int active, bool shadowed
+)
 {
 	m_Type = GUI_SCROLLBAR;
 	m_ValueRange = valuerange;
@@ -352,11 +430,9 @@ void GuiScrollBar::Init(int ID, int valuerange, int posx, int posy, int width, i
 	m_Shadowed = shadowed;
 }
 
-
 void GuiScrollBar::Draw()
 {
-	if (m_Visible == false)
-		return;
+	if (m_Visible == false) return;
 
 	int adjustedx = m_Gui->m_GuiX + (m_Pos.x);
 	int adjustedy = m_Gui->m_GuiY + (m_Pos.y);
@@ -371,12 +447,17 @@ void GuiScrollBar::Draw()
 		if (m_Vertical)
 		{
 			m_SpurLocation = int((float(m_Value) / float(m_ValueRange) * (m_Height - m_Width)));
-			DrawRectangle(adjustedx, adjustedy + m_SpurLocation, int(m_Width), int(m_Width), m_SpurColor);
+			DrawRectangle(
+				adjustedx, adjustedy + m_SpurLocation, int(m_Width), int(m_Width), m_SpurColor
+			);
 		}
 		else
 		{
-			m_SpurLocation = int((float(m_Value) / float(m_ValueRange) * (adjustedw - adjustedh)));//;
-			DrawRectangle(adjustedx + m_SpurLocation, adjustedy, int(m_Height), int(m_Height), m_SpurColor);
+			m_SpurLocation =
+				int((float(m_Value) / float(m_ValueRange) * (adjustedw - adjustedh))); //;
+			DrawRectangle(
+				adjustedx + m_SpurLocation, adjustedy, int(m_Height), int(m_Height), m_SpurColor
+			);
 		}
 	}
 	else
@@ -403,21 +484,58 @@ void GuiScrollBar::Draw()
 		float xmiddle = float(left->m_sourceRect.width);
 		float xright = float(m_Width - (left->m_sourceRect.width + right->m_sourceRect.width));
 
-
-
 		if (m_Shadowed)
 		{
-			left->DrawScaled(Rectangle{m_Gui->m_Pos.x + ((m_Pos.x + 3)), m_Gui->m_Pos.y + ((m_Pos.y + 3)), m_Gui->m_Scale, m_Gui->m_Scale},
-				Vector2{ 0, 0 }, 0, Color{ 0, 0, 0, 255 });
-			center->DrawScaled(Rectangle{ m_Gui->m_Pos.x + ((m_Pos.x + 3 + xmiddle)) - 1, m_Gui->m_Pos.y + ((m_Pos.y + 3)), ((xright + 3) / m_InactiveCenter->m_sourceRect.width), m_Gui->m_Scale },
-				Vector2{ 0, 0 }, 0, Color{ 0, 0, 0, 255 });
-			right->DrawScaled(Rectangle{ m_Gui->m_Pos.x + (m_Pos.x + 3 + xmiddle + xright), m_Gui->m_Pos.y + ((m_Pos.y + 3)), m_Gui->m_Scale, m_Gui->m_Scale },
-				Vector2{ 0, 0 }, 0, Color{ 0, 0, 0, 255 });
+			left->DrawScaled(
+				Rectangle{
+					m_Gui->m_Pos.x + ((m_Pos.x + 3)),
+					m_Gui->m_Pos.y + ((m_Pos.y + 3)),
+					m_Gui->m_Scale,
+					m_Gui->m_Scale
+				},
+				Vector2{0, 0},
+				0,
+				Color{0, 0, 0, 255}
+			);
+			center->DrawScaled(
+				Rectangle{
+					m_Gui->m_Pos.x + ((m_Pos.x + 3 + xmiddle)) - 1,
+					m_Gui->m_Pos.y + ((m_Pos.y + 3)),
+					((xright + 3) / m_InactiveCenter->m_sourceRect.width),
+					m_Gui->m_Scale
+				},
+				Vector2{0, 0},
+				0,
+				Color{0, 0, 0, 255}
+			);
+			right->DrawScaled(
+				Rectangle{
+					m_Gui->m_Pos.x + (m_Pos.x + 3 + xmiddle + xright),
+					m_Gui->m_Pos.y + ((m_Pos.y + 3)),
+					m_Gui->m_Scale,
+					m_Gui->m_Scale
+				},
+				Vector2{0, 0},
+				0,
+				Color{0, 0, 0, 255}
+			);
 		}
 
-		left->DrawScaled(Rectangle{ m_Gui->m_Pos.x + (m_Pos.x), m_Gui->m_Pos.y + (m_Pos.y), m_Gui->m_Scale, m_Gui->m_Scale });
-		center->DrawScaled(Rectangle{ m_Gui->m_Pos.x + ((m_Pos.x + xmiddle)) - 1, m_Gui->m_Pos.y + (m_Pos.y), ((xright + 3) / m_InactiveCenter->m_sourceRect.width), m_Gui->m_Scale });
-		right->DrawScaled(Rectangle{ m_Gui->m_Pos.x + (m_Pos.x + xmiddle + xright), m_Gui->m_Pos.y + (m_Pos.y), m_Gui->m_Scale, m_Gui->m_Scale });
+		left->DrawScaled(Rectangle{
+			m_Gui->m_Pos.x + (m_Pos.x), m_Gui->m_Pos.y + (m_Pos.y), m_Gui->m_Scale, m_Gui->m_Scale
+		});
+		center->DrawScaled(Rectangle{
+			m_Gui->m_Pos.x + ((m_Pos.x + xmiddle)) - 1,
+			m_Gui->m_Pos.y + (m_Pos.y),
+			((xright + 3) / m_InactiveCenter->m_sourceRect.width),
+			m_Gui->m_Scale
+		});
+		right->DrawScaled(Rectangle{
+			m_Gui->m_Pos.x + (m_Pos.x + xmiddle + xright),
+			m_Gui->m_Pos.y + (m_Pos.y),
+			m_Gui->m_Scale,
+			m_Gui->m_Scale
+		});
 
 		//int debugadjustedx = m_Gui->m_GuiX + (m_Pos.x);
 		//int debugadjustedy = int(m_Gui->m_Pos.y + (float(m_Pos.y)) + (float(m_Height) / 2.0f) - (float(spur->m_sourceRect.height) / 2.0f));
@@ -427,9 +545,15 @@ void GuiScrollBar::Draw()
 
 		//DrawRectangle(debugadjustedx, debugadjustedy, debugadjustedw, debugadjustedh, Color(1, 0, 0, .5), true);
 
-		spur->DrawScaled(Rectangle{ m_Gui->m_Pos.x + ((m_Pos.x - (float(spur->m_sourceRect.width) / 2))) + ((float(m_Value) / float(m_ValueRange)) * m_Width),
+		spur->DrawScaled(Rectangle{
+			m_Gui->m_Pos.x + ((m_Pos.x - (float(spur->m_sourceRect.width) / 2))) +
+				((float(m_Value) / float(m_ValueRange)) * m_Width),
 			//int(m_Gui->m_Pos.y + ((m_Pos.y + (float(spur->m_sourceRect.height) / 2)))),
-			m_Gui->m_Pos.y + (float(m_Pos.y)) + (float(m_Height) / 2.0f) - (float(spur->m_sourceRect.height) / 2.0f), m_Gui->m_Scale, m_Gui->m_Scale });
+			m_Gui->m_Pos.y + (float(m_Pos.y)) + (float(m_Height) / 2.0f) -
+				(float(spur->m_sourceRect.height) / 2.0f),
+			m_Gui->m_Scale,
+			m_Gui->m_Scale
+		});
 	}
 }
 
@@ -437,14 +561,15 @@ void GuiScrollBar::Update()
 {
 	Tween::Update();
 
-	if (!m_Gui->m_AcceptingInput || !m_Active)
-		return;
+	if (!m_Gui->m_AcceptingInput || !m_Active) return;
 
 	m_Hovered = false;
 
 	//  Is the LMB down inside the spur?
 	int adjustedx = m_Gui->m_GuiX + (m_Pos.x);
-	int adjustedy = int(m_Gui->m_Pos.y + (float(m_Pos.y)) + (float(m_Height) / 2.0f) - (float(m_SpurActive->m_sourceRect.height) / 2.0f));
+	int adjustedy =
+		int(m_Gui->m_Pos.y + (float(m_Pos.y)) + (float(m_Height) / 2.0f) -
+			(float(m_SpurActive->m_sourceRect.height) / 2.0f));
 
 	int adjustedw = m_Width;
 	int adjustedh = m_SpurActive->m_sourceRect.height;
@@ -452,12 +577,16 @@ void GuiScrollBar::Update()
 	//  Previously clicked, try for hysterisis
 	if (m_Gui->m_LastElement == m_ID)
 	{
-		if (IsLeftButtonDragging() || IsLeftButtonDownInRect(adjustedx, adjustedy, adjustedx + adjustedw, adjustedy + adjustedh))
+		if (IsLeftButtonDragging() ||
+			IsLeftButtonDownInRect(
+				adjustedx, adjustedy, adjustedx + adjustedw, adjustedy + adjustedh
+			))
 		{
 			m_Gui->m_ActiveElement = m_ID; //  This element is still active.
 			if (m_Vertical)
 			{
-				m_Value = std::round((float(GetMouseY() - adjustedy) / float(adjustedh)) * m_ValueRange);
+				m_Value =
+					std::round((float(GetMouseY() - adjustedy) / float(adjustedh)) * m_ValueRange);
 
 				if (m_Value < 0)
 				{
@@ -471,7 +600,8 @@ void GuiScrollBar::Update()
 			}
 			else
 			{
-				m_Value = std::round((float(GetMouseX() - adjustedx) / float(adjustedw)) * m_ValueRange);
+				m_Value =
+					std::round((float(GetMouseX() - adjustedx) / float(adjustedw)) * m_ValueRange);
 
 				if (m_Value < 0)
 				{
@@ -489,12 +619,16 @@ void GuiScrollBar::Update()
 			m_Gui->m_ActiveElement = -1;
 		}
 	}
-	else if (m_Gui->m_ActiveElement == -1 && m_Gui->m_LastElement == -1 && IsLeftButtonDownInRect(adjustedx, adjustedy, adjustedx + adjustedw, adjustedy + adjustedh))
+	else if (m_Gui->m_ActiveElement == -1 && m_Gui->m_LastElement == -1 &&
+			 IsLeftButtonDownInRect(
+				 adjustedx, adjustedy, adjustedx + adjustedw, adjustedy + adjustedh
+			 ))
 	{
 		m_Gui->m_ActiveElement = m_ID;
 		if (m_Vertical)
 		{
-			m_Value = std::round((float(GetMouseY() - adjustedy) / float(adjustedh)) * m_ValueRange);
+			m_Value =
+				std::round((float(GetMouseY() - adjustedy) / float(adjustedh)) * m_ValueRange);
 
 			if (m_Value < 0)
 			{
@@ -508,7 +642,8 @@ void GuiScrollBar::Update()
 		}
 		else
 		{
-			m_Value = std::round((float(GetMouseX() - adjustedx) / float(adjustedw)) * m_ValueRange);
+			m_Value =
+				std::round((float(GetMouseX() - adjustedx) / float(adjustedw)) * m_ValueRange);
 
 			if (m_Value < 0)
 			{
@@ -527,10 +662,7 @@ void GuiScrollBar::Update()
 	}
 };
 
-int GuiScrollBar::GetValue()
-{
-	return m_Value;
-}
+int    GuiScrollBar::GetValue() { return m_Value; }
 
 string GuiScrollBar::GetString()
 {
@@ -540,12 +672,12 @@ string GuiScrollBar::GetString()
 	return sstream.str();
 }
 
-
 //  GUITEXTINPUT
 
-void GuiTextInput::Init(int ID, int posx, int posy, int width, int height,
-	Font* font, std::string initialtext, Color textColor, Color boxcolor,
-	Color backgroundcolor, int group, int active)
+void GuiTextInput::Init(
+	int ID, int posx, int posy, int width, int height, Font* font, std::string initialtext,
+	Color textColor, Color boxcolor, Color backgroundcolor, int group, int active
+)
 {
 	m_Type = GUI_TEXTINPUT;
 	m_ID = ID;
@@ -567,8 +699,7 @@ void GuiTextInput::Init(int ID, int posx, int posy, int width, int height,
 
 void GuiTextInput::Draw()
 {
-	if (m_Visible == false)
-		return;
+	if (m_Visible == false) return;
 
 	float adjustedx = m_Gui->m_GuiX + m_Pos.x;
 	float adjustedy = m_Gui->m_GuiY + m_Pos.y;
@@ -578,17 +709,38 @@ void GuiTextInput::Draw()
 
 	if (!m_HasFocus)
 	{
-		DrawTextEx(*m_Font, m_String.c_str(), Vector2{ adjustedx + 2, adjustedy + 2 }, m_Gui->m_fontSize, 1, m_TextColor);
+		DrawTextEx(
+			*m_Font,
+			m_String.c_str(),
+			Vector2{adjustedx + 2, adjustedy + 2},
+			m_Gui->m_fontSize,
+			1,
+			m_TextColor
+		);
 	}
 	else
 	{
 		if (GetTime() > 500)
 		{
-			DrawTextEx(*m_Font, (m_String + "|").c_str(), Vector2{adjustedx + 2, adjustedy + 2}, m_Gui->m_fontSize, 1, m_TextColor);
+			DrawTextEx(
+				*m_Font,
+				(m_String + "|").c_str(),
+				Vector2{adjustedx + 2, adjustedy + 2},
+				m_Gui->m_fontSize,
+				1,
+				m_TextColor
+			);
 		}
 		else
 		{
-			DrawTextEx(*m_Font, m_String.c_str(), Vector2{ adjustedx + 2, adjustedy + 2 }, m_Gui->m_fontSize, 1, m_TextColor);
+			DrawTextEx(
+				*m_Font,
+				m_String.c_str(),
+				Vector2{adjustedx + 2, adjustedy + 2},
+				m_Gui->m_fontSize,
+				1,
+				m_TextColor
+			);
 		}
 	}
 
@@ -607,8 +759,7 @@ void GuiTextInput::Update()
 		m_HasFocus = false;
 	}
 
-	if (!m_Gui->m_AcceptingInput)
-		return;
+	if (!m_Gui->m_AcceptingInput) return;
 
 	//  If the left button is down, we are CLICKED
 	if (WasLeftButtonClickedInRect(adjustedx, adjustedy, adjustedx + m_Width, adjustedy + m_Height))
@@ -616,7 +767,6 @@ void GuiTextInput::Update()
 		m_HasFocus = true;
 		m_Gui->m_ActiveElement = m_ID;
 	}
-
 
 	if (m_HasFocus && (IsKeyPressed(KEY_KP_ENTER) || IsKeyPressed(KEY_ENTER)))
 	{
@@ -639,8 +789,11 @@ void GuiTextInput::Update()
 
 //  GUICHECKBOX
 
-void GuiCheckBox::Init(int ID, int posx, int posy, shared_ptr<Sprite> unselected, shared_ptr<Sprite> selected, shared_ptr<Sprite> hovered, shared_ptr<Sprite> hoveredselected,
-	float scalex, float scaley, Color color, int group, int active)
+void GuiCheckBox::Init(
+	int ID, int posx, int posy, shared_ptr<Sprite> unselected, shared_ptr<Sprite> selected,
+	shared_ptr<Sprite> hovered, shared_ptr<Sprite> hoveredselected, float scalex, float scaley,
+	Color color, int group, int active
+)
 {
 	m_Type = GUI_CHECKBOX;
 	m_ID = ID;
@@ -660,8 +813,10 @@ void GuiCheckBox::Init(int ID, int posx, int posy, shared_ptr<Sprite> unselected
 	m_Selected = false;
 }
 
-void GuiCheckBox::Init(int ID, int posx, int posy, int width, int height, float scalex, float scaley,
-	Color color, int group, int active)
+void GuiCheckBox::Init(
+	int ID, int posx, int posy, int width, int height, float scalex, float scaley, Color color,
+	int group, int active
+)
 {
 	m_Type = GUI_CHECKBOX;
 	m_ID = ID;
@@ -682,8 +837,7 @@ void GuiCheckBox::Init(int ID, int posx, int posy, int width, int height, float 
 //  If the user doesn't specify textures, just use a simple "box in box" system.
 void GuiCheckBox::Draw()
 {
-	if (!m_Visible)
-		return;
+	if (!m_Visible) return;
 
 	int adjustedx = m_Gui->m_GuiX + int(m_Pos.x);
 	int adjustedy = m_Gui->m_GuiY + int(m_Pos.y);
@@ -695,12 +849,22 @@ void GuiCheckBox::Draw()
 	{
 		if (m_Selected)
 		{
-			DrawRectangleLines(adjustedx, adjustedy, adjustedw, adjustedh, Color{ 255, 255, 255, 255 });
-			DrawRectangle(adjustedx + 2, adjustedy + 2, adjustedw - 4, adjustedh - 4, Color{ 255, 255, 255, 255 });
+			DrawRectangleLines(
+				adjustedx, adjustedy, adjustedw, adjustedh, Color{255, 255, 255, 255}
+			);
+			DrawRectangle(
+				adjustedx + 2,
+				adjustedy + 2,
+				adjustedw - 4,
+				adjustedh - 4,
+				Color{255, 255, 255, 255}
+			);
 		}
 		else
 		{
-			DrawRectangleLines(adjustedx, adjustedy, adjustedw, adjustedh, Color{ 255, 255, 255, 255 });
+			DrawRectangleLines(
+				adjustedx, adjustedy, adjustedw, adjustedh, Color{255, 255, 255, 255}
+			);
 		}
 	}
 	else //  We have sprites, use them.
@@ -710,14 +874,30 @@ void GuiCheckBox::Draw()
 			if (m_Hovered || m_Down)
 			{
 				m_HoveredSelectedSprite->DrawScaled(
-					Rectangle{ m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y),
-					m_ScaleX* m_Gui->m_Scale, m_ScaleY* m_Gui->m_Scale }, Vector2{ 0, 0 }, 0, m_Color);
+					Rectangle{
+						m_Gui->m_GuiX + int(m_Pos.x),
+						m_Gui->m_GuiY + int(m_Pos.y),
+						m_ScaleX * m_Gui->m_Scale,
+						m_ScaleY * m_Gui->m_Scale
+					},
+					Vector2{0, 0},
+					0,
+					m_Color
+				);
 			}
 			else
 			{
 				m_SelectSprite->DrawScaled(
-					Rectangle{m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y),
-					m_ScaleX, m_ScaleY }, Vector2{ 0, 0 }, 0, m_Color);
+					Rectangle{
+						m_Gui->m_GuiX + int(m_Pos.x),
+						m_Gui->m_GuiY + int(m_Pos.y),
+						m_ScaleX,
+						m_ScaleY
+					},
+					Vector2{0, 0},
+					0,
+					m_Color
+				);
 			}
 		}
 		else
@@ -725,15 +905,30 @@ void GuiCheckBox::Draw()
 			if (m_Hovered || m_Down)
 			{
 				m_HoveredSprite->DrawScaled(
-					Rectangle {m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y),
-					m_ScaleX, m_ScaleY }, Vector2{ 0, 0 }, 0, m_Color);
-
+					Rectangle{
+						m_Gui->m_GuiX + int(m_Pos.x),
+						m_Gui->m_GuiY + int(m_Pos.y),
+						m_ScaleX,
+						m_ScaleY
+					},
+					Vector2{0, 0},
+					0,
+					m_Color
+				);
 			}
 			else
 			{
 				m_DeselectSprite->DrawScaled(
-					Rectangle { m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y),
-					m_ScaleX, m_ScaleY }, Vector2{ 0, 0 }, 0, m_Color);
+					Rectangle{
+						m_Gui->m_GuiX + int(m_Pos.x),
+						m_Gui->m_GuiY + int(m_Pos.y),
+						m_ScaleX,
+						m_ScaleY
+					},
+					Vector2{0, 0},
+					0,
+					m_Color
+				);
 			}
 		}
 	}
@@ -743,25 +938,24 @@ void GuiCheckBox::Update()
 {
 	Tween::Update();
 
-	if (!m_Gui->m_AcceptingInput)
-		return;
+	if (!m_Gui->m_AcceptingInput) return;
 
 	if (m_Visible)
 	{
-		m_Hovered = IsMouseInRect(m_Gui->m_GuiX + int(m_Pos.x),
-			m_Gui->m_GuiY + int(m_Pos.y),
-			int(m_Width),
-			int(m_Height));
+		m_Hovered = IsMouseInRect(
+			m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y), int(m_Width), int(m_Height)
+		);
 
-		m_Down = IsLeftButtonDownInRect(m_Gui->m_GuiX + int(m_Pos.x),
-			m_Gui->m_GuiY + int(m_Pos.y),
-			int(m_Width),
-			int(m_Height));
+		m_Down = IsLeftButtonDownInRect(
+			m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y), int(m_Width), int(m_Height)
+		);
 
-		if (WasLeftButtonClickedInRect(m_Gui->m_GuiX + int(m_Pos.x),
-			m_Gui->m_GuiY + int(m_Pos.y),
-			int(m_Width),
-			int(m_Height)))
+		if (WasLeftButtonClickedInRect(
+				m_Gui->m_GuiX + int(m_Pos.x),
+				m_Gui->m_GuiY + int(m_Pos.y),
+				int(m_Width),
+				int(m_Height)
+			))
 		{
 			m_Selected = !m_Selected;
 			m_Gui->m_ActiveElement = m_ID;
@@ -769,11 +963,13 @@ void GuiCheckBox::Update()
 	}
 }
 
-
 //  GUIRADIOBUTTON
 //  Radio buttons are exactly like checkboxes, but use grouping to ensure that only one of them is ever selected.
-void GuiRadioButton::Init(int ID, int posx, int posy, shared_ptr<Sprite> selected, shared_ptr<Sprite> deselected, shared_ptr<Sprite> hovered, float scalex, float scaley,
-	Color color, int group, int active, bool shadowed)
+void GuiRadioButton::Init(
+	int ID, int posx, int posy, shared_ptr<Sprite> selected, shared_ptr<Sprite> deselected,
+	shared_ptr<Sprite> hovered, float scalex, float scaley, Color color, int group, int active,
+	bool shadowed
+)
 {
 	m_Type = GUI_RADIOBUTTON;
 	m_ID = ID;
@@ -793,8 +989,10 @@ void GuiRadioButton::Init(int ID, int posx, int posy, shared_ptr<Sprite> selecte
 	m_Shadowed = shadowed;
 }
 
-void GuiRadioButton::Init(int ID, int posx, int posy, int width, int height, float scalex, float scaley,
-	Color color, int group, int active, bool shadowed)
+void GuiRadioButton::Init(
+	int ID, int posx, int posy, int width, int height, float scalex, float scaley, Color color,
+	int group, int active, bool shadowed
+)
 {
 	m_Type = GUI_RADIOBUTTON;
 	m_ID = ID;
@@ -816,8 +1014,7 @@ void GuiRadioButton::Init(int ID, int posx, int posy, int width, int height, flo
 //  If the user doesn't specify textures, just use a simple "box in box" system.
 void GuiRadioButton::Draw()
 {
-	if (!m_Visible)
-		return;
+	if (!m_Visible) return;
 
 	int adjustedx = m_Gui->m_GuiX + int(m_Pos.x);
 	int adjustedy = m_Gui->m_GuiY + int(m_Pos.y);
@@ -829,12 +1026,22 @@ void GuiRadioButton::Draw()
 	{
 		if (m_Selected)
 		{
-			DrawRectangleLines(adjustedx, adjustedy, adjustedw, adjustedh, Color{ 255, 255, 255, 255 });
-			DrawRectangle(adjustedx + 2, adjustedy + 2, adjustedw - 4, adjustedh - 4, Color{ 255, 255, 255, 255 });
+			DrawRectangleLines(
+				adjustedx, adjustedy, adjustedw, adjustedh, Color{255, 255, 255, 255}
+			);
+			DrawRectangle(
+				adjustedx + 2,
+				adjustedy + 2,
+				adjustedw - 4,
+				adjustedh - 4,
+				Color{255, 255, 255, 255}
+			);
 		}
 		else
 		{
-			DrawRectangleLines(adjustedx, adjustedy, adjustedw, adjustedh, Color{ 255, 255, 255, 255 });
+			DrawRectangleLines(
+				adjustedx, adjustedy, adjustedw, adjustedh, Color{255, 255, 255, 255}
+			);
 		}
 	}
 	else
@@ -844,12 +1051,28 @@ void GuiRadioButton::Draw()
 			if (m_Shadowed)
 			{
 				m_SelectSprite->DrawScaled(
-					Rectangle{ m_Gui->m_GuiX + int((m_Pos.x + 3)), m_Gui->m_GuiY + int((m_Pos.y + 3)),
-					m_ScaleX* m_Gui->m_Scale, m_ScaleY* m_Gui->m_Scale }, Vector2{ 0, 0 }, 0, Color{ 0, 0, 0, 255 });
+					Rectangle{
+						m_Gui->m_GuiX + int((m_Pos.x + 3)),
+						m_Gui->m_GuiY + int((m_Pos.y + 3)),
+						m_ScaleX * m_Gui->m_Scale,
+						m_ScaleY * m_Gui->m_Scale
+					},
+					Vector2{0, 0},
+					0,
+					Color{0, 0, 0, 255}
+				);
 			}
 			m_SelectSprite->DrawScaled(
-				Rectangle{ m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y),
-				m_ScaleX* m_Gui->m_Scale, m_ScaleY* m_Gui->m_Scale }, Vector2{ 0, 0 }, 0, m_Color);
+				Rectangle{
+					m_Gui->m_GuiX + int(m_Pos.x),
+					m_Gui->m_GuiY + int(m_Pos.y),
+					m_ScaleX * m_Gui->m_Scale,
+					m_ScaleY * m_Gui->m_Scale
+				},
+				Vector2{0, 0},
+				0,
+				m_Color
+			);
 		}
 		else
 		{
@@ -858,24 +1081,56 @@ void GuiRadioButton::Draw()
 				if (m_Shadowed)
 				{
 					m_HoveredSprite->DrawScaled(
-						Rectangle{ m_Gui->m_GuiX + int((m_Pos.x + 3)), m_Gui->m_GuiY + int((m_Pos.y + 3)),
-						m_ScaleX* m_Gui->m_Scale, m_ScaleY* m_Gui->m_Scale }, Vector2{ 0, 0 }, 0, Color{ 0, 0, 0, 255 });
+						Rectangle{
+							m_Gui->m_GuiX + int((m_Pos.x + 3)),
+							m_Gui->m_GuiY + int((m_Pos.y + 3)),
+							m_ScaleX * m_Gui->m_Scale,
+							m_ScaleY * m_Gui->m_Scale
+						},
+						Vector2{0, 0},
+						0,
+						Color{0, 0, 0, 255}
+					);
 				}
 				m_HoveredSprite->DrawScaled(
-					Rectangle{ m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y),
-					m_ScaleX* m_Gui->m_Scale, m_ScaleY* m_Gui->m_Scale }, Vector2{ 0, 0 }, 0, m_Color);
+					Rectangle{
+						m_Gui->m_GuiX + int(m_Pos.x),
+						m_Gui->m_GuiY + int(m_Pos.y),
+						m_ScaleX * m_Gui->m_Scale,
+						m_ScaleY * m_Gui->m_Scale
+					},
+					Vector2{0, 0},
+					0,
+					m_Color
+				);
 			}
 			else
 			{
 				if (m_Shadowed)
 				{
 					m_DeselectSprite->DrawScaled(
-						Rectangle{ m_Gui->m_GuiX + int((m_Pos.x + 3)), m_Gui->m_GuiY + int((m_Pos.y + 3)),
-						m_ScaleX* m_Gui->m_Scale, m_ScaleY* m_Gui->m_Scale }, Vector2{ 0, 0 }, 0, Color{ 0, 0, 0, 255 });
+						Rectangle{
+							m_Gui->m_GuiX + int((m_Pos.x + 3)),
+							m_Gui->m_GuiY + int((m_Pos.y + 3)),
+							m_ScaleX * m_Gui->m_Scale,
+							m_ScaleY * m_Gui->m_Scale
+						},
+						Vector2{0, 0},
+						0,
+						Color{0, 0, 0, 255}
+					);
 				}
 				m_DeselectSprite->DrawScaled(
-					Rectangle{ m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y),
-					m_ScaleX* m_Gui->m_Scale, m_ScaleY* m_Gui->m_Scale }, Vector2{ 0, 0 }, 0, m_Color);
+					Rectangle{
+						m_Gui->m_GuiX + int(m_Pos.x),
+						m_Gui->m_GuiY + int(m_Pos.y),
+						m_ScaleX * m_Gui->m_Scale,
+						m_ScaleY * m_Gui->m_Scale
+					},
+					Vector2{0, 0},
+					0,
+					m_Color
+				);
 			}
 		}
 	}
@@ -885,15 +1140,16 @@ void GuiRadioButton::Update()
 {
 	Tween::Update();
 
-	if (!m_Gui->m_AcceptingInput)
-		return;
+	if (!m_Gui->m_AcceptingInput) return;
 
 	if (m_Visible)
 	{
-		if (IsMouseInRect(m_Gui->m_GuiX + int(m_Pos.x),
-			m_Gui->m_GuiY + int(m_Pos.y),
-			m_Gui->m_GuiX + int(m_Pos.x) + int(m_Width),
-			m_Gui->m_GuiY + int(m_Pos.y) + int(m_Height)))
+		if (IsMouseInRect(
+				m_Gui->m_GuiX + int(m_Pos.x),
+				m_Gui->m_GuiY + int(m_Pos.y),
+				m_Gui->m_GuiX + int(m_Pos.x) + int(m_Width),
+				m_Gui->m_GuiY + int(m_Pos.y) + int(m_Height)
+			))
 		{
 			m_Hovered = true;
 		}
@@ -902,10 +1158,12 @@ void GuiRadioButton::Update()
 			m_Hovered = false;
 		}
 
-		if (WasLeftButtonClickedInRect(m_Gui->m_GuiX + int(m_Pos.x),
-			m_Gui->m_GuiY + int(m_Pos.y),
-			m_Gui->m_GuiX + int(m_Pos.x) + int(m_Width),
-			m_Gui->m_GuiY + int(m_Pos.y) + int(m_Height)))
+		if (WasLeftButtonClickedInRect(
+				m_Gui->m_GuiX + int(m_Pos.x),
+				m_Gui->m_GuiY + int(m_Pos.y),
+				m_Gui->m_GuiX + int(m_Pos.x) + int(m_Width),
+				m_Gui->m_GuiY + int(m_Pos.y) + int(m_Height)
+			))
 		{
 			if (!m_Selected)
 			{
@@ -914,7 +1172,8 @@ void GuiRadioButton::Update()
 				//  Deselect all other buttons in this radio button group.
 				for (auto& node : m_Gui->m_GuiList)
 				{
-					if (node.second->m_Group == m_Group && node.second.get() != this)// && node.second->m_Type == GUI_RADIOBUTTON)
+					if (node.second->m_Group == m_Group &&
+						node.second.get() != this) // && node.second->m_Type == GUI_RADIOBUTTON)
 					{
 						node.second->m_Selected = false;
 					}
@@ -925,12 +1184,13 @@ void GuiRadioButton::Update()
 	}
 }
 
-
 //  GUIPANEL
 //  Panels can use textures or they can just be filled boxes.  They can also have a border
 
-void GuiPanel::Init(int ID, int posx, int posy, int width, int height,
-	Color color, bool filled, int group, int active)
+void GuiPanel::Init(
+	int ID, int posx, int posy, int width, int height, Color color, bool filled, int group,
+	int active
+)
 {
 	m_Type = GUI_PANEL;
 	m_ID = ID;
@@ -946,8 +1206,7 @@ void GuiPanel::Init(int ID, int posx, int posy, int width, int height,
 
 void GuiPanel::Draw()
 {
-	if (!m_Visible)
-		return;
+	if (!m_Visible) return;
 
 	int adjustedx = m_Gui->m_GuiX + int(m_Pos.x);
 	int adjustedy = m_Gui->m_GuiY + int(m_Pos.y);
@@ -961,21 +1220,16 @@ void GuiPanel::Draw()
 		DrawRectangleLines(adjustedx, adjustedy, adjustedw, adjustedh, m_Color);
 };
 
-void GuiPanel::Update()
-{
-	Tween::Update();
-}
+void GuiPanel::Update() { Tween::Update(); }
 
-int GuiPanel::GetValue()
-{
-	return 0;
-}
-
+int  GuiPanel::GetValue() { return 0; }
 
 //  GUITEXTAREA
 
-void GuiTextArea::Init(int ID, Font* font, std::string text, int posx, int posy, int width, int height,
-	Color color, int justified, int group, int active, bool shadowed)
+void GuiTextArea::Init(
+	int ID, Font* font, std::string text, int posx, int posy, int width, int height, Color color,
+	int justified, int group, int active, bool shadowed
+)
 {
 	m_Type = GUI_TEXTAREA;
 	m_ID = ID;
@@ -997,31 +1251,59 @@ void GuiTextArea::Init(int ID, Font* font, std::string text, int posx, int posy,
 
 void GuiTextArea::Draw()
 {
-	if (!m_Active || !m_Visible)
-		return;
+	if (!m_Active || !m_Visible) return;
 
 	if (m_Justified == GuiTextArea::RIGHT)
 	{
 		if (m_Shadowed)
-			DrawStringRight(m_Font, m_Font->baseSize, m_String, m_Gui->m_Pos.x + ((m_Pos.x + m_Width + 2)), m_Gui->m_Pos.y + ((m_Pos.y + 2)), Color{0, 0, 0, 255});
+			DrawStringRight(
+				m_Font,
+				m_Font->baseSize,
+				m_String,
+				m_Gui->m_Pos.x + ((m_Pos.x + m_Width + 2)),
+				m_Gui->m_Pos.y + ((m_Pos.y + 2)),
+				Color{0, 0, 0, 255}
+			);
 
-		DrawStringRight(m_Font, m_Font->baseSize, m_String, m_Gui->m_Pos.x + ((m_Pos.x + m_Width)), m_Gui->m_Pos.y + (m_Pos.y), m_Color);
-
+		DrawStringRight(
+			m_Font,
+			m_Font->baseSize,
+			m_String,
+			m_Gui->m_Pos.x + ((m_Pos.x + m_Width)),
+			m_Gui->m_Pos.y + (m_Pos.y),
+			m_Color
+		);
 	}
 	else if (m_Justified == GuiTextArea::CENTERED)
 	{
 		if (MeasureTextEx(*m_Font, m_String.c_str(), m_Gui->m_fontSize, 1).x < m_Width)
 		{
-			int textlength = MeasureTextEx(*m_Gui->m_Font.get(), m_String.c_str(), m_Gui->m_fontSize, 1).x;
+			int textlength =
+				MeasureTextEx(*m_Gui->m_Font.get(), m_String.c_str(), m_Gui->m_fontSize, 1).x;
 
 			//DrawRectangle(int(m_Gui->m_Pos.x + ((m_Pos.x + (m_Width / 2)))) - (m_Width / 2), int(m_Gui->m_Pos.y + (m_Pos.y)), m_Width, m_Font->height, Color(.5, 0, 0, .75), true);
 			if (m_Shadowed)
-				DrawStringCentered(m_Font, m_Font->baseSize, m_String, int(m_Gui->m_Pos.x + ((m_Pos.x + 2 + (m_Width / 2)))), int(m_Gui->m_Pos.y + ((m_Pos.y + 2))), Color{ 0, 0, 0, 255 });
-			DrawStringCentered(m_Font, m_Font->baseSize, m_String, int(m_Gui->m_Pos.x + ((m_Pos.x + (m_Width / 2)))), int(m_Gui->m_Pos.y + (m_Pos.y)), m_Color);
+				DrawStringCentered(
+					m_Font,
+					m_Font->baseSize,
+					m_String,
+					int(m_Gui->m_Pos.x + ((m_Pos.x + 2 + (m_Width / 2)))),
+					int(m_Gui->m_Pos.y + ((m_Pos.y + 2))),
+					Color{0, 0, 0, 255}
+				);
+			DrawStringCentered(
+				m_Font,
+				m_Font->baseSize,
+				m_String,
+				int(m_Gui->m_Pos.x + ((m_Pos.x + (m_Width / 2)))),
+				int(m_Gui->m_Pos.y + (m_Pos.y)),
+				m_Color
+			);
 		}
 		else
 		{
-			int textlength = MeasureTextEx(*m_Gui->m_Font.get(), m_String.c_str(), m_Gui->m_fontSize, 1).x;
+			int textlength =
+				MeasureTextEx(*m_Gui->m_Font.get(), m_String.c_str(), m_Gui->m_fontSize, 1).x;
 
 			//DrawRectangle(int(m_Gui->m_Pos.x + ((m_Pos.x + (m_Width / 2))) - textlength / 2), int(m_Gui->m_Pos.y + (m_Pos.y)), m_Width, m_Font->height, Color(.5, 0, 0, .75), true);
 			//if (m_Shadowed)
@@ -1033,11 +1315,26 @@ void GuiTextArea::Draw()
 	{
 		if (m_Width == 0) // An unset width parameter means "draw as a single string"
 		{
-			int textlength = MeasureTextEx(*m_Gui->m_Font.get(), m_String.c_str(), m_Font->baseSize, 1).x;
+			int textlength =
+				MeasureTextEx(*m_Gui->m_Font.get(), m_String.c_str(), m_Font->baseSize, 1).x;
 			//DrawRectangle(int(m_Gui->m_Pos.x + (m_Pos.x)), int(m_Gui->m_Pos.y + (m_Pos.y)), textWidth, m_Height, Color(.5, 0, 0, .75), true);
 			if (m_Shadowed)
-				DrawTextEx(*m_Gui->m_Font.get(), m_String.c_str(), Vector2{ m_Gui->m_Pos.x + ((m_Pos.x + 2)), m_Gui->m_Pos.y + ((m_Pos.y + 2)) }, m_Font->baseSize, 1, Color{ 0, 0, 0, 255 });
-			DrawTextEx(*m_Gui->m_Font.get(), m_String.c_str(), Vector2{ m_Gui->m_Pos.x + (m_Pos.x), m_Gui->m_Pos.y + (m_Pos.y) }, m_Font->baseSize, 1, m_Color);
+				DrawTextEx(
+					*m_Gui->m_Font.get(),
+					m_String.c_str(),
+					Vector2{m_Gui->m_Pos.x + ((m_Pos.x + 2)), m_Gui->m_Pos.y + ((m_Pos.y + 2))},
+					m_Font->baseSize,
+					1,
+					Color{0, 0, 0, 255}
+				);
+			DrawTextEx(
+				*m_Gui->m_Font.get(),
+				m_String.c_str(),
+				Vector2{m_Gui->m_Pos.x + (m_Pos.x), m_Gui->m_Pos.y + (m_Pos.y)},
+				m_Font->baseSize,
+				1,
+				m_Color
+			);
 		}
 		else
 		{
@@ -1050,21 +1347,15 @@ void GuiTextArea::Draw()
 	}
 };
 
-void GuiTextArea::Update()
-{
-	Tween::Update();
-}
+void GuiTextArea::Update() { Tween::Update(); }
 
-int GuiTextArea::GetValue()
-{
-	return 0;
-}
-
-
+int  GuiTextArea::GetValue() { return 0; }
 
 //  Just puts an image at a certain location.  Non-interactive.
-void GuiSprite::Init(int ID, int posx, int posy, shared_ptr<Sprite> sprite, float scalex, float scaley,
-	Color color, int group, int active)
+void GuiSprite::Init(
+	int ID, int posx, int posy, shared_ptr<Sprite> sprite, float scalex, float scaley, Color color,
+	int group, int active
+)
 {
 	m_Type = GUI_SPRITE;
 	m_ID = ID;
@@ -1084,19 +1375,27 @@ void GuiSprite::Draw()
 {
 	if (m_Sprite && m_Active && m_Visible)
 	{
-		m_Sprite->DrawScaled(Rectangle{ m_Gui->m_GuiX + int(m_Pos.x), m_Gui->m_GuiY + int(m_Pos.y),
-			m_ScaleX* m_Gui->m_Scale, m_ScaleY* m_Gui->m_Scale }, Vector2{ 0, 0 }, 0, m_Color);
+		m_Sprite->DrawScaled(
+			Rectangle{
+				m_Gui->m_GuiX + int(m_Pos.x),
+				m_Gui->m_GuiY + int(m_Pos.y),
+				m_ScaleX * m_Gui->m_Scale,
+				m_ScaleY * m_Gui->m_Scale
+			},
+			Vector2{0, 0},
+			0,
+			m_Color
+		);
 	}
 }
 
-void GuiSprite::Update()
-{
-	Tween::Update();
-}
+void GuiSprite::Update() { Tween::Update(); }
 
 //  Just puts an image at a certain location.  Non-interactive.
-void GuiOctagonBox::Init(int ID, int posx, int posy, int width, int height, std::vector<std::shared_ptr<Sprite> > borders,
-	Color color, int group, int active)
+void GuiOctagonBox::Init(
+	int ID, int posx, int posy, int width, int height, std::vector<std::shared_ptr<Sprite>> borders,
+	Color color, int group, int active
+)
 {
 	m_Type = GUI_OCTAGONBOX;
 	m_ID = ID;
@@ -1110,10 +1409,7 @@ void GuiOctagonBox::Init(int ID, int posx, int posy, int width, int height, std:
 	m_Sprites = borders;
 };
 
-void GuiOctagonBox::Update()
-{
-	Tween::Update();
-}
+void GuiOctagonBox::Update() { Tween::Update(); }
 
 //  0 - Top left
 //  1 - Top
@@ -1126,8 +1422,7 @@ void GuiOctagonBox::Update()
 //  8 - Bottom right
 void GuiOctagonBox::Draw()
 {
-	if (!m_Active || !m_Visible)
-		return;
+	if (!m_Active || !m_Visible) return;
 
 	float x = m_Gui->m_Pos.x + (m_Pos.x);
 	float y = m_Gui->m_Pos.y + (m_Pos.y);
@@ -1139,7 +1434,9 @@ void GuiOctagonBox::Draw()
 	float finalWidth = m_Width;
 	float finalHeight = m_Height;
 
-	float runnerWidth = finalWidth - (cornerWidth * 2); // Since both components have been scaled, this does not have to be scaled.
+	float runnerWidth = finalWidth -
+		(cornerWidth * 2
+		); // Since both components have been scaled, this does not have to be scaled.
 	float runnerHeight = finalHeight - (cornerHeight * 2); // Ditto.
 
 	float xmiddle = cornerWidth;
@@ -1149,28 +1446,103 @@ void GuiOctagonBox::Draw()
 	float ybottom = cornerHeight + runnerHeight;
 
 	//  Center
-	m_Sprites[4].get()->DrawScaled( Rectangle{x + cornerWidth, y + cornerHeight, float(runnerWidth), float(runnerHeight)}, Vector2{0, 0}, 0, m_Color);
+	m_Sprites[4].get()->DrawScaled(
+		Rectangle{x + cornerWidth, y + cornerHeight, float(runnerWidth), float(runnerHeight)},
+		Vector2{0, 0},
+		0,
+		m_Color
+	);
 
 	//  Top and bottom bars
-	m_Sprites[1].get()->DrawScaled( Rectangle{ x + cornerWidth, y, float(runnerWidth), m_Sprites[1].get()->m_sourceRect.height }, Vector2{ 0, 0 }, 0, m_Color);
-	m_Sprites[7].get()->DrawScaled( Rectangle{ x + cornerWidth, y + cornerHeight + runnerHeight, float(runnerWidth), m_Sprites[7].get()->m_sourceRect.height}, Vector2{0, 0}, 0, m_Color);
+	m_Sprites[1].get()->DrawScaled(
+		Rectangle{x + cornerWidth, y, float(runnerWidth), m_Sprites[1].get()->m_sourceRect.height},
+		Vector2{0, 0},
+		0,
+		m_Color
+	);
+	m_Sprites[7].get()->DrawScaled(
+		Rectangle{
+			x + cornerWidth,
+			y + cornerHeight + runnerHeight,
+			float(runnerWidth),
+			m_Sprites[7].get()->m_sourceRect.height
+		},
+		Vector2{0, 0},
+		0,
+		m_Color
+	);
 	//  Left and right bars
-	m_Sprites[3].get()->DrawScaled( Rectangle{ x, y + cornerHeight, m_Sprites[3].get()->m_sourceRect.width, float(runnerHeight) }, Vector2{ 0, 0 }, 0, m_Color);
-	m_Sprites[5].get()->DrawScaled( Rectangle{ x + cornerWidth + runnerWidth, y + cornerHeight, m_Sprites[5].get()->m_sourceRect.height, float(runnerHeight) }, Vector2{ 0, 0 }, 0, m_Color);
+	m_Sprites[3].get()->DrawScaled(
+		Rectangle{x, y + cornerHeight, m_Sprites[3].get()->m_sourceRect.width, float(runnerHeight)},
+		Vector2{0, 0},
+		0,
+		m_Color
+	);
+	m_Sprites[5].get()->DrawScaled(
+		Rectangle{
+			x + cornerWidth + runnerWidth,
+			y + cornerHeight,
+			m_Sprites[5].get()->m_sourceRect.height,
+			float(runnerHeight)
+		},
+		Vector2{0, 0},
+		0,
+		m_Color
+	);
 
 	//  Top corners
-	m_Sprites[0].get()->DrawScaled( Rectangle{ x, y, m_Sprites[0].get()->m_sourceRect.width, m_Sprites[0].get()->m_sourceRect.height }, Vector2{ 0, 0 }, 0, m_Color);
-	m_Sprites[2].get()->DrawScaled( Rectangle{ x + cornerWidth + runnerWidth, y, m_Sprites[2].get()->m_sourceRect.width, m_Sprites[2].get()->m_sourceRect.height }, Vector2{ 0, 0 }, 0, m_Color);
+	m_Sprites[0].get()->DrawScaled(
+		Rectangle{
+			x, y, m_Sprites[0].get()->m_sourceRect.width, m_Sprites[0].get()->m_sourceRect.height
+		},
+		Vector2{0, 0},
+		0,
+		m_Color
+	);
+	m_Sprites[2].get()->DrawScaled(
+		Rectangle{
+			x + cornerWidth + runnerWidth,
+			y,
+			m_Sprites[2].get()->m_sourceRect.width,
+			m_Sprites[2].get()->m_sourceRect.height
+		},
+		Vector2{0, 0},
+		0,
+		m_Color
+	);
 
 	//  Bottom corners
-	m_Sprites[6].get()->DrawScaled( Rectangle{ x, y + cornerHeight + runnerHeight, m_Sprites[6].get()->m_sourceRect.width, m_Sprites[6].get()->m_sourceRect.width }, Vector2{ 0, 0 }, 0, m_Color);
-	m_Sprites[8].get()->DrawScaled( Rectangle{ x + cornerWidth + runnerWidth, y + cornerHeight + runnerHeight, m_Gui->m_Scale * m_Sprites[8].get()->m_sourceRect.width, m_Sprites[8].get()->m_sourceRect.width }, Vector2{ 0, 0 }, 0, m_Color);
+	m_Sprites[6].get()->DrawScaled(
+		Rectangle{
+			x,
+			y + cornerHeight + runnerHeight,
+			m_Sprites[6].get()->m_sourceRect.width,
+			m_Sprites[6].get()->m_sourceRect.width
+		},
+		Vector2{0, 0},
+		0,
+		m_Color
+	);
+	m_Sprites[8].get()->DrawScaled(
+		Rectangle{
+			x + cornerWidth + runnerWidth,
+			y + cornerHeight + runnerHeight,
+			m_Gui->m_Scale * m_Sprites[8].get()->m_sourceRect.width,
+			m_Sprites[8].get()->m_sourceRect.width
+		},
+		Vector2{0, 0},
+		0,
+		m_Color
+	);
 }
 
-void GuiStretchButton::Init(int ID, int posx, int posy, int width, string label,
-	std::shared_ptr<Sprite> activeLeft, std::shared_ptr<Sprite> activeRight, std::shared_ptr<Sprite> activeCenter,
-	std::shared_ptr<Sprite> inactiveLeft, std::shared_ptr<Sprite> inactiveRight, std::shared_ptr<Sprite> inactiveCenter, int indent,
-	Color color, int group, int active, bool shadowed)
+void GuiStretchButton::Init(
+	int ID, int posx, int posy, int width, string label, std::shared_ptr<Sprite> activeLeft,
+	std::shared_ptr<Sprite> activeRight, std::shared_ptr<Sprite> activeCenter,
+	std::shared_ptr<Sprite> inactiveLeft, std::shared_ptr<Sprite> inactiveRight,
+	std::shared_ptr<Sprite> inactiveCenter, int indent, Color color, int group, int active,
+	bool shadowed
+)
 {
 	if (activeLeft == nullptr || activeRight == nullptr || activeCenter == nullptr ||
 		inactiveLeft == nullptr || inactiveRight == nullptr || inactiveCenter == nullptr)
@@ -1200,16 +1572,20 @@ void GuiStretchButton::Init(int ID, int posx, int posy, int width, string label,
 
 void GuiStretchButton::Draw()
 {
-	if (!m_Visible)
-		return;
+	if (!m_Visible) return;
 
 	float offset = 1.0f;
 
 	float xmiddle = float(m_InactiveLeft->m_sourceRect.width);
-	float xright = float(m_Width - (m_InactiveLeft->m_sourceRect.width + m_InactiveLeft->m_sourceRect.width)) * m_Gui->m_Scale;
-	float centerWidth = float(m_Width - (m_InactiveLeft->m_sourceRect.width + m_InactiveRight->m_sourceRect.width));
+	float xright =
+		float(m_Width - (m_InactiveLeft->m_sourceRect.width + m_InactiveLeft->m_sourceRect.width)) *
+		m_Gui->m_Scale;
+	float centerWidth =
+		float(m_Width - (m_InactiveLeft->m_sourceRect.width + m_InactiveRight->m_sourceRect.width));
 
-	Vector2 textDims = MeasureTextEx(*m_Gui->m_Font.get(), m_String.c_str(), m_Gui->m_Font->baseSize / m_Gui->m_Scale, 1);
+	Vector2 textDims = MeasureTextEx(
+		*m_Gui->m_Font.get(), m_String.c_str(), m_Gui->m_Font->baseSize / m_Gui->m_Scale, 1
+	);
 	float textWidth = textDims.x * .85f;
 	float textHeight = textDims.y;
 
@@ -1217,17 +1593,83 @@ void GuiStretchButton::Draw()
 	{
 		if (m_Shadowed)
 		{
-			m_InactiveLeft->DrawScaled(Rectangle{ m_Gui->m_Pos.x + m_Pos.x + offset, m_Gui->m_Pos.y + offset, m_InactiveLeft->m_sourceRect.width, m_InactiveLeft->m_sourceRect.height },
-				Vector2{ 0, 0 }, 0, Color{ 0, 0, 0, 255 });
-			m_InactiveCenter->DrawScaled(Rectangle{ m_Gui->m_Pos.x + ((m_Pos.x + 3 + xmiddle)) - 1, m_Gui->m_Pos.y + ((m_Pos.y + 3)), ((xright + 3) / m_InactiveCenter->m_sourceRect.width), m_Gui->m_Scale }, Vector2{ 0, 0 }, 0, Color{ 0, 0, 0, 255 });
-			m_InactiveRight->DrawScaled(Rectangle{ m_Gui->m_Pos.x + (m_Pos.x + 3 + xmiddle + xright), m_Gui->m_Pos.y + ((m_Pos.y + 3)), m_Gui->m_Scale, m_Gui->m_Scale }, Vector2{ 0, 0 }, 0, Color{ 0, 0, 0, 255 });
+			m_InactiveLeft->DrawScaled(
+				Rectangle{
+					m_Gui->m_Pos.x + m_Pos.x + offset,
+					m_Gui->m_Pos.y + offset,
+					m_InactiveLeft->m_sourceRect.width,
+					m_InactiveLeft->m_sourceRect.height
+				},
+				Vector2{0, 0},
+				0,
+				Color{0, 0, 0, 255}
+			);
+			m_InactiveCenter->DrawScaled(
+				Rectangle{
+					m_Gui->m_Pos.x + ((m_Pos.x + 3 + xmiddle)) - 1,
+					m_Gui->m_Pos.y + ((m_Pos.y + 3)),
+					((xright + 3) / m_InactiveCenter->m_sourceRect.width),
+					m_Gui->m_Scale
+				},
+				Vector2{0, 0},
+				0,
+				Color{0, 0, 0, 255}
+			);
+			m_InactiveRight->DrawScaled(
+				Rectangle{
+					m_Gui->m_Pos.x + (m_Pos.x + 3 + xmiddle + xright),
+					m_Gui->m_Pos.y + ((m_Pos.y + 3)),
+					m_Gui->m_Scale,
+					m_Gui->m_Scale
+				},
+				Vector2{0, 0},
+				0,
+				Color{0, 0, 0, 255}
+			);
 		}
 
-		m_InactiveLeft->DrawScaled(Rectangle{ m_Gui->m_Pos.x + m_Pos.x, m_Gui->m_Pos.y, m_InactiveLeft->m_sourceRect.width, m_InactiveLeft->m_sourceRect.height }, Vector2{ 0, 0 }, 0, Color{ 128, 128, 128, 255 });
-		m_InactiveCenter->DrawScaled(Rectangle{ m_Gui->m_Pos.x + ((m_Pos.x + xmiddle)) - 1, m_Gui->m_Pos.y + (m_Pos.y), ((xright + 3) / m_InactiveCenter->m_sourceRect.width), m_InactiveCenter->m_sourceRect.height }, Vector2{ 0, 0 }, 0, Color{ 128, 128, 128, 255 });
-		m_InactiveRight->DrawScaled(Rectangle{ m_Gui->m_Pos.x + (m_Pos.x + xmiddle + xright), m_Gui->m_Pos.y + (m_Pos.y), m_Gui->m_Scale, m_InactiveRight->m_sourceRect.height }, Vector2{ 0, 0 }, 0, Color{ 128, 128, 128, 255 });
+		m_InactiveLeft->DrawScaled(
+			Rectangle{
+				m_Gui->m_Pos.x + m_Pos.x,
+				m_Gui->m_Pos.y,
+				m_InactiveLeft->m_sourceRect.width,
+				m_InactiveLeft->m_sourceRect.height
+			},
+			Vector2{0, 0},
+			0,
+			Color{128, 128, 128, 255}
+		);
+		m_InactiveCenter->DrawScaled(
+			Rectangle{
+				m_Gui->m_Pos.x + ((m_Pos.x + xmiddle)) - 1,
+				m_Gui->m_Pos.y + (m_Pos.y),
+				((xright + 3) / m_InactiveCenter->m_sourceRect.width),
+				m_InactiveCenter->m_sourceRect.height
+			},
+			Vector2{0, 0},
+			0,
+			Color{128, 128, 128, 255}
+		);
+		m_InactiveRight->DrawScaled(
+			Rectangle{
+				m_Gui->m_Pos.x + (m_Pos.x + xmiddle + xright),
+				m_Gui->m_Pos.y + (m_Pos.y),
+				m_Gui->m_Scale,
+				m_InactiveRight->m_sourceRect.height
+			},
+			Vector2{0, 0},
+			0,
+			Color{128, 128, 128, 255}
+		);
 
-		DrawTextEx(*m_Gui->m_Font.get(), m_String.c_str(), Vector2{ m_Gui->m_Pos.x + (m_Pos.x + m_Indent), m_Gui->m_Pos.y + m_Pos.y }, m_Gui->m_fontSize, 1, WHITE);
+		DrawTextEx(
+			*m_Gui->m_Font.get(),
+			m_String.c_str(),
+			Vector2{m_Gui->m_Pos.x + (m_Pos.x + m_Indent), m_Gui->m_Pos.y + m_Pos.y},
+			m_Gui->m_fontSize,
+			1,
+			WHITE
+		);
 	}
 	else if (m_Hovered || m_Down || m_Clicked)
 	{
@@ -1239,11 +1681,24 @@ void GuiStretchButton::Draw()
 		}
 		if (m_Down)
 		{
-			m_ActiveLeft->DrawScaled(Rectangle{ (m_Gui->m_Pos.x + m_Pos.x + offset), (m_Gui->m_Pos.y + m_Pos.y + offset), m_ActiveLeft->m_sourceRect.width * m_Gui->m_Scale, m_ActiveLeft->m_sourceRect.height * m_Gui->m_Scale });
-			m_ActiveCenter->DrawScaled(Rectangle{ (m_Gui->m_Pos.x + m_Pos.x + xmiddle + offset), (m_Gui->m_Pos.y + m_Pos.y + offset),
-				centerWidth * m_Gui->m_Scale, m_ActiveCenter->m_sourceRect.height * m_Gui->m_Scale });
-			m_ActiveRight->DrawScaled(Rectangle{ (m_Gui->m_Pos.x + m_Pos.x + xmiddle + xright + offset), (m_Gui->m_Pos.y + m_Pos.y + offset),
-				m_ActiveRight->m_sourceRect.width * m_Gui->m_Scale, m_ActiveRight->m_sourceRect.height * m_Gui->m_Scale });
+			m_ActiveLeft->DrawScaled(Rectangle{
+				(m_Gui->m_Pos.x + m_Pos.x + offset),
+				(m_Gui->m_Pos.y + m_Pos.y + offset),
+				m_ActiveLeft->m_sourceRect.width * m_Gui->m_Scale,
+				m_ActiveLeft->m_sourceRect.height * m_Gui->m_Scale
+			});
+			m_ActiveCenter->DrawScaled(Rectangle{
+				(m_Gui->m_Pos.x + m_Pos.x + xmiddle + offset),
+				(m_Gui->m_Pos.y + m_Pos.y + offset),
+				centerWidth * m_Gui->m_Scale,
+				m_ActiveCenter->m_sourceRect.height * m_Gui->m_Scale
+			});
+			m_ActiveRight->DrawScaled(Rectangle{
+				(m_Gui->m_Pos.x + m_Pos.x + xmiddle + xright + offset),
+				(m_Gui->m_Pos.y + m_Pos.y + offset),
+				m_ActiveRight->m_sourceRect.width * m_Gui->m_Scale,
+				m_ActiveRight->m_sourceRect.height * m_Gui->m_Scale
+			});
 
 			//m_ActiveLeft->DrawScaled(Rectangle{ (m_Gui->m_Pos.x + m_Pos.x + offset), (m_Gui->m_Pos.y + m_Pos.y + offset),
 			//	m_ActiveLeft->m_sourceRect.width, m_ActiveLeft->m_sourceRect.height }, Vector2{ 0, 0 }, 0.0f, Color{ 128, 128, 128, 255 });
@@ -1254,47 +1709,124 @@ void GuiStretchButton::Draw()
 		}
 		else
 		{
-			m_ActiveLeft->DrawScaled(Rectangle{ (m_Gui->m_Pos.x + m_Pos.x), (m_Gui->m_Pos.y + m_Pos.y), m_ActiveLeft->m_sourceRect.width * m_Gui->m_Scale, m_ActiveLeft->m_sourceRect.height * m_Gui->m_Scale });
-			m_ActiveCenter->DrawScaled(Rectangle{ (m_Gui->m_Pos.x + m_Pos.x + xmiddle), (m_Gui->m_Pos.y + m_Pos.y),
-				centerWidth * m_Gui->m_Scale, m_ActiveCenter->m_sourceRect.height * m_Gui->m_Scale });
-			m_ActiveRight->DrawScaled(Rectangle{ (m_Gui->m_Pos.x + m_Pos.x + xmiddle + xright), (m_Gui->m_Pos.y + m_Pos.y),
-				m_ActiveRight->m_sourceRect.width * m_Gui->m_Scale, m_ActiveRight->m_sourceRect.height * m_Gui->m_Scale });
+			m_ActiveLeft->DrawScaled(Rectangle{
+				(m_Gui->m_Pos.x + m_Pos.x),
+				(m_Gui->m_Pos.y + m_Pos.y),
+				m_ActiveLeft->m_sourceRect.width * m_Gui->m_Scale,
+				m_ActiveLeft->m_sourceRect.height * m_Gui->m_Scale
+			});
+			m_ActiveCenter->DrawScaled(Rectangle{
+				(m_Gui->m_Pos.x + m_Pos.x + xmiddle),
+				(m_Gui->m_Pos.y + m_Pos.y),
+				centerWidth * m_Gui->m_Scale,
+				m_ActiveCenter->m_sourceRect.height * m_Gui->m_Scale
+			});
+			m_ActiveRight->DrawScaled(Rectangle{
+				(m_Gui->m_Pos.x + m_Pos.x + xmiddle + xright),
+				(m_Gui->m_Pos.y + m_Pos.y),
+				m_ActiveRight->m_sourceRect.width * m_Gui->m_Scale,
+				m_ActiveRight->m_sourceRect.height * m_Gui->m_Scale
+			});
 		}
 
 		if (m_Down)
 		{
-			DrawTextEx(*m_Gui->m_Font.get(), m_String.c_str(),
-				Vector2{ ((m_Gui->m_Pos.x + m_Pos.x)) + (textWidth / 2) + offset, ((m_Gui->m_Pos.y + m_Pos.y)) + (textHeight / 2) + offset },
-				m_Gui->m_fontSize * m_Gui->m_Scale, 1, WHITE);
+			DrawTextEx(
+				*m_Gui->m_Font.get(),
+				m_String.c_str(),
+				Vector2{
+					((m_Gui->m_Pos.x + m_Pos.x)) + (textWidth / 2) + offset,
+					((m_Gui->m_Pos.y + m_Pos.y)) + (textHeight / 2) + offset
+				},
+				m_Gui->m_fontSize * m_Gui->m_Scale,
+				1,
+				WHITE
+			);
 		}
 		else
 		{
-			DrawTextEx(*m_Gui->m_Font.get(), m_String.c_str(),
-				Vector2{ ((m_Gui->m_Pos.x + m_Pos.x)) + (textWidth / 2), ((m_Gui->m_Pos.y + m_Pos.y)) + (textHeight / 2) },
-				m_Gui->m_fontSize * m_Gui->m_Scale, 1, WHITE);
+			DrawTextEx(
+				*m_Gui->m_Font.get(),
+				m_String.c_str(),
+				Vector2{
+					((m_Gui->m_Pos.x + m_Pos.x)) + (textWidth / 2),
+					((m_Gui->m_Pos.y + m_Pos.y)) + (textHeight / 2)
+				},
+				m_Gui->m_fontSize * m_Gui->m_Scale,
+				1,
+				WHITE
+			);
 		}
 	}
 	else
 	{
 		if (m_Shadowed)
 		{
-			m_InactiveLeft->DrawScaled(Rectangle{ (m_Gui->m_Pos.x + m_Pos.x + offset), (m_Gui->m_Pos.y + m_Pos.y + offset),
-				m_InactiveLeft->m_sourceRect.width, m_InactiveLeft->m_sourceRect.height }, Vector2{ 0, 0 }, 0.0f, Color{0, 0, 0, 255});
-			m_InactiveCenter->DrawScaled(Rectangle{ (m_Gui->m_Pos.x + m_Pos.x + xmiddle + offset), (m_Gui->m_Pos.y + m_Pos.y + offset),
-				centerWidth, m_InactiveCenter->m_sourceRect.height }, Vector2{ 0, 0 }, 0.0f, Color{ 0, 0, 0, 255 });
-			m_InactiveRight->DrawScaled(Rectangle{ (m_Gui->m_Pos.x + m_Pos.x + xmiddle + xright + offset), (m_Gui->m_Pos.y + m_Pos.y + offset),
-				m_InactiveRight->m_sourceRect.width, m_InactiveRight->m_sourceRect.height }, Vector2{ 0, 0 }, 0.0f, Color{ 0, 0, 0, 255 });
+			m_InactiveLeft->DrawScaled(
+				Rectangle{
+					(m_Gui->m_Pos.x + m_Pos.x + offset),
+					(m_Gui->m_Pos.y + m_Pos.y + offset),
+					m_InactiveLeft->m_sourceRect.width,
+					m_InactiveLeft->m_sourceRect.height
+				},
+				Vector2{0, 0},
+				0.0f,
+				Color{0, 0, 0, 255}
+			);
+			m_InactiveCenter->DrawScaled(
+				Rectangle{
+					(m_Gui->m_Pos.x + m_Pos.x + xmiddle + offset),
+					(m_Gui->m_Pos.y + m_Pos.y + offset),
+					centerWidth,
+					m_InactiveCenter->m_sourceRect.height
+				},
+				Vector2{0, 0},
+				0.0f,
+				Color{0, 0, 0, 255}
+			);
+			m_InactiveRight->DrawScaled(
+				Rectangle{
+					(m_Gui->m_Pos.x + m_Pos.x + xmiddle + xright + offset),
+					(m_Gui->m_Pos.y + m_Pos.y + offset),
+					m_InactiveRight->m_sourceRect.width,
+					m_InactiveRight->m_sourceRect.height
+				},
+				Vector2{0, 0},
+				0.0f,
+				Color{0, 0, 0, 255}
+			);
 		}
 
-		m_InactiveLeft->DrawScaled(Rectangle{ (m_Gui->m_Pos.x + m_Pos.x), (m_Gui->m_Pos.y + m_Pos.y), m_InactiveLeft->m_sourceRect.width* m_Gui->m_Scale, m_InactiveLeft->m_sourceRect.height* m_Gui->m_Scale });
-		m_InactiveCenter->DrawScaled(Rectangle{ (m_Gui->m_Pos.x + m_Pos.x + xmiddle), (m_Gui->m_Pos.y + m_Pos.y),
-			centerWidth* m_Gui->m_Scale, m_InactiveCenter->m_sourceRect.height *  m_Gui->m_Scale });
-		m_InactiveRight->DrawScaled(Rectangle{ (m_Gui->m_Pos.x + m_Pos.x + xmiddle + xright), (m_Gui->m_Pos.y + m_Pos.y),
-			m_InactiveRight->m_sourceRect.width* m_Gui->m_Scale, m_InactiveRight->m_sourceRect.height * m_Gui->m_Scale });
+		m_InactiveLeft->DrawScaled(Rectangle{
+			(m_Gui->m_Pos.x + m_Pos.x),
+			(m_Gui->m_Pos.y + m_Pos.y),
+			m_InactiveLeft->m_sourceRect.width * m_Gui->m_Scale,
+			m_InactiveLeft->m_sourceRect.height * m_Gui->m_Scale
+		});
+		m_InactiveCenter->DrawScaled(Rectangle{
+			(m_Gui->m_Pos.x + m_Pos.x + xmiddle),
+			(m_Gui->m_Pos.y + m_Pos.y),
+			centerWidth * m_Gui->m_Scale,
+			m_InactiveCenter->m_sourceRect.height * m_Gui->m_Scale
+		});
+		m_InactiveRight->DrawScaled(Rectangle{
+			(m_Gui->m_Pos.x + m_Pos.x + xmiddle + xright),
+			(m_Gui->m_Pos.y + m_Pos.y),
+			m_InactiveRight->m_sourceRect.width * m_Gui->m_Scale,
+			m_InactiveRight->m_sourceRect.height * m_Gui->m_Scale
+		});
 
-		DrawTextEx(*m_Gui->m_Font.get(), m_String.c_str(),
-			Vector2{ ((m_Gui->m_Pos.x + m_Pos.x)) + (textWidth / 2), ((m_Gui->m_Pos.y + m_Pos.y)) + (textHeight / 2)},
-			m_Gui->m_fontSize * m_Gui->m_Scale, 1, WHITE);
+		DrawTextEx(
+			*m_Gui->m_Font.get(),
+			m_String.c_str(),
+			Vector2{
+				((m_Gui->m_Pos.x + m_Pos.x)) + (textWidth / 2),
+				((m_Gui->m_Pos.y + m_Pos.y)) + (textHeight / 2)
+			},
+			m_Gui->m_fontSize * m_Gui->m_Scale,
+			1,
+			WHITE
+		);
 	}
 }
 
@@ -1305,36 +1837,35 @@ void GuiStretchButton::Update()
 	m_Hovered = false;
 	m_Down = false;
 
-	if (!m_Gui->m_AcceptingInput)
-		return;
+	if (!m_Gui->m_AcceptingInput) return;
 
 	if (m_Visible && m_Active)
 	{
 		//  Stretch buttons activate on button down, so there is no "hot" state.
-		if (IsLeftButtonDownInRect(Rectangle{ (m_Gui->m_Pos.x + m_Pos.x),
-			(m_Gui->m_Pos.y + m_Pos.y),
-			m_Width * m_Gui->m_Scale,
-			m_Height* m_Gui->m_Scale }))
+		if (IsLeftButtonDownInRect(Rectangle{
+				(m_Gui->m_Pos.x + m_Pos.x),
+				(m_Gui->m_Pos.y + m_Pos.y),
+				m_Width * m_Gui->m_Scale,
+				m_Height * m_Gui->m_Scale
+			}))
 		{
 			m_Hovered = false;
 			m_Down = true;
 			m_Clicked = false; // Not clicked until the button is released.
 			m_Gui->m_ActiveElement = m_ID;
 		}
-		else if (WasLeftButtonClickedInRect(Rectangle{ (m_Gui->m_Pos.x + m_Pos.x),
-			(m_Gui->m_Pos.y + m_Pos.y),
-			m_Width,
-			m_Height }))
+		else if (WasLeftButtonClickedInRect(Rectangle{
+					 (m_Gui->m_Pos.x + m_Pos.x), (m_Gui->m_Pos.y + m_Pos.y), m_Width, m_Height
+				 }))
 		{
 			m_Hovered = false;
 			m_Down = false;
 			m_Clicked = true;
 			m_Gui->m_ActiveElement = m_ID;
 		}
-		else if (IsMouseInRect((m_Gui->m_Pos.x + m_Pos.x),
-			(m_Gui->m_Pos.y + m_Pos.y),
-			m_Width,
-			m_Height))
+		else if (IsMouseInRect(
+					 (m_Gui->m_Pos.x + m_Pos.x), (m_Gui->m_Pos.y + m_Pos.y), m_Width, m_Height
+				 ))
 		{
 			m_Hovered = true;
 			m_Clicked = false;

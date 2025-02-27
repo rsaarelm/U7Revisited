@@ -27,8 +27,8 @@ public:
 
 	virtual void OnEnter() = 0;
 	virtual void OnExit() = 0;
-	bool GetIsDead() { return m_IsDead; }
-	void SetIsDead(bool isDead) { m_IsDead = isDead; }
+	bool         GetIsDead() { return m_IsDead; }
+	void         SetIsDead(bool isDead) { m_IsDead = isDead; }
 };
 
 #endif

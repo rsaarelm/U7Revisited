@@ -10,8 +10,7 @@ using namespace std;
 //  IN-ONLY
 void IO::Serialize(istream& stream, int& data)
 {
-	if (stream.eof())
-		throw("STREAM ENDED PREMATURELY!");
+	if (stream.eof()) throw("STREAM ENDED PREMATURELY!");
 
 	char* joiner = (char*)&data;
 
@@ -24,9 +23,7 @@ void IO::Serialize(istream& stream, int& data)
 
 void IO::Serialize(istream& stream, unsigned int& data)
 {
-	if (stream.eof())
-		throw("STREAM ENDED PREMATURELY!");
-
+	if (stream.eof()) throw("STREAM ENDED PREMATURELY!");
 
 	char* joiner = (char*)&data;
 
@@ -39,9 +36,7 @@ void IO::Serialize(istream& stream, unsigned int& data)
 
 void IO::Serialize(istream& stream, float& data)
 {
-	if (stream.eof())
-		throw("STREAM ENDED PREMATURELY!");
-
+	if (stream.eof()) throw("STREAM ENDED PREMATURELY!");
 
 	char* joiner = (char*)&data;
 
@@ -54,9 +49,7 @@ void IO::Serialize(istream& stream, float& data)
 
 void IO::Serialize(istream& stream, bool& data)
 {
-	if (stream.eof())
-		throw("STREAM ENDED PREMATURELY!");
-
+	if (stream.eof()) throw("STREAM ENDED PREMATURELY!");
 
 	int value;
 	IO::Serialize(stream, value);
@@ -65,14 +58,12 @@ void IO::Serialize(istream& stream, bool& data)
 	else if (value == 1)
 		data = true;
 	else
-		throw ("Bad data in IO::Serialize bool");
+		throw("Bad data in IO::Serialize bool");
 }
 
 void IO::Serialize(istream& stream, string& data)
 {
-	if (stream.eof())
-		throw("STREAM ENDED PREMATURELY!");
-
+	if (stream.eof()) throw("STREAM ENDED PREMATURELY!");
 
 	int length;
 	IO::Serialize(stream, length);
@@ -133,8 +124,7 @@ void IO::Serialize(ostream& stream, const bool data)
 
 void IO::Serialize(ostream& stream, const string data)
 {
-	if (data.length() > 255)
-		throw("Only strings less than 255 characters can be serialized.");
+	if (data.length() > 255) throw("Only strings less than 255 characters can be serialized.");
 
 	IO::Serialize(stream, (unsigned int)data.length());
 	for (unsigned int i = 0; i < data.length(); ++i)

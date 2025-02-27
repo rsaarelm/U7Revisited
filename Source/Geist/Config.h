@@ -14,14 +14,14 @@
 #ifndef _CONFIG_H_
 #define _CONFIG_H_
 
-#include <vector>
 #include <string>
 #include <unordered_map>
+#include <vector>
 
 struct ConfigInfo
 {
-	int datatype;
-	float numdata;
+	int         datatype;
+	float       numdata;
 	std::string stringdata;
 };
 
@@ -29,8 +29,8 @@ class Config
 {
 private:
 	std::unordered_map<std::string, ConfigInfo> m_Config;
-	std::vector<std::string> m_StringsInOrder;
-	std::string m_FileName;
+	std::vector<std::string>                    m_StringsInOrder;
+	std::string                                 m_FileName;
 
 public:
 	bool        Load(std::string filename);

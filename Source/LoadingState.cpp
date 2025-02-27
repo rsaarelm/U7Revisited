@@ -1,20 +1,18 @@
-#include "Geist/Globals.h"
-#include "Geist/StateMachine.h"
-#include "Geist/Logging.h"
-#include "Geist/Engine.h"
-#include "Geist/ResourceManager.h"
-#include "U7Globals.h"
 #include "LoadingState.h"
+#include "Geist/Engine.h"
+#include "Geist/Globals.h"
+#include "Geist/Logging.h"
+#include "Geist/ResourceManager.h"
+#include "Geist/StateMachine.h"
+#include "U7Globals.h"
 
-
-
-#include <list>
-#include <string>
-#include <sstream>
-#include <iomanip>
-#include <math.h>
-#include <fstream>
 #include <algorithm>
+#include <fstream>
+#include <iomanip>
+#include <list>
+#include <math.h>
+#include <sstream>
+#include <string>
 #include <unordered_map>
 
 using namespace std;
@@ -23,10 +21,7 @@ using namespace std;
 //  LoadingState
 ////////////////////////////////////////////////////////////////////////////////
 
-LoadingState::~LoadingState()
-{
-	Shutdown();
-}
+LoadingState::~LoadingState() { Shutdown(); }
 
 void LoadingState::Init(const string& configfile)
 {
@@ -38,23 +33,13 @@ void LoadingState::Init(const string& configfile)
 	m_angle = 0.0;
 
 	xSlant = .01;
-
 }
 
-void LoadingState::OnEnter()
-{
+void LoadingState::OnEnter() {}
 
-}
+void LoadingState::OnExit() {}
 
-void LoadingState::OnExit()
-{
-
-}
-
-void LoadingState::Shutdown()
-{
-
-}
+void LoadingState::Shutdown() {}
 
 void LoadingState::Update()
 {
@@ -66,7 +51,6 @@ void LoadingState::Update()
 	UpdateLoading();
 }
 
-
 void LoadingState::Draw()
 {
 	BeginDrawing();
@@ -77,31 +61,36 @@ void LoadingState::Draw()
 
 	if (m_loadingFailed == true)
 	{
-		std::string missingDataText = "Ultima VII files not found.  They should go into the " + g_Engine->m_EngineConfig.GetString("data_path") + " folder.";
+		std::string missingDataText = "Ultima VII files not found.  They should go into the " +
+			g_Engine->m_EngineConfig.GetString("data_path") + " folder.";
 		DrawTextEx(*g_Font, missingDataText.c_str(), Vector2{0, 0}, g_fontSize, 1, WHITE);
-		DrawTextEx(*g_Font, "Press ESC to exit.", Vector2{ 0, g_fontSize * 2 }, g_fontSize, 1, WHITE);
+		DrawTextEx(*g_Font, "Press ESC to exit.", Vector2{0, g_fontSize * 2}, g_fontSize, 1, WHITE);
 	}
 	else
 	{
 		DrawConsole();
 	}
 
-
 	DrawTexture(*g_Cursor, 0, 0, WHITE);
 
 	EndTextureMode();
 
-	DrawTexturePro(g_guiRenderTarget.texture,
-		{ 0, 0, float(g_guiRenderTarget.texture.width), float(g_guiRenderTarget.texture.height) },
-		{ 0, float(g_Engine->m_ScreenHeight), float(g_Engine->m_ScreenWidth), -float(g_Engine->m_ScreenHeight) },
-		{ 0, 0 }, 0, WHITE);
+	DrawTexturePro(
+		g_guiRenderTarget.texture,
+		{0, 0, float(g_guiRenderTarget.texture.width), float(g_guiRenderTarget.texture.height)},
+		{0,
+		 float(g_Engine->m_ScreenHeight),
+		 float(g_Engine->m_ScreenWidth),
+		 -float(g_Engine->m_ScreenHeight)},
+		{0, 0},
+		0,
+		WHITE
+	);
 
 	//DrawTexture(*g_Cursor, GetMouseX(), GetMouseY(), WHITE);
 
 	EndDrawing();
-
 }
-
 
 void LoadingState::UpdateLoading()
 {
@@ -139,7 +128,7 @@ void LoadingState::UpdateLoading()
 			return;
 		}
 
-		if(!m_loadingModels)
+		if (!m_loadingModels)
 		{
 			AddConsoleString(std::string("Loading models..."));
 			LoadModels();
@@ -186,7 +175,6 @@ void LoadingState::UpdateLoading()
 			m_loadingInitialGameState = true;
 			return;
 		}
-
 	}
 	else
 	{
@@ -196,42 +184,42 @@ void LoadingState::UpdateLoading()
 	g_StateMachine->MakeStateTransition(STATE_TITLESTATE);
 }
 
-unsigned char LoadingState::ReadU8(istream &buffer)
+unsigned char LoadingState::ReadU8(istream& buffer)
 {
 	unsigned char thisData;
 	buffer.read((char*)&thisData, sizeof(unsigned char));
 	return thisData;
 }
 
-unsigned short LoadingState::ReadU16(istream &buffer)
+unsigned short LoadingState::ReadU16(istream& buffer)
 {
 	unsigned short thisData;
 	buffer.read((char*)&thisData, sizeof(unsigned short));
 	return thisData;
 }
 
-unsigned int LoadingState::ReadU32(istream &buffer)
+unsigned int LoadingState::ReadU32(istream& buffer)
 {
 	unsigned int thisData;
 	buffer.read((char*)&thisData, sizeof(unsigned int));
 	return thisData;
 }
 
-char LoadingState::ReadS8(istream &buffer)
+char LoadingState::ReadS8(istream& buffer)
 {
 	char thisData;
 	buffer.read((char*)&thisData, sizeof(char));
 	return thisData;
 }
 
-short LoadingState::ReadS16(istream &buffer)
+short LoadingState::ReadS16(istream& buffer)
 {
 	short thisData;
 	buffer.read((char*)&thisData, sizeof(short));
 	return thisData;
 }
 
-int LoadingState::ReadS32(istream &buffer)
+int LoadingState::ReadS32(istream& buffer)
 {
 	int thisData;
 	buffer.read((char*)&thisData, sizeof(int));
@@ -258,7 +246,7 @@ void LoadingState::LoadVersion()
 void LoadingState::LoadChunks()
 {
 	std::string dataPath = g_Engine->m_EngineConfig.GetString("data_path");
-	
+
 	//  Load data for all chunks first
 	std::string loadingPath(dataPath);
 	loadingPath.append("/STATIC/U7CHUNKS");
@@ -278,8 +266,8 @@ void LoadingState::LoadChunks()
 			for (int k = 0; k < 16; ++k)
 			{
 				unsigned short thisdata;
-				unsigned char frontend;
-				unsigned char backend;
+				unsigned char  frontend;
+				unsigned char  backend;
 				fread(&thisdata, sizeof(unsigned short), 1, u7chunksfile);
 
 				unsigned int shapenum = thisdata & 0x3ff;
@@ -287,7 +275,6 @@ void LoadingState::LoadChunks()
 
 				g_ChunkTypeList[i][j][k] = thisdata;
 			}
-			
 		}
 	}
 	fclose(u7chunksfile);
@@ -336,7 +323,7 @@ void LoadingState::LoadIFIX()
 		for (int superchunkx = 0; superchunkx < 12; ++superchunkx)
 		{
 			std::stringstream ss;
-			int thissuperchunk = superchunkx + (superchunky * 12);
+			int               thissuperchunk = superchunkx + (superchunky * 12);
 			if (thissuperchunk < 16)
 			{
 				ss << "U7IFIX0" << std::hex << thissuperchunk;
@@ -346,19 +333,19 @@ void LoadingState::LoadIFIX()
 				ss << "U7IFIX" << std::hex << thissuperchunk;
 			}
 			std::string s = ss.str();
-            
-            std::transform(s.begin(), s.end(), s.begin(), ::toupper);
-            
-						s.insert(0, loadingPath.c_str());
+
+			std::transform(s.begin(), s.end(), s.begin(), ::toupper);
+
+			s.insert(0, loadingPath.c_str());
 
 			FILE* u7thisifix = fopen(s.c_str(), "rb");
-            
-            if(u7thisifix == nullptr)
-            {
-                int stopper = 0;
-            }
 
-			//  Even though these files don't have an .flx description, 
+			if (u7thisifix == nullptr)
+			{
+				int stopper = 0;
+			}
+
+			//  Even though these files don't have an .flx description,
 			//  these are flex files.  Flex files have a header of 80 bytes,
 			//  which is the same for every file: "Ultima VII Data File (C) 1992 Origin Inc."
 			char header[80];
@@ -402,8 +389,8 @@ void LoadingState::LoadIFIX()
 			struct objectdata
 			{
 				ShapeFrameIndex shapeframe;
-				char chunkx;
-				char chunky;
+				char            chunkx;
+				char            chunky;
 			};
 
 			//  Now, having processed the header, we can process the, you know, data.
@@ -411,7 +398,7 @@ void LoadingState::LoadIFIX()
 			{
 				for (int chunkx = 0; chunkx < 16; ++chunkx)
 				{
-					int thischunk = chunkx + (chunky * 16);
+					int       thischunk = chunkx + (chunky * 16);
 
 					entrydata thisentry = entrymap[thischunk];
 					if (thisentry.offest == 0)
@@ -421,7 +408,9 @@ void LoadingState::LoadIFIX()
 					else
 					{
 						unsigned short* locationdata;
-						locationdata = (unsigned short*)malloc(sizeof(unsigned short) * (thisentry.length / 2));
+						locationdata = (unsigned short*)malloc(
+							sizeof(unsigned short) * (thisentry.length / 2)
+						);
 						fseek(u7thisifix, thisentry.offest * sizeof(char), SEEK_SET);
 						fread(locationdata, sizeof(unsigned char), thisentry.length, u7thisifix);
 
@@ -430,14 +419,21 @@ void LoadingState::LoadIFIX()
 							unsigned short thisLocationData = locationdata[w];
 							unsigned short shapeData = locationdata[w + 1];
 
-							int shape = shapeData & 0x3ff;
-							int frame = (shapeData >> 10) & 0x1f;
+							int            shape = shapeData & 0x3ff;
+							int            frame = (shapeData >> 10) & 0x1f;
 
-							int y = thisLocationData & 0xf;
-							int x = (thisLocationData >> 4) & 0xf;
-							int z = (thisLocationData >> 8) & 0xf;
+							int            y = thisLocationData & 0xf;
+							int            x = (thisLocationData >> 4) & 0xf;
+							int            z = (thisLocationData >> 8) & 0xf;
 
-							AddObject(shape, frame, GetNextID(), (superchunkx * 256) + (chunkx * 16) + x, z, (superchunky * 256) + (chunky * 16) + y);
+							AddObject(
+								shape,
+								frame,
+								GetNextID(),
+								(superchunkx * 256) + (chunkx * 16) + x,
+								z,
+								(superchunky * 256) + (chunky * 16) + y
+							);
 
 							int stopper = 0;
 						}
@@ -472,7 +468,6 @@ void LoadingState::MakeMap()
 					unsigned int thisdata = g_ChunkTypeList[chunkid][l][k];
 					g_World[j * 16 + k][i * 16 + l] = g_ChunkTypeList[chunkid][l][k];
 
-
 					unsigned short shapenum = thisdata & 0x3ff;
 					unsigned short framenum = (thisdata >> 10) & 0x1f;
 
@@ -496,8 +491,8 @@ void LoadingState::LoadIREG()
 	{
 		for (int superchunkx = 0; superchunkx < 12; ++superchunkx)
 		{
-         std::stringstream ss;
-			int thissuperchunk = superchunkx + (superchunky * 12);
+			std::stringstream ss;
+			int               thissuperchunk = superchunkx + (superchunky * 12);
 			if (thissuperchunk < 16)
 			{
 				ss << "U7IREG0" << std::hex << thissuperchunk;
@@ -507,9 +502,9 @@ void LoadingState::LoadIREG()
 				ss << "U7IREG" << std::hex << thissuperchunk;
 			}
 			std::string s = ss.str();
-            
-         std::transform(s.begin(), s.end(), s.begin(), ::toupper);
-            
+
+			std::transform(s.begin(), s.end(), s.begin(), ::toupper);
+
 			s.insert(0, loadingPath.c_str());
 
 			FILE* u7thisireg = fopen(s.c_str(), "rb");
@@ -524,7 +519,7 @@ void LoadingState::LoadIREG()
 			{
 				//  Flags for putting objects in containers.
 				unsigned int containerId = 0;
-				bool containerOpen = false;
+				bool         containerOpen = false;
 
 				while (!feof(u7thisireg))
 				{
@@ -538,18 +533,18 @@ void LoadingState::LoadIREG()
 						fread(&x, sizeof(unsigned char), 1, u7thisireg);
 						fread(&y, sizeof(unsigned char), 1, u7thisireg);
 
-						int chunkx = x >> 4;
-						int chunky = y >> 4;
-						int intx = x & 0x0f;
-						int inty = y & 0x0f;
+						int            chunkx = x >> 4;
+						int            chunky = y >> 4;
+						int            intx = x & 0x0f;
+						int            inty = y & 0x0f;
 
-						int actualx = (superchunkx * 256) + (chunkx * 16) + intx;
-						int actualy = (superchunky * 256) + (chunky * 16) + inty;
+						int            actualx = (superchunkx * 256) + (chunkx * 16) + intx;
+						int            actualy = (superchunky * 256) + (chunky * 16) + inty;
 
 						unsigned short shapeData;
 						fread(&shapeData, sizeof(unsigned short), 1, u7thisireg);
-						int shape = shapeData & 0x3ff;
-						int frame = (shapeData >> 10) & 0x1f;
+						int           shape = shapeData & 0x3ff;
+						int           frame = (shapeData >> 10) & 0x1f;
 
 						unsigned char z;
 						fread(&z, sizeof(unsigned char), 1, u7thisireg);
@@ -562,7 +557,6 @@ void LoadingState::LoadIREG()
 							//z *= 8;
 						}
 
-						
 						unsigned char quality;
 						fread(&quality, sizeof(unsigned char), 1, u7thisireg);
 
@@ -585,18 +579,18 @@ void LoadingState::LoadIREG()
 						fread(&x, sizeof(unsigned char), 1, u7thisireg); // 1
 						fread(&y, sizeof(unsigned char), 1, u7thisireg); // 2
 
-						int chunkx = x >> 4;
-						int chunky = y >> 4;
-						int intx = x & 0x0f;
-						int inty = y & 0x0f;
+						int            chunkx = x >> 4;
+						int            chunky = y >> 4;
+						int            intx = x & 0x0f;
+						int            inty = y & 0x0f;
 
-						int actualx = (superchunkx * 256) + (chunkx * 16) + intx;
-						int actualy = (superchunky * 256) + (chunky * 16) + inty;
+						int            actualx = (superchunkx * 256) + (chunkx * 16) + intx;
+						int            actualy = (superchunky * 256) + (chunky * 16) + inty;
 
 						unsigned short shapeData;
 						fread(&shapeData, sizeof(unsigned short), 1, u7thisireg); // 3, 4
-						int shape = shapeData & 0x3ff;
-						int frame = (shapeData >> 10) & 0x1f;
+						int           shape = shapeData & 0x3ff;
+						int           frame = (shapeData >> 10) & 0x1f;
 
 						unsigned char sink;
 						for (int i = 0; i < 5; ++i)
@@ -614,12 +608,11 @@ void LoadingState::LoadIREG()
 							lift1 = z >> 4;
 							lift2 = z & 0x0f;
 							lift3 = z / 8;
-
 						}
 
 						//  Soak up the next 2 bytes.
 						unsigned char throwaway[1];
-						fread(&throwaway, sizeof(unsigned char), 1, u7thisireg);		// 11
+						fread(&throwaway, sizeof(unsigned char), 1, u7thisireg); // 11
 
 						int id = GetNextID();
 						AddObject(shape, frame, id, actualx, lift1, actualy);
@@ -635,7 +628,7 @@ void LoadingState::LoadIREG()
 							//AddObject(shape, frame, containerId, actualx, lift1, actualy);
 						}
 					}
-					else if(length == 1) //  Close container
+					else if (length == 1) //  Close container
 					{
 						containerOpen = false;
 					}
@@ -651,7 +644,7 @@ void LoadingState::LoadIREG()
 void LoadingState::CreateShapeTable()
 {
 	//  Load palette data
-	ifstream palette;
+	ifstream    palette;
 	std::string dataPath = g_Engine->m_EngineConfig.GetString("data_path");
 	std::string loadingPath(dataPath);
 	loadingPath.append("/STATIC/PALETTES.FLX");
@@ -681,12 +674,12 @@ void LoadingState::CreateShapeTable()
 		m_palette[j].a = 255;
 	}
 
-	m_palette[254] = Color{ 128, 128, 128, 128 };
+	m_palette[254] = Color{128, 128, 128, 128};
 
 	palette.close();
 
 	//  Load shape data
-	ifstream shapesFile;
+	ifstream    shapesFile;
 	std::string shapePath = dataPath.append("/STATIC/SHAPES.VGA");
 	shapesFile.open(shapePath.c_str(), ios::binary);
 
@@ -696,9 +689,9 @@ void LoadingState::CreateShapeTable()
 
 	vector<FLXEntryData> shapeEntryMap = ParseFLXHeader(shapes);
 
-	bool test = true;
+	bool                 test = true;
 
-		//  The first 150 entries (0-149) are terrain textures.  They are not
+	//  The first 150 entries (0-149) are terrain textures.  They are not
 	//  rle-encoded.  Splat them directly to the terrain texture.
 	Image& tempImage = g_Terrain->GetTerrainTexture();
 	for (int thisShape = 0; thisShape < 150; ++thisShape)
@@ -707,17 +700,17 @@ void LoadingState::CreateShapeTable()
 		int numFrames = shapeEntryMap[thisShape].length / 64;
 		for (int thisFrame = 0; thisFrame < numFrames; ++thisFrame)
 		{
-			if (thisShape == 12 && thisFrame == 0)
-				continue;
+			if (thisShape == 12 && thisFrame == 0) continue;
 			for (int i = 0; i < 8; ++i)
 			{
 				for (int j = 0; j < 8; ++j)
 				{
 					unsigned char Value = ReadU8(shapes);
-					ImageDrawPixel(&tempImage, (thisShape * 8) + j, (thisFrame * 8) + i, m_palette[Value]);
+					ImageDrawPixel(
+						&tempImage, (thisShape * 8) + j, (thisFrame * 8) + i, m_palette[Value]
+					);
 				}
 			}
-
 		}
 	}
 
@@ -728,14 +721,14 @@ void LoadingState::CreateShapeTable()
 	struct frameData
 	{
 		unsigned int fileOffset;
-		short W2;
-		short W1;
-		short H1;
-		short H2;
+		short        W2;
+		short        W1;
+		short        H1;
+		short        H2;
 		unsigned int width;
 		unsigned int height;
-		int xDrawOffset;
-		int yDrawOffset;
+		int          xDrawOffset;
+		int          yDrawOffset;
 	};
 
 	float profilingTime = GetTime();
@@ -754,8 +747,8 @@ void LoadingState::CreateShapeTable()
 		if (firstData == shapeEntryMap[thisShape].length)
 		{
 			//  Next four bytes tell length of the header.
-			unsigned int headerLength = ReadU32(shapes);
-			unsigned int frameCount = ((headerLength - 4) / 4);
+			unsigned int           headerLength = ReadU32(shapes);
+			unsigned int           frameCount = ((headerLength - 4) / 4);
 			std::vector<frameData> frameOffsets;
 			frameOffsets.resize(frameCount);
 			frameOffsets[0].fileOffset = 0;
@@ -786,7 +779,8 @@ void LoadingState::CreateShapeTable()
 				frameOffsets[i].yDrawOffset = frameOffsets[i].H2;
 
 				shapeData.CreateDefaultTexture();
-				Image tempImage = GenImageColor(frameOffsets[i].width, frameOffsets[i].height, Color{ 0, 0, 0, 0 });
+				Image tempImage =
+					GenImageColor(frameOffsets[i].width, frameOffsets[i].height, Color{0, 0, 0, 0});
 				//  Read each span.  Spans can be either RLE or raw pixel data.
 				while (true)
 				{
@@ -819,15 +813,17 @@ void LoadingState::CreateShapeTable()
 						while (xStart < endX)
 						{
 							unsigned char runData = ReadU8(shapes);
-							int runLength = runData >> 1;
-							int runType = runData & 1;
+							int           runLength = runData >> 1;
+							int           runType = runData & 1;
 
 							if (runType == 0) // Once again, non-RLE
 							{
 								for (int i = 0; i < runLength; ++i)
 								{
 									unsigned char Value = ReadU8(shapes);
-									ImageDrawPixel(&tempImage, xStart + i, yStart, m_palette[Value]);
+									ImageDrawPixel(
+										&tempImage, xStart + i, yStart, m_palette[Value]
+									);
 								}
 							}
 							else
@@ -835,7 +831,9 @@ void LoadingState::CreateShapeTable()
 								unsigned char Value = ReadU8(shapes);
 								for (int i = 0; i < runLength; ++i)
 								{
-									ImageDrawPixel(&tempImage, xStart + i, yStart, m_palette[Value]);
+									ImageDrawPixel(
+										&tempImage, xStart + i, yStart, m_palette[Value]
+									);
 								}
 							}
 							xStart += runLength;
@@ -847,9 +845,8 @@ void LoadingState::CreateShapeTable()
 
 			continue;
 		}
-		else  //  This entry is not encoded.
+		else //  This entry is not encoded.
 		{
-
 		}
 	}
 
@@ -886,17 +883,17 @@ void LoadingState::LoadModels()
 		std::string m_Filename;
 		std::getline(directory, m_Filename);
 
-		if (m_Filename.length() == 0)
-			continue;
+		if (m_Filename.length() == 0) continue;
 
 		//Try to open model file
 		std::string objPath = "Models/3dmodels/" + m_Filename + std::string(".obj");
 		std::string mtlPath = "Models/3dmodels/" + m_Filename + std::string(".mtl");
 
-		Model model = LoadModel(objPath.c_str());
-		int materialCount = 0;
-		Material* material = LoadMaterials(mtlPath.c_str(), &materialCount); // Load material
-		model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = material[0].maps[0].texture;            // Set map diffuse texture
+		Model       model = LoadModel(objPath.c_str());
+		int         materialCount = 0;
+		Material*   material = LoadMaterials(mtlPath.c_str(), &materialCount); // Load material
+		model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture =
+			material[0].maps[0].texture; // Set map diffuse texture
 
 		g_ResourceManager->AddModel(model, objPath);
 	}
@@ -906,24 +903,24 @@ void LoadingState::CreateObjectTable()
 {
 	//  Open the two files that define the objects in the object table.
 	// Open the two files that define the objects in the object table.
-	std::string dataPath = g_Engine->m_EngineConfig.GetString("data_path");
+	std::string       dataPath = g_Engine->m_EngineConfig.GetString("data_path");
 
 	std::stringstream tfa;
 	tfa << dataPath.c_str() << "/STATIC/TFA.DAT";
 
-	ifstream tfafile(tfa.str(), ios::binary);
+	ifstream          tfafile(tfa.str(), ios::binary);
 
 	std::stringstream wgtvol;
 	wgtvol << dataPath.c_str() << "/STATIC/WGTVOL.DAT";
 
-	ifstream wgtvolfile(wgtvol.str(), ios::binary);
+	ifstream          wgtvolfile(wgtvol.str(), ios::binary);
 
 	std::stringstream text;
 	text << dataPath.c_str() << "/STATIC/TEXT.FLX";
 
 	ifstream textfile(text.str(), ios::binary);
 
-	char header[80];
+	char     header[80];
 	textfile.read(header, sizeof(header));
 
 	//  This is followed two unsigned ints.  The first unsigned int is always the same, so we can ignore it.
@@ -1003,13 +1000,12 @@ void LoadingState::CreateObjectTable()
 	tfafile.close();
 }
 
-
 //  Most Ultima VII files are flex files.  Thus, a general function that can
 //  parse flex file headers.  This function takes a FILE* and returns a vector
 //  of FLXEntryData, which is a struct containing the offset and length of
 //  each entry in the file.  It moves the file pointers to the point where
 //  the calling code can immediately start reading out data.
-std::vector<LoadingState::FLXEntryData> LoadingState::ParseFLXHeader(istream &file)
+std::vector<LoadingState::FLXEntryData> LoadingState::ParseFLXHeader(istream& file)
 {
 	char header[80];
 	file.read(header, sizeof(header));
@@ -1051,7 +1047,7 @@ void LoadingState::LoadInitialGameState()
 {
 	//  Load shape data
 	std::string dataPath = g_Engine->m_EngineConfig.GetString("data_path");
-	ifstream initGameFile;
+	ifstream    initGameFile;
 	std::string initGamePath = dataPath.append("/STATIC/INITGAME.DAT");
 	initGameFile.open(initGamePath.c_str(), ios::binary);
 
@@ -1073,20 +1069,21 @@ void LoadingState::LoadInitialGameState()
 		{
 			short npcCount1 = ReadU16(subFiles);
 			short npcCount2 = ReadU16(subFiles);
-			int fullcount = npcCount1 + npcCount2;
-			int filepos = subFiles.tellg();
+			int   fullcount = npcCount1 + npcCount2;
+			int   filepos = subFiles.tellg();
 			Log("File position: " + to_string(filepos));
 			for (int i = 0; i < fullcount; ++i)
 			{
-				if (i == 139) // This NPC is broken and attempting to parse it messes up all NPCs after it.  It's not used anyway so we just skip it.
+				if (i ==
+					139) // This NPC is broken and attempting to parse it messes up all NPCs after it.  It's not used anyway so we just skip it.
 				{
-					Log("Stopper");// subFiles.seekg(2761, ios::cur);
+					Log("Stopper"); // subFiles.seekg(2761, ios::cur);
 				}
 
 				int size = sizeof(NPCblock);
 				Log("NPC block size: " + std::to_string(size));
 				NPCblock thisNPC;
-				
+
 				thisNPC.x = ReadU8(subFiles);
 				thisNPC.y = ReadU8(subFiles);
 				thisNPC.shapeId = ReadU16(subFiles);
@@ -1107,7 +1104,14 @@ void LoadingState::LoadInitialGameState()
 				thisNPC.referent = ReadU16(subFiles);
 				thisNPC.status = ReadU16(subFiles);
 
-				AddObject(shapenum, 16, GetNextID(), chunkx * 16 * 16 + thisNPC.x, thisNPC.lift >> 4, chunky * 16 * 16 + thisNPC.y);
+				AddObject(
+					shapenum,
+					16,
+					GetNextID(),
+					chunkx * 16 * 16 + thisNPC.x,
+					thisNPC.lift >> 4,
+					chunky * 16 * 16 + thisNPC.y
+				);
 
 				thisNPC.str = ReadU8(subFiles);
 				thisNPC.dex = ReadU8(subFiles);
@@ -1131,7 +1135,7 @@ void LoadingState::LoadInitialGameState()
 				thisNPC.ivrx = ReadU16(subFiles);
 				thisNPC.ivry = ReadU16(subFiles);
 				thisNPC.svrx = ReadU16(subFiles);
-			   thisNPC.svry = ReadU16(subFiles);
+				thisNPC.svry = ReadU16(subFiles);
 				thisNPC.status3 = ReadU16(subFiles);
 
 				subFiles.read(thisNPC.soak3, 5);
@@ -1152,12 +1156,13 @@ void LoadingState::LoadInitialGameState()
 				int newfilepos = subFiles.tellg();
 				Log("File position after avatar: " + to_string(newfilepos));
 				Log("Size difference: " + to_string(newfilepos - filepos));
-				Log("Iolo starts at 2761 so there are " + to_string(2761 - newfilepos) + " bytes left.");
+				Log("Iolo starts at 2761 so there are " + to_string(2761 - newfilepos) +
+					" bytes left.");
 
 				if (thisNPC.type != 0 && i != 139) // This NPC has an inventory
 				{
 					unsigned char length = 99;
-					bool incontainer = false;
+					bool          incontainer = false;
 					while (length != 0)
 					{
 						int pointerlocation = subFiles.tellg();
@@ -1178,7 +1183,7 @@ void LoadingState::LoadInitialGameState()
 								ReadU8(subFiles);
 							}
 						}
-						else if(length == 1)
+						else if (length == 1)
 						{
 							if (incontainer)
 							{
@@ -1189,12 +1194,9 @@ void LoadingState::LoadInitialGameState()
 				}
 
 				Log("First block written: ");
-
 			}
-		
+
 			stringstream npcData;
 		}
-
 	}
-
 }

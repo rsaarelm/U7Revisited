@@ -1,10 +1,10 @@
-#include "Globals.h"
 #include "Engine.h"
+#include "Globals.h"
+#include "Logging.h"
 #include "ResourceManager.h"
 #include "StateMachine.h"
-#include "Logging.h"
-#include <sstream>
 #include <fstream>
+#include <sstream>
 #include <time.h>
 using namespace std;
 
@@ -33,7 +33,11 @@ void Engine::Init(const std::string& configfile)
 	m_ScreenHeight = m_EngineConfig.GetNumber("v_res");
 
 	//  Initialize Raylib and the screen.
-	InitWindow(g_Engine->m_EngineConfig.GetNumber("h_res"), g_Engine->m_EngineConfig.GetNumber("v_res"), "Ultima VII: Revisited");
+	InitWindow(
+		g_Engine->m_EngineConfig.GetNumber("h_res"),
+		g_Engine->m_EngineConfig.GetNumber("v_res"),
+		"Ultima VII: Revisited"
+	);
 	if (g_Engine->m_EngineConfig.GetNumber("full_screen") == 1)
 	{
 		ToggleFullscreen();
@@ -81,11 +85,12 @@ void Engine::Draw()
 	g_StateMachine->Draw();
 }
 
-void Engine::CaptureScreenshot() {
-	char filename[40];
+void Engine::CaptureScreenshot()
+{
+	char       filename[40];
 	struct tm* timenow;
 
-	time_t now = time(NULL);
+	time_t     now = time(NULL);
 	timenow = gmtime(&now);
 
 	strftime(filename, sizeof(filename), "screenshot_%Y-%m-%d_%H_%M_%S.png", timenow);

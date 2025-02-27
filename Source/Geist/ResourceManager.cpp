@@ -1,53 +1,47 @@
 #include "ResourceManager.h"
 #include "Config.h"
-#include "Logging.h"
 #include "Globals.h"
+#include "Logging.h"
 
 #include <fstream>
 #include <sstream>
 
 using namespace std;
 
-void ResourceManager::Init(const std::string& configfile)
-{
-
-}
+void ResourceManager::Init(const std::string& configfile) {}
 
 void ResourceManager::Shutdown()
 {
-	map<std::string, unique_ptr<Texture> >::iterator node;
+	map<std::string, unique_ptr<Texture>>::iterator node;
 	for (node = m_TextureList.begin(); node != m_TextureList.end(); ++node)
 	{
 		UnloadTexture(*(*node).second);
 	}
 
-	map<std::string, unique_ptr<Model> >::iterator node2;
+	map<std::string, unique_ptr<Model>>::iterator node2;
 	for (node2 = m_ModelList.begin(); node2 != m_ModelList.end(); ++node2)
 	{
 		UnloadModel(*(*node2).second);
 	}
 
-	map<std::string, unique_ptr<Wave> >::iterator node3;
+	map<std::string, unique_ptr<Wave>>::iterator node3;
 	for (node3 = m_SoundList.begin(); node3 != m_SoundList.end(); ++node3)
 	{
 		UnloadWave(*(*node3).second);
 	}
 
-	map<std::string, unique_ptr<Music> >::iterator node4;
+	map<std::string, unique_ptr<Music>>::iterator node4;
 	for (node4 = m_MusicList.begin(); node4 != m_MusicList.end(); ++node3)
 	{
 		UnloadMusicStream(*(*node4).second);
 	}
 }
 
-void ResourceManager::Update()
-{
-
-}
+void ResourceManager::Update() {}
 
 bool ResourceManager::DoesFileExist(const std::string& fileName)
 {
-	map<std::string, unique_ptr<Texture> >::iterator node;
+	map<std::string, unique_ptr<Texture>>::iterator node;
 	node = m_TextureList.find(fileName);
 
 	if (node == m_TextureList.end())
@@ -99,7 +93,7 @@ void ResourceManager::AddConfig(const std::string& configName)
 
 Texture* ResourceManager::GetTexture(const std::string& Texturename, bool mipmaps)
 {
-	map<std::string, unique_ptr<Texture> >::iterator node;
+	map<std::string, unique_ptr<Texture>>::iterator node;
 	node = m_TextureList.find(Texturename);
 
 	if (node != m_TextureList.end())
@@ -116,7 +110,7 @@ Texture* ResourceManager::GetTexture(const std::string& Texturename, bool mipmap
 
 Model* ResourceManager::GetModel(const std::string& modelName)
 {
-	map<std::string, unique_ptr<Model> >::iterator node;
+	map<std::string, unique_ptr<Model>>::iterator node;
 	node = m_ModelList.find(modelName);
 
 	if (node != m_ModelList.end())
@@ -133,7 +127,7 @@ Model* ResourceManager::GetModel(const std::string& modelName)
 
 Wave* ResourceManager::GetSound(const std::string& soundName)
 {
-	map<std::string, unique_ptr<Wave> >::iterator node;
+	map<std::string, unique_ptr<Wave>>::iterator node;
 	node = m_SoundList.find(soundName);
 
 	if (node != m_SoundList.end())
@@ -150,7 +144,7 @@ Wave* ResourceManager::GetSound(const std::string& soundName)
 
 Music* ResourceManager::GetMusic(const std::string& musicName)
 {
-	map<std::string, unique_ptr<Music> >::iterator node;
+	map<std::string, unique_ptr<Music>>::iterator node;
 	node = m_MusicList.find(musicName);
 
 	if (node != m_MusicList.end())
@@ -167,7 +161,7 @@ Music* ResourceManager::GetMusic(const std::string& musicName)
 
 Config* ResourceManager::GetConfig(const std::string& configName)
 {
-	map<std::string, unique_ptr<Config> >::iterator node;
+	map<std::string, unique_ptr<Config>>::iterator node;
 	node = m_configList.find(configName);
 	if (node != m_configList.end())
 	{
@@ -182,11 +176,7 @@ Config* ResourceManager::GetConfig(const std::string& configName)
 }
 
 //  Dumps the current texture list so it can be recreated (on res change or whatever)
-void ResourceManager::ClearTextures()
-{
-	m_TextureList.clear();
-}
-
+void ResourceManager::ClearTextures() { m_TextureList.clear(); }
 
 void ResourceManager::AddModel(const Model& model, const std::string& meshName)
 {

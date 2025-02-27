@@ -21,7 +21,7 @@ void Emitter2D::Update()
 	{
 		vector<Particle2D>::iterator node = m_Particles.begin();
 
-		for (node; node != m_Particles.end(); )
+		for (node; node != m_Particles.end();)
 		{
 			Particle2D& temp = (*node);
 
@@ -45,22 +45,20 @@ void Emitter2D::Update()
 	}
 }
 
-void Emitter2D::Start()
-{
-	m_Started = true;
-}
+void Emitter2D::Start() { m_Started = true; }
 
 void Emitter2D::Draw()
 {
-	if (!m_Started)
-		return;
+	if (!m_Started) return;
 	vector<Particle2D>::iterator node = m_Particles.begin();
 	for (node; node != m_Particles.end(); ++node)
 	{
 		Particle2D& temp = (*node);
 
-		float drawx = (GetPos().x + temp.m_Pos.x - m_DrawOffset.x) * temp.m_Scale + (GetScreenWidth() / 2);
-		float drawy = (GetPos().y + temp.m_Pos.y - m_DrawOffset.y) * temp.m_Scale + (GetScreenHeight() / 2);
+		float       drawx =
+			(GetPos().x + temp.m_Pos.x - m_DrawOffset.x) * temp.m_Scale + (GetScreenWidth() / 2);
+		float drawy =
+			(GetPos().y + temp.m_Pos.y - m_DrawOffset.y) * temp.m_Scale + (GetScreenHeight() / 2);
 
 		Color c;
 		float pct = 0;
@@ -73,17 +71,18 @@ void Emitter2D::Draw()
 		c.b = (temp.m_StartColor.b * (1.0f - pct) + temp.m_EndColor.b * pct) * m_ColorMask.b;
 		c.a = (temp.m_StartColor.a * (1.0f - pct) + temp.m_EndColor.a * pct) * m_ColorMask.a;
 
-		m_Sprites[temp.m_Sprite]->DrawScaled( Rectangle{drawx, drawy, temp.m_Scale, temp.m_Scale}, Vector2{0, 0}, temp.m_Angle, c);
+		m_Sprites[temp.m_Sprite]->DrawScaled(
+			Rectangle{drawx, drawy, temp.m_Scale, temp.m_Scale}, Vector2{0, 0}, temp.m_Angle, c
+		);
 	}
 }
 
-void Emitter2D::AddSprite(shared_ptr<Sprite> sprite)
-{
-	m_Sprites.push_back(sprite);
-}
+void Emitter2D::AddSprite(shared_ptr<Sprite> sprite) { m_Sprites.push_back(sprite); }
 
-void Emitter2D::AddParticle(Vector2 pos, Vector2 vel, unsigned int maxage, Color startcolor,
-	Color endcolor, float rotation, float scale)
+void Emitter2D::AddParticle(
+	Vector2 pos, Vector2 vel, unsigned int maxage, Color startcolor, Color endcolor, float rotation,
+	float scale
+)
 {
 	Particle2D temp;
 
@@ -104,7 +103,8 @@ void Emitter2D::AddParticle(Vector2 pos, Vector2 vel, unsigned int maxage, Color
 
 void Emitter2D::AddParticle(Particle2D particle)
 {
-	particle.m_Sprite = m_RNG.Random(int(m_Sprites.size()) - 1); // Assign a random sprite to this particle
+	particle.m_Sprite =
+		m_RNG.Random(int(m_Sprites.size()) - 1); // Assign a random sprite to this particle
 	m_Particles.push_back(particle);
 }
 
@@ -129,21 +129,15 @@ void Emitter2D::AddParticle(Particle2D particle)
    ++m_NumParticles;
 }*/
 
-void ParticleSystem::Init(const std::string& configfile)
-{
+void ParticleSystem::Init(const std::string& configfile) {}
 
-}
-
-void ParticleSystem::Shutdown()
-{
-	m_Emitters.clear();
-}
+void ParticleSystem::Shutdown() { m_Emitters.clear(); }
 
 void ParticleSystem::Update()
 {
-	vector<shared_ptr<Emitter2D> >::iterator node = m_Emitters.begin();
+	vector<shared_ptr<Emitter2D>>::iterator node = m_Emitters.begin();
 
-	for (node; node != m_Emitters.end(); )
+	for (node; node != m_Emitters.end();)
 	{
 		(*node)->m_DrawOffset = m_Pos;
 		(*node)->Update();
@@ -156,7 +150,7 @@ void ParticleSystem::Update()
 
 void ParticleSystem::Draw()
 {
-	vector<shared_ptr<Emitter2D> >::iterator node = m_Emitters.begin();
+	vector<shared_ptr<Emitter2D>>::iterator node = m_Emitters.begin();
 
 	for (node; node != m_Emitters.end(); ++node)
 	{
@@ -164,10 +158,7 @@ void ParticleSystem::Draw()
 	}
 }
 
-void ParticleSystem::AddEmitter(shared_ptr<Emitter2D> emitter)
-{
-	m_Emitters.push_back(emitter);
-}
+void ParticleSystem::AddEmitter(shared_ptr<Emitter2D> emitter) { m_Emitters.push_back(emitter); }
 
 /*   vector<Particle>::iterator node = m_Particles.begin();
 

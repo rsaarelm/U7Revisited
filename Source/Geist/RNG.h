@@ -20,15 +20,15 @@ class RNG
 {
 public:
 	RNG() {};
-	void          SeedRNG(unsigned int seed);
-	unsigned int  Random(unsigned int range);
-	float         RandomFloat(float range);
-	int           RandomRange(unsigned int min, unsigned int max);
-	float         RandomRangeFloat(float min, float max);
-	void          GetRNGState(unsigned int& seed, unsigned int& index);
-	void          SetRNGState(unsigned int seed, unsigned int index);
-	unsigned int  GetOriginalSeed() { return m_OriginalSeed; } //  Useful for debugging
-	void          SeedFromSystemTimer(void);
+	void         SeedRNG(unsigned int seed);
+	unsigned int Random(unsigned int range);
+	float        RandomFloat(float range);
+	int          RandomRange(unsigned int min, unsigned int max);
+	float        RandomRangeFloat(float min, float max);
+	void         GetRNGState(unsigned int& seed, unsigned int& index);
+	void         SetRNGState(unsigned int seed, unsigned int index);
+	unsigned int GetOriginalSeed() { return m_OriginalSeed; } //  Useful for debugging
+	void         SeedFromSystemTimer(void);
 
 private:
 	unsigned long m_SeedTable[CMATH_N];

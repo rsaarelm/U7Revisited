@@ -1,11 +1,11 @@
 #include <fstream>
-#include <string>
 #include <sstream>
+#include <string>
 
+#include "Config.h"
 #include "Globals.h"
 #include "Gui.h"
 #include "ResourceManager.h"
-#include "Config.h"
 
 #include "raylib.h"
 
@@ -35,15 +35,11 @@ std::shared_ptr<GuiElement> Gui::GetActiveElement()
 		return nullptr;
 }
 
-void Gui::Init(const std::string& configfile)
-{
-	LoadTXT(configfile);
-}
+void Gui::Init(const std::string& configfile) { LoadTXT(configfile); }
 
 void Gui::Update()
 {
-	if (!m_Active)
-		return;
+	if (!m_Active) return;
 	//  Relocate the GUI on an update basis so that if the window shrinks or
 	//  grows at any time the GUI is appropriately located.
 	m_Width = int(m_Scale * m_OriginalWidth);
@@ -100,7 +96,6 @@ void Gui::Update()
 		m_GuiX = (GetScreenWidth() - m_Width) / 2;
 		m_GuiY = (GetScreenHeight() - m_Height) / 2;
 		break;
-
 	}
 
 	m_LastElement = m_ActiveElement;
@@ -113,8 +108,7 @@ void Gui::Update()
 
 void Gui::Draw()
 {
-	if (!m_Active)
-		return;
+	if (!m_Active) return;
 
 	for (auto& node : m_GuiList)
 	{
@@ -146,134 +140,271 @@ shared_ptr<GuiElement> Gui::GetElement(int ID)
 		return m_GuiList[ID];
 }
 
-void Gui::AddTextButton(int ID, int posx, int posy, int width, int height, std::string text, Font* font,
-	Color textcolor, Color backgroundcolor,
-	Color bordercolor, int group, int active)
+void Gui::AddTextButton(
+	int ID, int posx, int posy, int width, int height, std::string text, Font* font,
+	Color textcolor, Color backgroundcolor, Color bordercolor, int group, int active
+)
 {
 	shared_ptr<GuiTextButton> textbutton = make_shared<GuiTextButton>(this);
-	textbutton->Init(ID, posx, posy, width, height, text, font, textcolor, backgroundcolor, bordercolor,
-		group, active);
+	textbutton->Init(
+		ID,
+		posx,
+		posy,
+		width,
+		height,
+		text,
+		font,
+		textcolor,
+		backgroundcolor,
+		bordercolor,
+		group,
+		active
+	);
 	m_GuiList[ID] = textbutton;
-
 }
 
-void Gui::AddTextButton(int ID, int posx, int posy, std::string text, Font* font,
-	Color textcolor, Color backgroundcolor,
-	Color bordercolor, int group, int active)
+void Gui::AddTextButton(
+	int ID, int posx, int posy, std::string text, Font* font, Color textcolor,
+	Color backgroundcolor, Color bordercolor, int group, int active
+)
 {
-	Vector2 textDims = MeasureTextEx(*font, text.c_str(), m_fontSize / 2, 1);
+	Vector2                   textDims = MeasureTextEx(*font, text.c_str(), m_fontSize / 2, 1);
 
 	shared_ptr<GuiTextButton> textbutton = make_shared<GuiTextButton>(this);
-	textbutton->Init(ID, posx, posy, textDims.x, textDims.y, text, font, textcolor, backgroundcolor, bordercolor,
-		group, active);
+	textbutton->Init(
+		ID,
+		posx,
+		posy,
+		textDims.x,
+		textDims.y,
+		text,
+		font,
+		textcolor,
+		backgroundcolor,
+		bordercolor,
+		group,
+		active
+	);
 	m_GuiList[ID] = textbutton;
 }
 
-void Gui::AddIconButton(int ID, int posx, int posy, shared_ptr<Sprite> upbutton, shared_ptr<Sprite> downbutton,
-	shared_ptr<Sprite> inactivebutton, std::string text, Font* font,
-	Color fontcolor, int group, int active, bool canbeheld)
+void Gui::AddIconButton(
+	int ID, int posx, int posy, shared_ptr<Sprite> upbutton, shared_ptr<Sprite> downbutton,
+	shared_ptr<Sprite> inactivebutton, std::string text, Font* font, Color fontcolor, int group,
+	int active, bool canbeheld
+)
 {
 	shared_ptr<GuiIconButton> iconbutton = make_shared<GuiIconButton>(this);
-	iconbutton->Init(ID, posx, posy, upbutton, downbutton, inactivebutton, text, font, fontcolor, group, active, canbeheld);
+	iconbutton->Init(
+		ID,
+		posx,
+		posy,
+		upbutton,
+		downbutton,
+		inactivebutton,
+		text,
+		font,
+		fontcolor,
+		group,
+		active,
+		canbeheld
+	);
 	m_GuiList[ID] = iconbutton;
-
 }
 
 //  For making a button whose graphics are all on the same texture in standard 2x2 format.
-void Gui::AddIconButton(int ID, Texture* tex, int posx, int posy, int tilex, int tiley, int width, int height, std::string text, Font* font, Color fontcolor, int group, int active)
+void Gui::AddIconButton(
+	int ID, Texture* tex, int posx, int posy, int tilex, int tiley, int width, int height,
+	std::string text, Font* font, Color fontcolor, int group, int active
+)
 {
 	shared_ptr<Sprite> upbutton = make_shared<Sprite>(tex, tilex, tiley, width, height);
 	shared_ptr<Sprite> downbutton = make_shared<Sprite>(tex, tilex, tiley + height, width, height);
-	shared_ptr<Sprite> inactivebutton = make_shared<Sprite>(tex, tilex + width, tiley + height, width, height);
+	shared_ptr<Sprite> inactivebutton =
+		make_shared<Sprite>(tex, tilex + width, tiley + height, width, height);
 
 	shared_ptr<GuiIconButton> iconbutton = make_shared<GuiIconButton>(this);
-	iconbutton->Init(ID, posx, posy, upbutton, downbutton, inactivebutton, text, font, fontcolor, group, active);
+	iconbutton->Init(
+		ID, posx, posy, upbutton, downbutton, inactivebutton, text, font, fontcolor, group, active
+	);
 	m_GuiList[ID] = iconbutton;
 }
 
-void Gui::AddCheckBox(int ID, int posx, int posy, std::shared_ptr<Sprite> Unselected, std::shared_ptr<Sprite> Selected, std::shared_ptr<Sprite> Hovered, std::shared_ptr<Sprite> HoveredSelected,
-	float scalex, float scaley, Color color, int group, int active)
+void Gui::AddCheckBox(
+	int ID, int posx, int posy, std::shared_ptr<Sprite> Unselected,
+	std::shared_ptr<Sprite> Selected, std::shared_ptr<Sprite> Hovered,
+	std::shared_ptr<Sprite> HoveredSelected, float scalex, float scaley, Color color, int group,
+	int active
+)
 {
 	shared_ptr<GuiCheckBox> checkbox = make_shared<GuiCheckBox>(this);
-	checkbox->Init(ID, posx, posy, Unselected, Selected, Hovered, HoveredSelected, scalex, scaley, color, group, active);
+	checkbox->Init(
+		ID,
+		posx,
+		posy,
+		Unselected,
+		Selected,
+		Hovered,
+		HoveredSelected,
+		scalex,
+		scaley,
+		color,
+		group,
+		active
+	);
 	m_GuiList[ID] = (checkbox);
 }
 
-void Gui::AddCheckBox(int ID, int posx, int posy, int width, int height,
-	float scalex, float scaley, Color color, int group, int active)
+void Gui::AddCheckBox(
+	int ID, int posx, int posy, int width, int height, float scalex, float scaley, Color color,
+	int group, int active
+)
 {
 	shared_ptr<GuiCheckBox> checkbox = make_shared<GuiCheckBox>(this);
 	checkbox->Init(ID, posx, posy, width, height, scalex, scaley, color, group, active);
 	m_GuiList[ID] = (checkbox);
 }
 
-void Gui::AddRadioButton(int ID, int posx, int posy, std::shared_ptr<Sprite> Selected, std::shared_ptr<Sprite> Unselected, std::shared_ptr<Sprite> Hovered,
-	float scalex, float scaley, Color color, int group, int active, bool shadowed)
+void Gui::AddRadioButton(
+	int ID, int posx, int posy, std::shared_ptr<Sprite> Selected,
+	std::shared_ptr<Sprite> Unselected, std::shared_ptr<Sprite> Hovered, float scalex, float scaley,
+	Color color, int group, int active, bool shadowed
+)
 {
 	shared_ptr<GuiRadioButton> radioButton = make_shared<GuiRadioButton>(this);
-	radioButton->Init(ID, posx, posy, Selected, Unselected, Hovered, scalex, scaley, color, group, active, shadowed);
+	radioButton->Init(
+		ID,
+		posx,
+		posy,
+		Selected,
+		Unselected,
+		Hovered,
+		scalex,
+		scaley,
+		color,
+		group,
+		active,
+		shadowed
+	);
 	m_GuiList[ID] = (radioButton);
 }
 
-void Gui::AddRadioButton(int ID, int posx, int posy, int width, int height,
-	float scalex, float scaley, Color color, int group, int active, bool shadowed)
+void Gui::AddRadioButton(
+	int ID, int posx, int posy, int width, int height, float scalex, float scaley, Color color,
+	int group, int active, bool shadowed
+)
 {
 	shared_ptr<GuiRadioButton> radioButton = make_shared<GuiRadioButton>(this);
-	radioButton->Init(ID, posx, posy, width, height, scalex, scaley, color, group, active, shadowed);
+	radioButton->Init(
+		ID, posx, posy, width, height, scalex, scaley, color, group, active, shadowed
+	);
 	m_GuiList[ID] = (radioButton);
 }
 
-void Gui::AddScrollBar(int ID, int valuerange, int posx, int posy, int width, int height, bool vertical,
-	Color spurcolor, Color backgroundcolor, int group, int active, bool shadowed)
+void Gui::AddScrollBar(
+	int ID, int valuerange, int posx, int posy, int width, int height, bool vertical,
+	Color spurcolor, Color backgroundcolor, int group, int active, bool shadowed
+)
 {
 	shared_ptr<GuiScrollBar> scrollbar = make_shared<GuiScrollBar>(this);
-	scrollbar->Init(ID, valuerange, posx, posy, width, height, vertical, spurcolor, backgroundcolor, group, active, shadowed);
+	scrollbar->Init(
+		ID,
+		valuerange,
+		posx,
+		posy,
+		width,
+		height,
+		vertical,
+		spurcolor,
+		backgroundcolor,
+		group,
+		active,
+		shadowed
+	);
 	m_GuiList[ID] = (scrollbar);
-
 }
 
-void Gui::AddScrollBar(int ID, int valuerange, int posx, int posy, int width, int height, bool vertical,
-	shared_ptr<Sprite> activeLeft, shared_ptr<Sprite> activeCenter, shared_ptr<Sprite> activeRight, shared_ptr<Sprite> spurActive,
-	shared_ptr<Sprite> inactiveLeft, shared_ptr<Sprite> inactiveCenter, shared_ptr<Sprite> inactiveRight, shared_ptr<Sprite> spurInactive,
-	int group, int active, bool shadowed)
+void Gui::AddScrollBar(
+	int ID, int valuerange, int posx, int posy, int width, int height, bool vertical,
+	shared_ptr<Sprite> activeLeft, shared_ptr<Sprite> activeCenter, shared_ptr<Sprite> activeRight,
+	shared_ptr<Sprite> spurActive, shared_ptr<Sprite> inactiveLeft,
+	shared_ptr<Sprite> inactiveCenter, shared_ptr<Sprite> inactiveRight,
+	shared_ptr<Sprite> spurInactive, int group, int active, bool shadowed
+)
 {
 	shared_ptr<GuiScrollBar> scrollbar = make_shared<GuiScrollBar>(this);
-	scrollbar->Init(ID, valuerange, posx, posy, width, height, vertical,
-		activeLeft, activeRight, activeCenter, spurActive,
-		inactiveLeft, inactiveRight, inactiveCenter, spurInactive,
-		group, active, shadowed);
+	scrollbar->Init(
+		ID,
+		valuerange,
+		posx,
+		posy,
+		width,
+		height,
+		vertical,
+		activeLeft,
+		activeRight,
+		activeCenter,
+		spurActive,
+		inactiveLeft,
+		inactiveRight,
+		inactiveCenter,
+		spurInactive,
+		group,
+		active,
+		shadowed
+	);
 	m_GuiList[ID] = (scrollbar);
 }
 
-void Gui::AddTextInput(int ID, int posx, int posy, int width, int height,
-	Font* font, std::string initialtext, Color textcolor, Color boxcolor,
-	Color backgroundcolor, int group, int active)
+void Gui::AddTextInput(
+	int ID, int posx, int posy, int width, int height, Font* font, std::string initialtext,
+	Color textcolor, Color boxcolor, Color backgroundcolor, int group, int active
+)
 {
 	shared_ptr<GuiTextInput> textinput = make_shared<GuiTextInput>(this);
-	textinput->Init(ID, posx, posy, width, height, font, initialtext, textcolor,
-		boxcolor, backgroundcolor, group, active);
+	textinput->Init(
+		ID,
+		posx,
+		posy,
+		width,
+		height,
+		font,
+		initialtext,
+		textcolor,
+		boxcolor,
+		backgroundcolor,
+		group,
+		active
+	);
 	m_GuiList[ID] = (textinput);
-
 }
 
-void Gui::AddPanel(int ID, int posx, int posy, int width, int height,
-	Color color, bool filled, int group, int active)
+void Gui::AddPanel(
+	int ID, int posx, int posy, int width, int height, Color color, bool filled, int group,
+	int active
+)
 {
 	shared_ptr<GuiPanel> panel = make_shared<GuiPanel>(this);
 	panel->Init(ID, posx, posy, width, height, color, filled, group, active);
 	m_GuiList[ID] = (panel);
 }
 
-void Gui::AddTextArea(int ID, Font* font, std::string text, int posx, int posy, int width, int height,
-	Color color, int justified, int group, int active, bool shadowed)
+void Gui::AddTextArea(
+	int ID, Font* font, std::string text, int posx, int posy, int width, int height, Color color,
+	int justified, int group, int active, bool shadowed
+)
 {
 	shared_ptr<GuiTextArea> area = make_shared<GuiTextArea>(this);
-	area->Init(ID, font, text, posx, posy, width, height, color, justified, group, active, shadowed);
+	area->Init(
+		ID, font, text, posx, posy, width, height, color, justified, group, active, shadowed
+	);
 	m_GuiList[ID] = (area);
 }
 
-shared_ptr<GuiSprite> Gui::AddSprite(int ID, int posx, int posy, std::shared_ptr<Sprite> sprite, float scalex, float scaley,
-	Color color, int group, int active)
+shared_ptr<GuiSprite> Gui::AddSprite(
+	int ID, int posx, int posy, std::shared_ptr<Sprite> sprite, float scalex, float scaley,
+	Color color, int group, int active
+)
 {
 	shared_ptr<GuiSprite> guiSprite = make_shared<GuiSprite>(this);
 	guiSprite->Init(ID, posx, posy, sprite, scalex, scaley, color, group, active);
@@ -281,41 +412,82 @@ shared_ptr<GuiSprite> Gui::AddSprite(int ID, int posx, int posy, std::shared_ptr
 	return guiSprite;
 }
 
-void Gui::AddOctagonBox(int ID, int posx, int posy, int width, int height, std::vector<std::shared_ptr<Sprite> > borders,
-	Color color, int group, int active)
+void Gui::AddOctagonBox(
+	int ID, int posx, int posy, int width, int height, std::vector<std::shared_ptr<Sprite>> borders,
+	Color color, int group, int active
+)
 {
 	shared_ptr<GuiOctagonBox> guiOctagonBox = make_shared<GuiOctagonBox>(this);
 	guiOctagonBox->Init(ID, posx, posy, width, height, borders, color, group, active);
 	m_GuiList[ID] = guiOctagonBox;
 }
 
-void Gui::AddStretchButton(int ID, int posx, int posy, int width, string label,
-	std::shared_ptr<Sprite> activeLeft, std::shared_ptr<Sprite> activeRight, std::shared_ptr<Sprite> activeCenter,
-	std::shared_ptr<Sprite> inactiveLeft, std::shared_ptr<Sprite> inactiveRight, std::shared_ptr<Sprite> inactiveCenter, int indent,
-	Color color, int group, int active, bool shadowed)
+void Gui::AddStretchButton(
+	int ID, int posx, int posy, int width, string label, std::shared_ptr<Sprite> activeLeft,
+	std::shared_ptr<Sprite> activeRight, std::shared_ptr<Sprite> activeCenter,
+	std::shared_ptr<Sprite> inactiveLeft, std::shared_ptr<Sprite> inactiveRight,
+	std::shared_ptr<Sprite> inactiveCenter, int indent, Color color, int group, int active,
+	bool shadowed
+)
 {
 	shared_ptr<GuiStretchButton> guiStretchButton = make_shared<GuiStretchButton>(this);
-	guiStretchButton->Init(ID, posx, posy, width, label, activeLeft, activeRight, activeCenter, inactiveLeft, inactiveRight, inactiveCenter, indent, color, group, active, shadowed);
+	guiStretchButton->Init(
+		ID,
+		posx,
+		posy,
+		width,
+		label,
+		activeLeft,
+		activeRight,
+		activeCenter,
+		inactiveLeft,
+		inactiveRight,
+		inactiveCenter,
+		indent,
+		color,
+		group,
+		active,
+		shadowed
+	);
 	m_GuiList[ID] = guiStretchButton;
 }
 
-void Gui::AddStretchButtonCentered(int ID, int posy, string label,
-	std::shared_ptr<Sprite> activeLeft, std::shared_ptr<Sprite> activeRight, std::shared_ptr<Sprite> activeCenter,
-	std::shared_ptr<Sprite> inactiveLeft, std::shared_ptr<Sprite> inactiveRight, std::shared_ptr<Sprite> inactiveCenter, int indent,
-	Color color, int group, int active, bool shadowed)
+void Gui::AddStretchButtonCentered(
+	int ID, int posy, string label, std::shared_ptr<Sprite> activeLeft,
+	std::shared_ptr<Sprite> activeRight, std::shared_ptr<Sprite> activeCenter,
+	std::shared_ptr<Sprite> inactiveLeft, std::shared_ptr<Sprite> inactiveRight,
+	std::shared_ptr<Sprite> inactiveCenter, int indent, Color color, int group, int active,
+	bool shadowed
+)
 {
 	float textWidth = MeasureText(label.c_str(), m_Font->baseSize / m_Scale);
 	float width = activeLeft->m_sourceRect.width + textWidth + activeRight->m_sourceRect.width;
 
-	int x = (m_Width - width) / 2;
+	int   x = (m_Width - width) / 2;
 
-	AddStretchButton(ID, x, posy, width, label, activeLeft, activeRight, activeCenter, inactiveLeft, inactiveRight, inactiveCenter, indent, color, group, active, shadowed);
+	AddStretchButton(
+		ID,
+		x,
+		posy,
+		width,
+		label,
+		activeLeft,
+		activeRight,
+		activeCenter,
+		inactiveLeft,
+		inactiveRight,
+		inactiveCenter,
+		indent,
+		color,
+		group,
+		active,
+		shadowed
+	);
 }
 
 std::string Gui::GetString(int ID)
 {
-	if (m_GuiList.find(ID) == m_GuiList.end())
-		return "";
+	if (m_GuiList.find(ID) == m_GuiList.end()) return "";
 
 	return m_GuiList[ID]->GetString();
 }
@@ -329,11 +501,10 @@ std::string Gui::GetString(int ID)
 void Gui::LoadTXT(std::string fileName)
 {
 	ifstream instream(fileName.c_str(), ios::in | ios::binary);
-	if (!instream.fail())  //  Open successful!
+	if (!instream.fail()) //  Open successful!
 	{
 
-		string line;
-
+		string       line;
 
 		stringstream parser;
 		instream >> m_GuiX;
@@ -354,7 +525,7 @@ void Gui::LoadTXT(std::string fileName)
 				line = line.substr(0, line.size() - 1);
 			}
 		}
-		//#endif  
+		//#endif
 
 		m_Font = make_shared<Font>(LoadFont(line.c_str()));
 
@@ -371,8 +542,7 @@ void Gui::LoadTXT(std::string fileName)
 					line = line.substr(0, line.size() - 1);
 				}
 			}
-			//#endif  
-
+			//#endif
 
 			if (line[0] != '#') //  If this line is not a comment
 			{
@@ -384,7 +554,7 @@ void Gui::LoadTXT(std::string fileName)
 				{
 				case GUI_ICONBUTTON:
 				{
-					int buttonid, active, group, tilex, tiley, posx, posy, width, height;
+					int    buttonid, active, group, tilex, tiley, posx, posy, width, height;
 					string Texture;
 					_LineData >> buttonid;
 					_LineData >> active;
@@ -411,7 +581,7 @@ void Gui::LoadTXT(std::string fileName)
 				}
 				break;
 
-				/*            case GUI_SCROLLBAR:
+					/*            case GUI_SCROLLBAR:
 				{
 				int buttonid, active, group, posx, posy, width, height, spurlocation, r, g, b, a;
 				string Texture;
@@ -460,9 +630,7 @@ void Gui::LoadTXT(std::string fileName)
 				}
 				break;*/
 
-
-
-				/*            case GUI_RADIOBUTTON:
+					/*            case GUI_RADIOBUTTON:
 				{
 				int buttonid, active, group, tilex, tiley, posx, posy, width, height, radiobuttongroup, set;
 				string Texture;
@@ -490,7 +658,7 @@ void Gui::LoadTXT(std::string fileName)
 
 				case GUI_PANEL:
 				{
-					int id, active, group, x, y, width, height, r, g, b, a;
+					int  id, active, group, x, y, width, height, r, g, b, a;
 					bool filled;
 					_LineData >> id;
 					_LineData >> active;
@@ -505,14 +673,26 @@ void Gui::LoadTXT(std::string fileName)
 					_LineData >> b;
 					_LineData >> a;
 					shared_ptr<GuiPanel> temp = make_shared<GuiPanel>(this);
-					temp->Init(id, x, y, width, height, Color{ static_cast<unsigned char>(r), static_cast<unsigned char>(g), static_cast<unsigned char>(b), static_cast<unsigned char>(a) });
+					temp->Init(
+						id,
+						x,
+						y,
+						width,
+						height,
+						Color{
+							static_cast<unsigned char>(r),
+							static_cast<unsigned char>(g),
+							static_cast<unsigned char>(b),
+							static_cast<unsigned char>(a)
+						}
+					);
 					m_GuiList[id] = temp;
 				}
 				break;
 
 				case GUI_TEXTAREA:
 				{
-					int id, active, group, x, y, r, g, b, a;
+					int    id, active, group, x, y, r, g, b, a;
 					string initialtext;
 					_LineData >> id;
 					_LineData >> active;
@@ -527,10 +707,24 @@ void Gui::LoadTXT(std::string fileName)
 					char _Buffer[256];
 					_LineData.get(_Buffer, 255, '\n');
 					initialtext = _Buffer;
-					initialtext.erase(0, 1);  //  Kill the leading space.
+					initialtext.erase(0, 1); //  Kill the leading space.
 
 					shared_ptr<GuiTextArea> temp = make_shared<GuiTextArea>(this);
-					temp->Init(id, m_Font.get(), initialtext, x, y, 0, 0, Color{ static_cast<unsigned char>(r), static_cast<unsigned char>(g), static_cast<unsigned char>(b), static_cast<unsigned char>(a) });
+					temp->Init(
+						id,
+						m_Font.get(),
+						initialtext,
+						x,
+						y,
+						0,
+						0,
+						Color{
+							static_cast<unsigned char>(r),
+							static_cast<unsigned char>(g),
+							static_cast<unsigned char>(b),
+							static_cast<unsigned char>(a)
+						}
+					);
 					m_GuiList[id] = temp;
 				}
 				break;
@@ -544,8 +738,7 @@ void Gui::HideGroup(int group)
 {
 	for (auto entry : m_GuiList)
 	{
-		if (entry.second->m_Group == group)
-			entry.second->m_Visible = false;
+		if (entry.second->m_Group == group) entry.second->m_Visible = false;
 	}
 }
 
@@ -553,8 +746,6 @@ void Gui::ShowGroup(int group)
 {
 	for (auto entry : m_GuiList)
 	{
-		if (entry.second->m_Group == group)
-			entry.second->m_Visible = true;
+		if (entry.second->m_Group == group) entry.second->m_Visible = true;
 	}
 }
-

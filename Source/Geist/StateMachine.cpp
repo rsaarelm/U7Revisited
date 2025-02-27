@@ -44,7 +44,6 @@ void StateMachine::Update()
 		case TT_POP:
 			PopStateEX();
 			break;
-
 		}
 		m_TransitionStack.pop_front();
 	}
@@ -73,14 +72,18 @@ void StateMachine::RegisterState(int id, State* state, string name)
 	}
 	else
 	{
-		throw("StateMachine: Attempt to register state using duplicate state identifier " + to_string(id));
+		throw(
+			"StateMachine: Attempt to register state using duplicate state identifier " +
+			to_string(id)
+		);
 	}
 }
 
 void StateMachine::MakeStateTransition(int newstate)
 {
 	m_TransitionStack.push_back(make_tuple(TT_STATE, newstate));
-	Log("StateMachine: Transitioning to state " + m_StateNames[newstate] + ", ID " + to_string(newstate));
+	Log("StateMachine: Transitioning to state " + m_StateNames[newstate] + ", ID " +
+		to_string(newstate));
 }
 
 void StateMachine::MakeStateTransitionEX(int newstate)
@@ -88,7 +91,10 @@ void StateMachine::MakeStateTransitionEX(int newstate)
 	if (m_StateStack.size() > 0 && get<1>(m_StateStack[0]) != ST_STATE)
 	{
 		//  The top state is a push state, we can't transition from it.
-		throw("StateMachine: Attempting to transition from a pushed state!  Current state ID: " + to_string(get<0>(m_StateStack[0])) + " Incoming state ID: " + to_string(newstate));
+		throw(
+			"StateMachine: Attempting to transition from a pushed state!  Current state ID: " +
+			to_string(get<0>(m_StateStack[0])) + " Incoming state ID: " + to_string(newstate)
+		);
 	}
 
 	if (m_StateMap.find(newstate) == m_StateMap.end())
@@ -118,7 +124,8 @@ void StateMachine::PushState(int newstate)
 
 void StateMachine::PushStateEX(int newstate)
 {
-	if (m_StateMap.find(newstate) != m_StateMap.end()) //  Does the new state exist in the state map?
+	if (m_StateMap.find(newstate) !=
+		m_StateMap.end()) //  Does the new state exist in the state map?
 	{
 		m_PreviousState = m_CurrentState;
 		m_CurrentState = newstate;
@@ -131,10 +138,7 @@ void StateMachine::PushStateEX(int newstate)
 	}
 }
 
-void StateMachine::PopState()
-{
-	m_TransitionStack.push_back(make_tuple(TT_POP, -1));
-}
+void StateMachine::PopState() { m_TransitionStack.push_back(make_tuple(TT_POP, -1)); }
 
 void StateMachine::PopStateEX()
 {
@@ -143,13 +147,17 @@ void StateMachine::PopStateEX()
 		if (get<1>(m_StateStack[0]) == ST_PUSHSTATE) //  Make sure we're popping a pushed state.
 		{
 			m_PreviousState = m_CurrentState;
-			m_StateMap[get<0>(m_StateStack[0])]->OnExit(); // Run the OnExit of the state we're popping.
+			m_StateMap[get<0>(m_StateStack[0])]->OnExit(
+			); // Run the OnExit of the state we're popping.
 			m_StateStack.pop_front();
 			m_CurrentState = get<0>(m_StateStack[0]);
 		}
 		else
 		{
-			throw("StateMachine: Attempting to pop a state that wasn't pushed!  State ID: " + to_string(get<0>(m_StateStack[0])));
+			throw(
+				"StateMachine: Attempting to pop a state that wasn't pushed!  State ID: " +
+				to_string(get<0>(m_StateStack[0]))
+			);
 		}
 	}
 }
@@ -173,7 +181,4 @@ State* StateMachine::GetState(int identifier)
 	}
 }
 
-int StateMachine::GetPreviousState()
-{
-	return m_PreviousState;
-}
+int StateMachine::GetPreviousState() { return m_PreviousState; }

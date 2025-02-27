@@ -18,9 +18,9 @@
 #ifndef _BASEUNITS_H_
 #define _BASEUNITS_H_
 
-#include <string>
-#include "raylib.h"
 #include "Object.h"
+#include "raylib.h"
+#include <string>
 
 class Config;
 
@@ -36,15 +36,14 @@ public:
 	virtual void Update();
 	virtual void Draw();
 
-	bool GetIsDead() { return m_IsDead; }
-	void SetIsDead(bool dead) { m_IsDead = dead; }
-	void SetPos(Vector2 newPos) { m_Pos = newPos; }
-	Vector2 GetPos() { return m_Pos; }
+	bool         GetIsDead() { return m_IsDead; }
+	void         SetIsDead(bool dead) { m_IsDead = dead; }
+	void         SetPos(Vector2 newPos) { m_Pos = newPos; }
+	Vector2      GetPos() { return m_Pos; }
 
 protected:
-
 	Vector2 m_Pos;
-	bool m_IsDead = false;
+	bool    m_IsDead = false;
 
 	Config* m_UnitConfig;
 };
@@ -61,15 +60,14 @@ public:
 	virtual void Update();
 	virtual void Draw();
 
-	bool GetIsDead() { return m_IsDead; }
-	void SetIsDead(bool dead) { m_IsDead = dead; }
-	Vector3 GetPos() { return m_Pos; }
-	void SetPos(Vector3 newpos) { m_Pos = newpos; }
+	bool         GetIsDead() { return m_IsDead; }
+	void         SetIsDead(bool dead) { m_IsDead = dead; }
+	Vector3      GetPos() { return m_Pos; }
+	void         SetPos(Vector3 newpos) { m_Pos = newpos; }
 
 protected:
-
 	Vector3 m_Pos;
-	bool m_IsDead = false;
+	bool    m_IsDead = false;
 
 	Config* m_UnitConfig;
 };

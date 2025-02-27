@@ -25,19 +25,19 @@
 class Particle2D
 {
 public:
-	Vector2 m_Pos;
-	Vector2 m_Speed;
-	float m_Scale = 1;
-	float m_Angle = 0;
-	float m_AngularVelocity = 0;
-	Color m_StartColor = WHITE;
-	Color m_EndColor = WHITE;
+	Vector2      m_Pos;
+	Vector2      m_Speed;
+	float        m_Scale = 1;
+	float        m_Angle = 0;
+	float        m_AngularVelocity = 0;
+	Color        m_StartColor = WHITE;
+	Color        m_EndColor = WHITE;
 	unsigned int m_Birth = 0;
 	unsigned int m_Age = 0;
 	unsigned int m_MaxAge = 1000;
-	bool m_IsDead = false;
-	bool m_Perturb;
-	int  m_Sprite;
+	bool         m_IsDead = false;
+	bool         m_Perturb;
+	int          m_Sprite;
 };
 
 class Emitter2D : public Unit2D
@@ -46,27 +46,34 @@ public:
 	Emitter2D() {};
 	virtual void Init() { Init(std::string("")); }
 	virtual void Init(const std::string& configfile);
-	void Shutdown();
-	void Update();
-	void Draw();
-	void Start(); //  Start this emitter emitting;
-	void Stop() { m_Started = false; } //  Stop the emitter.  It won't emit any more particles but particles already in existance will still be updated and drawn.
-	void AddSprite(std::shared_ptr<Sprite> sprite); // Adds a sprite to the list of sprites that can be used for this emitter. Adding a particle will choose a random sprite from the list.
+	void         Shutdown();
+	void         Update();
+	void         Draw();
+	void         Start(); //  Start this emitter emitting;
+	void         Stop()
+	{
+		m_Started = false;
+	} //  Stop the emitter.  It won't emit any more particles but particles already in existance will still be updated and drawn.
+	void AddSprite(std::shared_ptr<Sprite> sprite
+	); // Adds a sprite to the list of sprites that can be used for this emitter. Adding a particle will choose a random sprite from the list.
 	void AddParticle(Particle2D particle);
-	void AddParticle(Vector2 pos, Vector2 vel, unsigned int maxage, Color startcolor = WHITE,
-		Color endcolor = WHITE, float rotation = 0, float scale = 1);
-	void SetTexture(Texture* texture) { m_Texture = texture; }
-	void SetColorMask(Color color) { m_ColorMask = color; }
+	void AddParticle(
+		Vector2 pos, Vector2 vel, unsigned int maxage, Color startcolor = WHITE,
+		Color endcolor = WHITE, float rotation = 0, float scale = 1
+	);
+	void    SetTexture(Texture* texture) { m_Texture = texture; }
+	void    SetColorMask(Color color) { m_ColorMask = color; }
 	Vector2 m_DrawOffset; // Just in case our position doesn't match our screen coordinates.
 	std::vector<Particle2D> m_Particles;
+
 private:
-	std::vector<std::shared_ptr<Sprite> > m_Sprites;
+	std::vector<std::shared_ptr<Sprite>> m_Sprites;
 	Texture* m_Texture; // The same texture will be used for all particles from this emitter.
 
-	bool  m_Started;
-	bool  m_DieOnEmpty; // This emitter will be destroyed when all the particles in it have died.
-	RNG   m_RNG;
-	Color m_ColorMask = WHITE;
+	bool     m_Started;
+	bool     m_DieOnEmpty; // This emitter will be destroyed when all the particles in it have died.
+	RNG      m_RNG;
+	Color    m_ColorMask = WHITE;
 };
 
 /*class Emitter3D : public Unit
@@ -118,16 +125,16 @@ class ParticleSystem : public Object
 {
 public:
 	ParticleSystem() {};
-	void Init() { Init(std::string("")); }
-	void Init(const std::string& configfile);
-	void Shutdown();
-	void Update();
-	void Draw();
-	void AddEmitter(std::shared_ptr<Emitter2D> emitter);
-	std::vector<std::shared_ptr<Emitter2D> > m_Emitters;
-	void ClearEmitters() { m_Emitters.clear(); }
+	void                                    Init() { Init(std::string("")); }
+	void                                    Init(const std::string& configfile);
+	void                                    Shutdown();
+	void                                    Update();
+	void                                    Draw();
+	void                                    AddEmitter(std::shared_ptr<Emitter2D> emitter);
+	std::vector<std::shared_ptr<Emitter2D>> m_Emitters;
+	void                                    ClearEmitters() { m_Emitters.clear(); }
 
-	Vector2 m_Pos;
+	Vector2                                 m_Pos;
 };
 
 #endif

@@ -1,26 +1,22 @@
-#include <fstream>
 #include <cstring>
+#include <fstream>
 
+#include "Globals.h"
+#include "IO.h"
+#include "Primitives.h"
 #include "raylib.h"
 #include "raymath.h"
-#include "Primitives.h"
-#include "IO.h"
-#include "Globals.h"
 
 using namespace std;
-
 
 //--------------------------------------------------------------------------------------------
 
 void Sprite::Draw(float x, float y, Color tint)
 {
-	DrawTextureRec(*m_texture, m_sourceRect, Vector2{ float(x), float(y) }, tint);
+	DrawTextureRec(*m_texture, m_sourceRect, Vector2{float(x), float(y)}, tint);
 }
 
-void Sprite::Draw(Vector2 pos, Color tint)
-{
-	DrawTextureRec(*m_texture, m_sourceRect, pos, tint);
-}
+void Sprite::Draw(Vector2 pos, Color tint) { DrawTextureRec(*m_texture, m_sourceRect, pos, tint); }
 
 void Sprite::DrawScaled(Rectangle dest, Vector2 origin, float rotation, Color tint)
 {
@@ -43,7 +39,7 @@ void Tween::Update()
 	{
 	case MOVE_NORMAL:
 	{
-		Vector2 dir = Vector2Subtract(m_Dest, Vector2{ m_Pos.x, m_Pos.y });
+		Vector2 dir = Vector2Subtract(m_Dest, Vector2{m_Pos.x, m_Pos.y});
 		dir = Vector2Normalize(dir);
 
 		dir.x *= (m_Speed * GetFrameTime());
@@ -78,7 +74,7 @@ void Tween::Update()
 		m_Acceleration += m_AccelerationPerSecond * GetFrameTime();
 		m_Speed += m_Acceleration * GetFrameTime();
 
-		Vector2 dir = Vector2Subtract(m_Dest, Vector2{ m_Pos.x, m_Pos.y });
+		Vector2 dir = Vector2Subtract(m_Dest, Vector2{m_Pos.x, m_Pos.y});
 		dir = Vector2Normalize(dir);
 
 		dir.x *= (m_Speed * GetFrameTime());
@@ -88,9 +84,9 @@ void Tween::Update()
 
 		//  See if we've overshot on either x or y.
 		if (m_Pos.x < m_Dest.x && newPos.x > m_Dest.x || //  Overshot going right
-			m_Pos.x > m_Dest.x && newPos.x < m_Dest.x ||  //  Overshot going left
-			m_Pos.y < m_Dest.y && newPos.y > m_Dest.y ||  //  Overshot going down
-			m_Pos.y > m_Dest.y && newPos.y < m_Dest.y)    //  Overshot going up
+			m_Pos.x > m_Dest.x && newPos.x < m_Dest.x || //  Overshot going left
+			m_Pos.y < m_Dest.y && newPos.y > m_Dest.y || //  Overshot going down
+			m_Pos.y > m_Dest.y && newPos.y < m_Dest.y)   //  Overshot going up
 		{
 			//  Half the speed and reverse it.
 			m_Speed = -0.1f * m_Speed;
@@ -110,7 +106,7 @@ void Tween::Update()
 		m_Acceleration += m_AccelerationPerSecond * GetFrameTime();
 		m_Speed += m_Acceleration * GetFrameTime();
 
-		Vector2 dir = Vector2Subtract(m_Dest, Vector2{ m_Pos.x, m_Pos.y });
+		Vector2 dir = Vector2Subtract(m_Dest, Vector2{m_Pos.x, m_Pos.y});
 		dir = Vector2Normalize(dir);
 
 		dir.x *= (m_Speed * GetFrameTime());
@@ -120,9 +116,9 @@ void Tween::Update()
 
 		//  See if we've overshot on either x or y.
 		if (m_Pos.x < m_Dest.x && newPos.x > m_Dest.x || //  Overshot going right
-			m_Pos.x > m_Dest.x && newPos.x < m_Dest.x ||  //  Overshot going left
-			m_Pos.y < m_Dest.y && newPos.y > m_Dest.y ||  //  Overshot going down
-			m_Pos.y > m_Dest.y && newPos.y < m_Dest.y)    //  Overshot going up
+			m_Pos.x > m_Dest.x && newPos.x < m_Dest.x || //  Overshot going left
+			m_Pos.y < m_Dest.y && newPos.y > m_Dest.y || //  Overshot going down
+			m_Pos.y > m_Dest.y && newPos.y < m_Dest.y)   //  Overshot going up
 		{
 			if (m_OvershootCount == 0)
 			{
@@ -146,7 +142,7 @@ void Tween::Update()
 
 	case MOVE_EASING:
 	{
-		Vector2 dir = Vector2Subtract(m_Dest, Vector2{ m_Pos.x, m_Pos.y });
+		Vector2 dir = Vector2Subtract(m_Dest, Vector2{m_Pos.x, m_Pos.y});
 		dir = Vector2Normalize(dir);
 
 		//  Get distance ratio to target
@@ -201,20 +197,11 @@ void MobileSprite::Init(Sprite sprite, Vector2 start, Vector2 dest, float speed,
 	m_Sprite = make_shared<Sprite>(sprite);
 }
 
-void MobileSprite::Update()
-{
-	Tween::Update();
-}
+void MobileSprite::Update() { Tween::Update(); }
 
-void MobileSprite::Draw()
-{
-	m_Sprite->Draw(m_Pos.x, m_Pos.y);
-}
+void MobileSprite::Draw() { m_Sprite->Draw(m_Pos.x, m_Pos.y); }
 
-void Animation::Update()
-{
-	m_ElapsedTime += static_cast<int>(GetFrameTime() * 1000);
-}
+void Animation::Update() { m_ElapsedTime += static_cast<int>(GetFrameTime() * 1000); }
 
 void Animation::Play(std::string anim, int starttime, int elapsedtime)
 {
@@ -238,7 +225,9 @@ void Animation::Play(std::string anim, int starttime, int elapsedtime)
 }
 
 //  For this version to work, all the frames must be on the same horizontal line in the texture.
-void Animation::AddFrames(Texture* texture, int posx, int posy, int width, int height, int numFrames)
+void Animation::AddFrames(
+	Texture* texture, int posx, int posy, int width, int height, int numFrames
+)
 {
 	for (int i = 0; i < numFrames; ++i)
 	{
@@ -246,7 +235,9 @@ void Animation::AddFrames(Texture* texture, int posx, int posy, int width, int h
 	}
 }
 
-void Animation::AddFramesSpaced(Texture* texture, int posx, int posy, int width, int height, int numFrames, int xstep)
+void Animation::AddFramesSpaced(
+	Texture* texture, int posx, int posy, int width, int height, int numFrames, int xstep
+)
 {
 	for (int i = 0; i < numFrames; ++i)
 	{
@@ -254,7 +245,9 @@ void Animation::AddFramesSpaced(Texture* texture, int posx, int posy, int width,
 	}
 }
 
-void Animation::AddAnim(std::string name, std::initializer_list<int> frames, int frameRate, bool looping)
+void Animation::AddAnim(
+	std::string name, std::initializer_list<int> frames, int frameRate, bool looping
+)
 {
 	Anim temp(frames, frameRate, looping);
 	temp.m_MSPerFrame = 1000 / frameRate;
@@ -279,21 +272,19 @@ shared_ptr<Sprite> Animation::GetFrame(int frame)
 	return m_Frames[m_Anims[m_CurrentAnim].m_FrameOrder[frame]];
 }
 
-shared_ptr<Sprite> Animation::GetRawFrame(int frame)
-{
-	return m_Frames[frame];
-}
+shared_ptr<Sprite> Animation::GetRawFrame(int frame) { return m_Frames[frame]; }
 
-int Animation::GetCurrentFrameNumber()
+int                Animation::GetCurrentFrameNumber()
 {
 	Anim& thisAnim = m_Anims[m_CurrentAnim];
 
-	int thisFrame = m_ElapsedTime / thisAnim.m_MSPerFrame;
+	int   thisFrame = m_ElapsedTime / thisAnim.m_MSPerFrame;
 	if (thisAnim.m_Looping == false)
 	{
 		if (thisFrame > (int)m_Anims[m_CurrentAnim].m_FrameOrder.size() - 1)
 		{
-			thisFrame = (int)m_Anims[m_CurrentAnim].m_FrameOrder.size() - 1; // Hold on last frame if we're not looping.
+			thisFrame = (int)m_Anims[m_CurrentAnim].m_FrameOrder.size() -
+				1; // Hold on last frame if we're not looping.
 			m_Done = true;
 		}
 	}
@@ -314,15 +305,16 @@ void Animation::Save(ostream& stream)
 void Animation::Load(istream& stream)
 {
 	std::string currentAnim;
-	int elapsedTime;
+	int         elapsedTime;
 	IO::Serialize(stream, currentAnim);
 	IO::Serialize(stream, elapsedTime);
 	Play(currentAnim, int(GetTime() * 1000), elapsedTime);
 }
 
-Vertex CreateVertex(float inx, float iny, float inz,
-	float inr, float ing, float inb, float ina,
-	float inu, float inv)
+Vertex CreateVertex(
+	float inx, float iny, float inz, float inr, float ing, float inb, float ina, float inu,
+	float inv
+)
 {
 	Vertex out;
 	out.x = inx;
@@ -338,9 +330,7 @@ Vertex CreateVertex(float inx, float iny, float inz,
 	return out;
 }
 
-Vertex CreateVertex(float inx, float iny, float inz,
-	Color color,
-	float inu, float inv)
+Vertex CreateVertex(float inx, float iny, float inz, Color color, float inu, float inv)
 {
 	Vertex out;
 	out.x = inx;
@@ -356,9 +346,9 @@ Vertex CreateVertex(float inx, float iny, float inz,
 	return out;
 }
 
-Vertex2D CreateVertex2D(float inx, float iny, float inr,
-	float ing, float inb, float ina, float inu,
-	float inv)
+Vertex2D CreateVertex2D(
+	float inx, float iny, float inr, float ing, float inb, float ina, float inu, float inv
+)
 {
 	Vertex2D out;
 	out.x = inx;
@@ -391,7 +381,7 @@ SpriteSheet::SpriteSheet(Texture* texture, int columns, int rows)
 {
 	m_Texture = texture;
 
-	vector<Vertex> vertices;
+	vector<Vertex>       vertices;
 	vector<unsigned int> indices;
 
 	m_Columns = columns;
@@ -404,7 +394,9 @@ SpriteSheet::SpriteSheet(Texture* texture, int columns, int rows)
 
 void SpriteSheet::DrawSprite(int spritex, int spritey, int posx, int posy)
 {
-	Sprite temp(m_Texture, spritex * m_ColumnWidth, spritey * m_RowHeight, m_ColumnWidth, m_RowHeight);
+	Sprite temp(
+		m_Texture, spritex * m_ColumnWidth, spritey * m_RowHeight, m_ColumnWidth, m_RowHeight
+	);
 	temp.Draw(float(posx), float(posy));
 }
 
@@ -444,10 +436,7 @@ void ModTexture::MoveImageColumnDown(int column)
 	}
 }
 
-void ModTexture::UpdateTexture()
-{
-	m_Texture = LoadTextureFromImage(m_Image);
-}
+void ModTexture::UpdateTexture() { m_Texture = LoadTextureFromImage(m_Image); }
 
 void ModTexture::AssignImage(char* image)
 {
@@ -476,7 +465,7 @@ void ModTexture::ResizeImage(float newWidth, float newHeight)
 		return;
 	}
 
-	m_Image = ImageFromImage(m_Image, Rectangle{ 0, 0, newWidth, newHeight });
+	m_Image = ImageFromImage(m_Image, Rectangle{0, 0, newWidth, newHeight});
 }
 
 void ModTexture::Reset()
