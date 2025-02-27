@@ -1,3 +1,4 @@
+[![CI Ubuntu][ubuntu-badge]][ubuntu-url]
 
 # Ultima VII: Revisited
 
@@ -40,3 +41,7 @@ The best way to give feedback is to send it to my email address anthony.salter@g
 the subject line.
 
 Have fun, and Rule Britannia.
+
+[ubuntu-badge]: https://img.shields.io/github/actions/workflow/status/rsaarelm/U7Revisited/ci-linux.yml?label=CI%20Ubuntu&logo=Ubuntu&logoColor=white
+
+[ubuntu-url]:           https://github.com/rsaarelm/U7Revisited/actions/workflows/ci-linux.yml
