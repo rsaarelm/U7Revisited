@@ -1,0 +1,28 @@
+UseTab: ForContinuationAndIndentation
+TabWidth: 4
+IndentWidth: 4
+ColumnLimit: 100
+
+BreakBeforeBraces: Allman
+PointerAlignment: Left
+# Don't indent public:, private:
+AccessModifierOffset: -4
+# Align both types and variable names of member vars into columns.
+AlignConsecutiveDeclarations:
+  Enabled: true
+  AcrossEmptyLines: true
+  # FIXME: This needs clang-format 0.20 and I don't have it yet
+  #AlignFunctionDeclarations: false
+AllowShortIfStatementsOnASingleLine: true
+
+# Disallow stuff that assumes a specific indentation width since we're using
+# tabs to indent.
+AlignAfterOpenBracket: BlockIndent
+AlignOperands: DontAlign
+AllowAllParametersOfDeclarationOnNextLine: true
+
+# Don't touch comments
+ReflowComments: false
+
+# Seems to lead to wonky results if enabled.
+BinPackArguments: false
