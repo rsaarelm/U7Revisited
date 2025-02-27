@@ -1,0 +1,17 @@
+TabWidth: 4
+IndentWidth: 4
+ColumnLimit: 80
+
+PointerAlignment: Left
+# Don't indent public:, private:
+AccessModifierOffset: -3
+# Align both types and variable names of member vars into columns.
+AlignConsecutiveDeclarations:
+  Enabled: true
+  AcrossEmptyLines: true
+  AcrossComments: true
+  # FIXME: This needs clang-format 0.20 and I don't have it yet
+  #AlignFunctionDeclarations: false
+
+InsertNewlineAtEOF: true
+SpacesBeforeTrailingComments: 2
