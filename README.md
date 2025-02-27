@@ -1,4 +1,5 @@
 [![CI Ubuntu][ubuntu-badge]][ubuntu-url]
+[![CI Windows MSVC][win-msvc-badge]][win-msvc-url]
 
 # Ultima VII: Revisited
 
@@ -42,6 +43,8 @@ the subject line.
 
 Have fun, and Rule Britannia.
 
-[ubuntu-badge]: https://img.shields.io/github/actions/workflow/status/rsaarelm/U7Revisited/ci-linux.yml?label=CI%20Ubuntu&logo=Ubuntu&logoColor=white
+[ubuntu-badge]:   https://img.shields.io/github/actions/workflow/status/rsaarelm/U7Revisited/ci-linux.yml?label=CI%20Ubuntu&logo=Ubuntu&logoColor=white
+[win-msvc-badge]: https://img.shields.io/github/actions/workflow/status/rsaarelm/U7Revisited/ci-windows.yml?label=CI%20Windows%2FMSVC&logo=Windows&logoColor=white
 
-[ubuntu-url]:           https://github.com/rsaarelm/U7Revisited/actions/workflows/ci-linux.yml
+[ubuntu-url]:   https://github.com/rsaarelm/U7Revisited/actions/workflows/ci-linux.yml
+[win-msvc-url]: https://github.com/rsaarelm/U7Revisited/actions/workflows/ci-windows.yml
