@@ -2,84 +2,79 @@
 #define _MainState_H_
 
 #include "Geist/State.h"
-#include <list>
-#include <deque>
 #include <array>
+#include <deque>
+#include <list>
 #include <math.h>
 
 class ParticleSystem;
 class Gui;
 class GuiElement;
 
-class MainState : public State
-{
-public:
-   MainState(){};
-   ~MainState();
+class MainState : public State {
+ public:
+    MainState() {};
+    ~MainState();
 
+    virtual void                           Init(const std::string& configfile);
+    virtual void                           Shutdown();
+    virtual void                           Update();
+    virtual void                           Draw();
 
-   virtual void Init(const std::string& configfile);
-   virtual void Shutdown();
-   virtual void Update();
-   virtual void Draw();
+    virtual void                           OnEnter();
+    virtual void                           OnExit();
 
-   virtual void OnEnter();
-   virtual void OnExit();
-   
-   void SetupGame();
+    void                                   SetupGame();
 
+    Gui*                                   m_Gui;
+    Gui*                                   m_SpellsPanel;
+    Gui*                                   m_ArmyPanel;
 
-   
-   Gui* m_Gui;
-   Gui* m_SpellsPanel;
-   Gui* m_ArmyPanel;
-   
-   Gui* m_OptionsGui;
+    Gui*                                   m_OptionsGui;
 
-   Gui* m_toolTipGui;
-   
-   GuiElement* m_ManaBar;
+    Gui*                                   m_toolTipGui;
 
-   float m_LastUpdate;
-   
-   int m_NumberOfVisibleUnits;
-   
-   int m_GuiMode;
-   
-   bool m_DrawMarker;
-   float m_MarkerRadius;
-   
-   ParticleSystem* m_Particles;
-   
-//   SDL_Rect** m_Resolutions;
-//   int m_CurrentRes;
-   
-   // Game options
-   unsigned int m_NumberOfPlayers;
-   unsigned int m_PlayerID;
-   unsigned int m_GameType;
-   unsigned int m_RNGSeed;
-   
-   //Texture* m_TerrainTexture;
-   Texture* m_Minimap;
-   Texture* m_MinimapArrow;
-   
+    GuiElement*                            m_ManaBar;
 
-   bool m_showObjects;
+    float                                  m_LastUpdate;
 
-   int m_numberofDrawnUnits = 0;
+    int                                    m_NumberOfVisibleUnits;
 
-   int m_cameraUpdateTime = 0;
+    int                                    m_GuiMode;
 
-   int m_terrainUpdateTime = 0;
+    bool                                   m_DrawMarker;
+    float                                  m_MarkerRadius;
 
-   unsigned int m_terrainDrawHeight = 0;
+    ParticleSystem*                        m_Particles;
 
-   std::vector<std::shared_ptr<U7Object>> m_sortedVisibleObjects;
+    //   SDL_Rect** m_Resolutions;
+    //   int m_CurrentRes;
 
-   unsigned int m_selectedObject = 0;
+    // Game options
+    unsigned int                           m_NumberOfPlayers;
+    unsigned int                           m_PlayerID;
+    unsigned int                           m_GameType;
+    unsigned int                           m_RNGSeed;
 
-   float m_heightCutoff = 4.0f;
+    // Texture* m_TerrainTexture;
+    Texture*                               m_Minimap;
+    Texture*                               m_MinimapArrow;
+
+    bool                                   m_showObjects;
+
+    int                                    m_numberofDrawnUnits = 0;
+
+    int                                    m_cameraUpdateTime = 0;
+
+    int                                    m_terrainUpdateTime = 0;
+
+    unsigned int                           m_terrainDrawHeight = 0;
+
+    std::vector<std::shared_ptr<U7Object>> m_sortedVisibleObjects;
+
+    unsigned int                           m_selectedObject = 0;
+
+    float                                  m_heightCutoff = 4.0f;
 };
 
 #endif
