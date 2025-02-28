@@ -410,17 +410,6 @@ void GuiScrollBar::Draw() {
             m_Gui->m_Pos.x + (m_Pos.x + xmiddle + xright),
             m_Gui->m_Pos.y + (m_Pos.y), m_Gui->m_Scale, m_Gui->m_Scale});
 
-        // int debugadjustedx = m_Gui->m_GuiX + (m_Pos.x);
-        // int debugadjustedy = int(m_Gui->m_Pos.y + (float(m_Pos.y)) +
-        // (float(m_Height) / 2.0f) - (float(spur->m_sourceRect.height)
-        // / 2.0f));
-
-        // int debugadjustedw = m_Width;
-        // int debugadjustedh = m_SpurActive->m_sourceRect.height;
-
-        // DrawRectangle(debugadjustedx, debugadjustedy, debugadjustedw,
-        // debugadjustedh, Color(1, 0, 0, .5), true);
-
         spur->DrawScaled(Rectangle{
             m_Gui->m_Pos.x +
                 ((m_Pos.x - (float(spur->m_sourceRect.width) / 2))) +
@@ -985,9 +974,6 @@ void GuiTextArea::Draw() {
                               m_Gui->m_fontSize, 1)
                     .x;
 
-            // DrawRectangle(int(m_Gui->m_Pos.x + ((m_Pos.x + (m_Width / 2)))) -
-            // (m_Width / 2), int(m_Gui->m_Pos.y + (m_Pos.y)), m_Width,
-            // m_Font->height, Color(.5, 0, 0, .75), true);
             if (m_Shadowed)
                 DrawStringCentered(
                     m_Font, m_Font->baseSize, m_String,
@@ -1002,16 +988,6 @@ void GuiTextArea::Draw() {
                 MeasureTextEx(*m_Gui->m_Font.get(), m_String.c_str(),
                               m_Gui->m_fontSize, 1)
                     .x;
-
-            // DrawRectangle(int(m_Gui->m_Pos.x + ((m_Pos.x + (m_Width / 2))) -
-            // textlength / 2), int(m_Gui->m_Pos.y + (m_Pos.y)), m_Width,
-            // m_Font->height, Color(.5, 0, 0, .75), true); if (m_Shadowed)
-            //	m_Font->DrawParagraphCentered(m_String, int(m_Gui->m_Pos.x +
-            //((m_Pos.x + (m_Width / 2)))), int(m_Gui->m_Pos.y + (m_Pos.y)),
-            //m_Width, m_Font->height, Color{ 0, 0, 0, 255 });
-            // m_Font->DrawParagraphCentered(m_String, int(m_Gui->m_Pos.x +
-            // ((m_Pos.x + (m_Width / 2)))), int(m_Gui->m_Pos.y + (m_Pos.y)),
-            // m_Width, m_Font->height, m_Color);
         }
     } else {
         if (m_Width ==
@@ -1021,8 +997,6 @@ void GuiTextArea::Draw() {
                 MeasureTextEx(*m_Gui->m_Font.get(), m_String.c_str(),
                               m_Font->baseSize, 1)
                     .x;
-            // DrawRectangle(int(m_Gui->m_Pos.x + (m_Pos.x)), int(m_Gui->m_Pos.y
-            // + (m_Pos.y)), textWidth, m_Height, Color(.5, 0, 0, .75), true);
             if (m_Shadowed)
                 DrawTextEx(*m_Gui->m_Font.get(), m_String.c_str(),
                            Vector2{m_Gui->m_Pos.x + ((m_Pos.x + 2)),
@@ -1034,14 +1008,6 @@ void GuiTextArea::Draw() {
                 m_Font->baseSize, 1, m_Color);
         } else {
             int height = m_Gui->m_fontSize;
-            // DrawRectangle(int(m_Gui->m_Pos.x + (m_Pos.x)), int(m_Gui->m_Pos.y
-            // + (m_Pos.y)), m_Width, height, Color(.5, 0, 0, .75), true); if
-            // (m_Shadowed) 	m_Font->DrawParagraph(m_String, int(m_Gui->m_Pos.x +
-            //((m_Pos.x + 2))), int(m_Gui->m_Pos.y + ((m_Pos.y + 2))), m_Width,
-            //m_Height, Color{ 0, 0, 0, 255 }, m_Gui->m_Scale);
-            // m_Font->DrawParagraph(m_String, int(m_Gui->m_Pos.x + (m_Pos.x)),
-            // int(m_Gui->m_Pos.y + (m_Pos.y)), m_Width, m_Height, m_Color,
-            // m_Gui->m_Scale);
         }
     }
 };
@@ -1282,19 +1248,6 @@ void GuiStretchButton::Draw() {
                            m_Gui->m_Pos.y + m_Pos.y},
                    m_Gui->m_fontSize, 1, WHITE);
     } else if (m_Hovered || m_Down || m_Clicked) {
-        if (m_Shadowed) {
-            // m_ActiveLeft->DrawScaled(Rectangle{ m_Gui->m_Pos.x + ((m_Pos.x +
-            // 3)), m_Gui->m_Pos.y + ((m_Pos.y + 3)), m_Gui->m_Scale,
-            // m_Gui->m_Scale }, Vector2{ 0, 0 }, 0, Color{ 0, 0, 0, 255 });
-            // m_ActiveCenter->DrawScaled(Rectangle{ m_Gui->m_Pos.x + ((m_Pos.x
-            // + 3 + xmiddle)) - 1, m_Gui->m_Pos.y + ((m_Pos.y + 3)), ((xright +
-            // 3) / m_InactiveCenter->m_sourceRect.width), m_Gui->m_Scale },
-            // Vector2{ 0, 0 }, 0, Color{ 0, 0, 0, 255 });
-            // m_ActiveRight->DrawScaled(Rectangle{ m_Gui->m_Pos.x + (m_Pos.x +
-            // 3 + xmiddle + xright), m_Gui->m_Pos.y + ((m_Pos.y + 3)),
-            // m_Gui->m_Scale, m_Gui->m_Scale }, Vector2{ 0, 0 }, 0, Color{ 0,
-            // 0, 0, 255 });
-        }
         if (m_Down) {
             m_ActiveLeft->DrawScaled(
                 Rectangle{(m_Gui->m_Pos.x + m_Pos.x + offset),
@@ -1311,21 +1264,6 @@ void GuiStretchButton::Draw() {
                 (m_Gui->m_Pos.y + m_Pos.y + offset),
                 m_ActiveRight->m_sourceRect.width * m_Gui->m_Scale,
                 m_ActiveRight->m_sourceRect.height * m_Gui->m_Scale});
-
-            // m_ActiveLeft->DrawScaled(Rectangle{ (m_Gui->m_Pos.x + m_Pos.x +
-            // offset), (m_Gui->m_Pos.y + m_Pos.y + offset),
-            //	m_ActiveLeft->m_sourceRect.width,
-            //m_ActiveLeft->m_sourceRect.height }, Vector2{ 0, 0 }, 0.0f, Color{
-            //128, 128, 128, 255 }); m_ActiveCenter->DrawScaled(Rectangle{
-            // (m_Gui->m_Pos.x + m_Pos.x + xmiddle + offset), (m_Gui->m_Pos.y +
-            // m_Pos.y + offset), 	centerWidth,
-            //m_ActiveCenter->m_sourceRect.height }, Vector2{ 0, 0 }, 0.0f,
-            //Color{ 128, 128, 128, 255 }); m_ActiveRight->DrawScaled(Rectangle{
-            // (m_Gui->m_Pos.x + m_Pos.x + xmiddle + xright + offset),
-            // (m_Gui->m_Pos.y + m_Pos.y + offset),
-            //	m_ActiveRight->m_sourceRect.width,
-            //m_ActiveRight->m_sourceRect.height }, Vector2{ 0, 0 }, 0.0f,
-            //Color{ 128, 128, 128, 255 });
         } else {
             m_ActiveLeft->DrawScaled(Rectangle{
                 (m_Gui->m_Pos.x + m_Pos.x), (m_Gui->m_Pos.y + m_Pos.y),
