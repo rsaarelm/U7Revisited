@@ -2,5 +2,5 @@
 # www.blender.org
 
 newmtl Bench
-map_Kd Models/3dmodels/bench_texture_atlas.png
+map_Kd bench_texture_atlas.png
 newmtl none
