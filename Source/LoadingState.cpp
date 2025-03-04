@@ -897,13 +897,9 @@ void LoadingState::LoadModels()
 			continue;
 
 		//Try to open model file
-		std::string objPath = "Models/3dmodels/" + m_Filename + std::string(".obj");
-		std::string mtlPath = "Models/3dmodels/" + m_Filename + std::string(".mtl");
+		std::string objPath = "Models/3dmodels/" + m_Filename + std::string(".glb");
 
 		Model model = LoadModel(objPath.c_str());
-		int materialCount = 0;
-		Material* material = LoadMaterials(mtlPath.c_str(), &materialCount); // Load material
-		model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = material[0].maps[0].texture;            // Set map diffuse texture
 
 		g_ResourceManager->AddModel(model, objPath);
 	}
