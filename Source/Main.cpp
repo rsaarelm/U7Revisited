@@ -34,6 +34,10 @@ using namespace std;
 
 int main(int argv, char** argc)
 {
+    // Less noise on release builds
+#ifndef NDEBUG
+    SetTraceLogLevel(LOG_ERROR);
+#endif
     SetTraceLogCallback(LoggingCallback);
 
    try
