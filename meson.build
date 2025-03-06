@@ -50,3 +50,9 @@ executable('U7Revisited',
 
   dependencies: deps,
 )
+
+executable('model-viewer',
+  'Examples/ModelViewer.cpp',
+
+  dependencies: deps,
+)
