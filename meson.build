@@ -56,3 +56,7 @@ executable('model-viewer',
 
   dependencies: deps,
 )
+
+executable('object-database',
+  'Examples/ObjectDatabase.cpp',
+)
