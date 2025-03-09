@@ -107,9 +107,9 @@
 
 human("mage-male", 154); alt(445);
 
-human("ferryman", 155);
+human("ferryman", 155); alt(952);
 
-prop("axle-stand", 158, 0); east(158, 1);
+prop("shaft-stand", 158, 1); east(158, 0);
 
 prop("stand-cylinder", 158, 2);
 
@@ -147,9 +147,9 @@ tree("dead-tree-6", 185, 6);
 // I just like it as the definitive full-block-cube obj.
 prop("fortress", 191);
 
-prop("knights-bridge-piece-0", 194, 0);
-prop("knights-bridge-piece-1", 194, 1);
-prop("knights-bridge-piece-2", 194, 2);
+prop("statue-knight-0", 194, 0); alt(854, 10);
+prop("statue-gargoyle"); north(194, 1); alt(854, 11);
+prop("knights-bridge-chest", 194, 2);
 
 prop("mountain-corner-0", 195, 4); north(195, 0); east(195, 2); west(195, 6);
 prop("mountain-corner-1", 195, 5); north(195, 1); east(195, 3); west(195, 6);
@@ -228,6 +228,11 @@ prop("crossbeam", 277); east(276);
 
 weapon("musket", 278);
 
+prop("painting-0", 282, 0); east(821, 0);
+prop("painting-1", 282, 1); east(821, 1);
+prop("painting-2", 282, 2); east(821, 2);
+prop("painting-3", 282, 3); east(821, 3);
+
 prop("desk", 407, 0); north(407, 1); east(283, 0); west(283, 1);
 
 prop("sundial", 284);
@@ -245,6 +250,15 @@ prop("skull-throne", 292, 22); extend(1, 0, 0, 897, 1);
 
 prop("gray-seat", 292, 30); north(292, 28); east(292, 29); west(292, 31);
 // TODO: Figure out the partial bench parts.
+
+prop("tapestry-0", 849, 0); east(293, 0);
+prop("tapestry-1", 849, 1); east(293, 1);
+prop("tapestry-2", 849, 2); east(293, 2);
+prop("tapestry-3", 849, 3); east(293, 3);
+prop("tapestry-4", 849, 4); east(293, 4);
+prop("tapestry-5", 849, 5); east(293, 5);
+prop("tapestry-6", 849, 6); east(293, 6);
+prop("tapestry-7", 849, 7); east(293, 7);
 
 item("wedding-ring", 295);
 item("ring-of-invisibility", 296);
@@ -428,7 +442,7 @@ rock("rock-12", 331, 12);
 tree("tree-9", 332, 0);
 tree("tree-10", 332, 1);
 
-prop("table-0", 333);
+prop("table-0", 333); east(1002, 0);
 
 item("light-source-0", 336, 0);
 item("light-source-1", 336, 1);
@@ -767,30 +781,17 @@ plant("crops-25", 423, 25);
 plant("crops-26", 423, 26);
 plant("crops-27", 423, 27);
 
-// Should these be joined into one red-stairs and black-stairs object?
-prop("red-carpet-stairs-left-0", 426, 2);
-prop("red-carpet-stairs-left-1", 427, 2);
-prop("red-carpet-stairs-left-2", 428, 2);
-prop("red-carpet-stairs-left-3", 429, 2);
-prop("red-carpet-stairs-left-4", 430, 2);
+prop("red-carpet-stairs-0", 426, 2); extend(3, 0, 0, 426, 3);
+prop("red-carpet-stairs-1", 427, 2); extend(3, 0, 0, 427, 3);
+prop("red-carpet-stairs-2", 428, 2); extend(3, 0, 0, 428, 3);
+prop("red-carpet-stairs-3", 429, 2); extend(3, 0, 0, 429, 3);
+prop("red-carpet-stairs-4", 430, 2); extend(3, 0, 0, 430, 3);
 
-prop("red-carpet-stairs-right-0", 426, 3);
-prop("red-carpet-stairs-right-1", 427, 3);
-prop("red-carpet-stairs-right-2", 428, 3);
-prop("red-carpet-stairs-right-3", 429, 3);
-prop("red-carpet-stairs-right-4", 430, 3);
-
-prop("black-carpet-stairs-left-0", 426, 4);
-prop("black-carpet-stairs-left-1", 427, 4);
-prop("black-carpet-stairs-left-2", 428, 4);
-prop("black-carpet-stairs-left-3", 429, 4);
-prop("black-carpet-stairs-left-4", 430, 4);
-
-prop("black-carpet-stairs-right-0", 426, 5);
-prop("black-carpet-stairs-right-1", 427, 5);
-prop("black-carpet-stairs-right-2", 428, 5);
-prop("black-carpet-stairs-right-3", 429, 5);
-prop("black-carpet-stairs-right-4", 430, 5);
+prop("black-carpet-stairs-0", 426, 4); extend(3, 0, 0, 426, 5);
+prop("black-carpet-stairs-1", 427, 4); extend(3, 0, 0, 427, 5);
+prop("black-carpet-stairs-2", 428, 4); extend(3, 0, 0, 428, 5);
+prop("black-carpet-stairs-3", 429, 4); extend(3, 0, 0, 429, 5);
+prop("black-carpet-stairs-4", 430, 4); extend(3, 0, 0, 430, 5);
 
 prop("bellows-0", 431, 0, 2);
 prop("bellows-1", 431, 3, 5);
@@ -965,19 +966,19 @@ creature("reaper", 524);
 
 creature("sea-serpent", 525);
 
-prop("lit-lamp-0", 526, 0); east(525, 1);
-prop("lit-lamp-1", 526, 2);
-prop("lit-lamp-2", 526, 3);
-prop("lit-lamp-3", 526, 4);
-prop("lit-lamp-4", 526, 5);
-prop("lit-lamp-5", 526, 6);
-prop("lit-lamp-6", 526, 7);
-prop("lit-lamp-7", 526, 8);
-prop("lit-lamp-8", 526, 9);
-prop("lit-lamp-9", 526, 10);
-prop("lit-lamp-10", 526, 11);
-prop("lit-lamp-11", 526, 12);
-prop("lit-lamp-12", 526, 13);
+prop("lamp-post-lit-0", 526, 0); east(526, 1);
+prop("lamp-post-lit-1", 526, 2);
+prop("lamp-post-lit-2", 526, 3);
+prop("lamp-post-lit-3", 526, 4);
+prop("lamp-post-lit-4", 526, 5);
+prop("lamp-post-lit-5", 526, 6);
+prop("lamp-post-lit-6", 526, 7);
+prop("lamp-post-lit-7", 526, 8);
+prop("lamp-post-lit-8", 526, 9);
+prop("lamp-post-lit-9", 526, 10);
+prop("lamp-post-lit-10", 526, 11);
+prop("lamp-post-lit-11", 526, 12);
+prop("lamp-post-lit-12", 526, 13);
 
 human("skeleton", 528);
 
@@ -1524,25 +1525,25 @@ item("whistle-0", 693, 0);
 item("whistle-1", 693, 1);
 item("whistle-2", 693, 2);
 
-prop("bed-0"); east(696, 0);
-prop("bed-1"); east(696, 1);
-prop("bed-2"); east(696, 2);
-prop("bed-3"); east(696, 3);
-prop("bed-4"); east(696, 5);
-prop("bed-5"); east(696, 7);
-prop("bed-6"); east(696, 9);
-prop("bed-7"); east(696, 11);
-prop("bed-8"); east(696, 13);
-prop("bed-9"); east(696, 15);
+prop("bed-0", 1011, 0); east(696, 0);
+prop("bed-1", 1011, 1); east(696, 1);
+prop("bed-2", 1011, 2); east(696, 2);
+prop("bed-3", 1011, 3); east(696, 3);
+prop("bed-4", 1011, 5); east(696, 5);
+prop("bed-5", 1011, 7); east(696, 7);
+prop("bed-6", 1011, 9); east(696, 9);
+prop("bed-7", 1011, 11); east(696, 11);
+prop("bed-8", 1011, 13); east(696, 13);
+prop("bed-9", 1011, 15); east(696, 15);
 
 // Numbered after the bed prop it matches.
-prop("bedsheet-3"); east(696, 4);
-prop("bedsheet-4"); east(696, 6);
-prop("bedsheet-5"); east(696, 8);
-prop("bedsheet-6"); east(696, 10);
-prop("bedsheet-7"); east(696, 12);
-prop("bedsheet-8"); east(696, 14);
-prop("bedsheet-9"); east(696, 16);
+prop("bedsheet-3", 1011, 4); east(696, 4);
+prop("bedsheet-4", 1011, 6); east(696, 6);
+prop("bedsheet-5", 1011, 8); east(696, 8);
+prop("bedsheet-6", 1011, 10); east(696, 10);
+prop("bedsheet-7", 1011, 12); east(696, 12);
+prop("bedsheet-8", 1011, 14); east(696, 14);
+prop("bedsheet-9", 1011, 16); east(696, 16);
 
 prop("podium", 697, 3); west(697, 0); east(697, 1); north(697, 2);
 
@@ -1797,6 +1798,496 @@ item("unsealed-box", 799);
 
 item("chest", 800, 0); east(800, 1);
 
-// Here's one with vertical offset
-tree("tree-top", 826, 1);
-extend(0, 0, -5, 826, 0);
+item("backpack", 801);
+
+item("bag", 802);
+
+item("basket", 803);
+
+item("crate", 804);
+
+// Identical to gargoyle-worker
+human("forskis", 805);
+
+// TODO: Check construction
+prop("triples-game-display", 818); extend(-1, 0, 1, 809); extend(-2, 0, 1, 809); extend(-3, 0, 1, 809);
+
+item("empty-bucket", 810, 0);
+item("bucket-water", 810, 1);
+item("bucket-blood", 810, 2);
+item("bucket-wine", 810, 3);
+item("bucket-beer", 810, 4, 5);
+item("watering-can", 810, 6);
+
+creature("rabbit", 811);
+
+prop("iron-maiden", 812);
+
+// TODO: Check construction.
+prop("rack"); east(813, 0); extend(4, 0, 0, 813, 1);
+
+prop("triples-game-table", 814);
+
+item("stone-chips-0", 815, 0);
+item("stone-chips-1", 815, 1);
+item("stone-chips-2", 815, 2);
+item("stone-chips-3", 815, 3);
+item("stone-chips-4", 815, 4);
+
+prop("nest-0", 816, 0); extend(4, 0, 0, 816, 1); extend(0, 4, 0, 816, 2); extend(4, 4, 0, 816, 3);
+prop("nest-1", 816, 4); extend(4, 0, 0, 816, 5); extend(0, 4, 0, 816, 6); extend(4, 4, 0, 816, 7);
+
+plant("cactus-6", 817, 0);
+plant("cactus-7", 817, 1);
+plant("cactus-8", 817, 2);
+plant("cactus-9", 817, 3);
+plant("cactus-10", 817, 4);
+
+prop("barrel-0", 819, 0);
+prop("barrel-1", 819, 1);
+
+// XXX: Okay, this is the one thing the system currently can't handle
+// completely. Plaque has both two orientations when it's lying flat and two
+// upright orientations. Going to just ignore the fourth frame that's a
+// rotated flat version for now.
+shield("plaque", 820, 0); east(820, 1); south(820, 2);
+
+item("diaper-0", 822, 0);
+item("diaper-1", 822, 1);
+item("diaper-2", 822, 2);
+
+item("artists-equipment-0", 823, 0); east(823, 1);
+item("artists-equipment-1", 823, 2); east(823, 3);
+
+item("pitcher-0", 824, 0, 1);
+item("pitcher-1", 824, 2, 3);
+item("pitcher-2", 824, 4, 5);
+
+prop("campfire", 825);
+
+tree("tree-top", 826, 1); extend(0, 0, -5, 826, 0);
+
+item("bandage-0", 827, 0);
+item("bandage-1", 827, 1);
+item("bandage-2", 827, 2);
+item("bandage-3", 827, 3);
+
+prop("gear", 830);
+
+item("magic-gauntlets", 835);
+
+item("antique-armor", 836);
+
+prop("easel", 837, 0, 7); east(837, 8, 15);
+
+item("avatar-costume", 838);
+
+item("hourglass-0", 839, 0);
+item("hourglass-1", 839, 1);
+
+item("reagent-pearl", 842, 0);
+item("reagent-moss", 842, 1);
+item("reagent-nightshade", 842, 2);
+item("reagent-mandrake", 842, 3);
+item("reagent-garlic", 842, 4);
+item("reagent-ginseng", 842, 5);
+item("reagent-silk", 842, 6);
+item("reagent-sulphur", 842, 7);
+
+item("magic-gorget", 843);
+
+item("demon-mirror", 848);
+
+item("cloth-0", 851, 0);
+item("cloth-1", 851, 1);
+item("cloth-2", 851, 2);
+item("cloth-3", 851, 3);
+item("cloth-4", 851, 4);
+item("cloth-5", 851, 5);
+item("cloth-6", 851, 6);
+item("cloth-7", 851, 7);
+item("cloth-8", 851, 8);
+item("cloth-9", 851, 9);
+
+// TODO: I don't understand the variations here...
+prop("greenhouse-roof-support", 853);
+
+prop("statue-harpy", 854, 0);
+prop("statue-child", 854, 1); east(854, 2);
+prop("statue-man", 854, 3);
+prop("statue-warrior", 854, 4); east(854, 5);
+prop("statue-british", 854, 6);
+prop("statue-british-defaced", 854, 7);
+prop("statue-fairy", 854, 8);
+// The next one looks like an unfinished sprite...
+prop("statue-time-lord", 854, 12);
+prop("statue-golem", 854, 13); north(854, 17);
+prop("statue-woman"); east(854, 14);
+prop("statue-knight-1"); west(854, 15);
+prop("statue-mage", 854, 16);
+// These are just identical to regular avatar, are they even used?
+prop("statue-avatar-male", 854, 19); north(854, 18);
+prop("statue-avatar-female", 854, 21); north(854, 20);
+
+prop("rats-face-cage", 855, 0, 1); extend(0, 0, 10, 855, 2);
+
+prop("bookshelf-0", 919, 0); east(858, 0);
+prop("bookshelf-1", 919, 1); east(858, 1);
+prop("bookshelf-2", 919, 2); east(858, 2);
+prop("bookshelf-3", 919, 3); east(858, 3);
+
+prop("fencing-dummy", 860);
+
+prop("smooth-shaft", 862, 0); east(880, 0);
+prop("geared-shaft", 862, 1, 3); east(880, 1, 3);
+
+item("kitchen-item-0", 863, 0);
+item("kitchen-item-1", 863, 1);
+item("kitchen-item-2", 863, 2);
+item("kitchen-item-3", 863, 3);
+item("kitchen-item-4", 863, 4);
+item("kitchen-item-5", 863, 5);
+item("kitchen-item-6", 863, 6);
+item("kitchen-item-7", 863, 7);
+item("kitchen-item-8", 863, 8);
+item("kitchen-item-9", 863, 9);
+item("kitchen-item-10", 863, 10);
+item("kitchen-item-11", 863, 11);
+item("kitchen-item-12", 863, 12);
+item("kitchen-item-13", 863, 13);
+item("kitchen-item-14", 863, 14);
+item("kitchen-item-15", 863, 15);
+
+human("toddler", 864);
+
+creature("spider", 865);
+
+prop("thumbscrews", 866);
+
+prop("victim-christopher", 867, 0);
+prop("victim-tania", 867, 0);
+prop("victim-frederico", 867, 0);
+prop("victim-alagner", 867, 0);
+// The fifth frame is a regular body of alagner, is it used somewhere?
+
+prop("empty-wall-mount", 868, 1); east(868, 0);
+prop("wall-mount-sword", 868, 3); east(868, 2);
+
+prop("chair-0", 873, 2); north(873, 0); east(873, 1); west(873, 3);
+prop("chair-1", 873, 6); north(873, 4); east(873, 5); west(873, 7);
+prop("chair-2", 873, 10); north(873, 8); east(873, 9); west(873, 11);
+prop("chair-3", 873, 14); north(873, 12); east(873, 13); west(873, 15);
+prop("chair-4", 873, 18); north(873, 16); east(873, 17); west(873, 19);
+prop("chair-5", 873, 22); north(873, 20); east(873, 21); west(873, 23);
+prop("chair-6", 873, 26); north(873, 24); east(873, 25); west(873, 27);
+
+item("rune-0", 877, 0);
+item("rune-1", 877, 1);
+item("rune-2", 877, 2);
+item("rune-3", 877, 3);
+item("rune-4", 877, 4);
+item("rune-5", 877, 5);
+item("rune-6", 877, 6);
+item("rune-7", 877, 7);
+
+human("elizabeth", 881);
+
+human("abraham", 882);
+
+// Same as worker-gargoyle except this guy isn't wearing pants.
+human("wingless-gargoyle", 883);
+
+human("fellowship-member-male", 884);
+
+weapon("fellowship-staff", 885);
+
+prop("anchor", 886);
+
+prop("test-tube-rack", 887);
+
+prop("horn-0", 888, 0);
+prop("horn-1", 888, 1);
+
+prop("lamp-post-0", 889, 0); east(889, 1);
+prop("lamp-post-1", 889, 2);
+prop("lamp-post-2", 889, 3);
+prop("lamp-post-3", 889, 4);
+prop("lamp-post-4", 889, 5);
+prop("lamp-post-5", 889, 6);
+prop("lamp-post-6", 889, 7);
+prop("lamp-post-7", 889, 8);
+prop("lamp-post-8", 889, 9);
+prop("lamp-post-9", 889, 10);
+prop("lamp-post-10", 889, 11);
+prop("lamp-post-11", 889, 12);
+prop("lamp-post-12", 889, 13);
+
+prop("table-7", 890, 0); east(971, 0);
+prop("table-8", 890, 1); east(971, 1);
+prop("table-9", 890, 2); east(971, 2);
+prop("table-10", 890, 3); east(971, 3);
+
+prop("body-80", 892, 1);
+prop("body-81", 892, 2);
+prop("body-82", 892, 3);
+prop("body-83", 892, 4);
+prop("body-84", 892, 5);
+prop("body-85", 892, 6);
+prop("body-86", 892, 7);
+prop("body-87", 892, 8);
+prop("body-88", 892, 10);
+prop("body-89", 892, 11);
+prop("body-90", 892, 12);
+prop("body-91", 892, 13);
+prop("body-92", 892, 14);
+prop("body-93", 892, 15);
+prop("body-94", 892, 16);
+prop("body-95", 892, 17);
+prop("body-96", 892, 18);
+prop("body-97", 892, 19);
+prop("body-98", 892, 20);
+prop("body-99", 892, 21);
+prop("body-100", 892, 22);
+prop("body-101", 892, 23);
+prop("body-102", 892, 24);
+prop("body-103", 892, 25);
+prop("body-104", 892, 26);
+prop("body-105", 892, 27);
+prop("body-106", 892, 29);
+
+prop("fountain", 893);
+
+rock("monolith-0", 894, 0); east(894, 5);
+rock("carved-monolith", 894, 1);
+// Should these three be made just the same object from different angles?
+// The standing-stone sprites are the same as these, only scaled down.
+rock("monolith-2", 894, 2);
+rock("monolith-3", 894, 3);
+rock("monolith-4", 894, 4);
+
+// TODO: Figure out fellowship pews from 897
+
+prop("marble-altar", 898, 0);
+prop("dark-altar", 898, 0);
+
+prop("green-statue-0", 906, 0);
+prop("green-statue-1", 906, 1);
+prop("green-statue-2", 906, 2);
+prop("statue-plinth", 906, 3);
+
+// TODO: Are the weird partial pillars in 913 and 920 used anywhere?
+
+item("blackrock", 914);
+
+item("chunk-of-lead-0", 915, 0);
+item("chunk-of-lead-1", 915, 1);
+item("chunk-of-lead-2", 915, 2);
+item("chunk-of-lead-3", 915, 3);
+
+item("chunk-of-iron-ore-0", 916, 0);
+item("chunk-of-iron-ore-1", 916, 1);
+item("chunk-of-iron-ore-2", 916, 2);
+item("chunk-of-iron-ore-3", 916, 3);
+
+prop("shaft-pole", 917, 0);
+prop("tall-shaft-stand", 917, 2); east(917, 1);
+
+item("betting-marker-0", 921, 0);
+item("betting-marker-1", 921, 1);
+
+plant("small-bush-0", 922, 0);
+plant("small-bush-1", 922, 1);
+plant("small-bush-2", 922, 2);
+plant("small-bush-3", 922, 3);
+plant("small-bush-4", 922, 4);
+plant("small-bush-5", 922, 5);
+plant("small-bush-6", 922, 6);
+plant("small-bush-7", 922, 7);
+plant("small-bush-8", 922, 8);
+plant("small-bush-9", 922, 9);
+plant("small-bush-10", 922, 10);
+plant("small-bush-11", 922, 11);
+plant("small-bush-12", 922, 12);
+plant("small-bush-13", 922, 13);
+plant("small-bush-14", 922, 14);
+plant("small-bush-15", 922, 15);
+plant("small-bush-16", 922, 16);
+plant("small-bush-17", 922, 17);
+plant("small-bush-18", 922, 18);
+plant("small-bush-19", 922, 19);
+plant("small-bush-20", 922, 20);
+plant("small-bush-21", 922, 21);
+plant("small-bush-22", 922, 22);
+
+prop("piece-of-wood-0", 984, 0); east(923, 0);
+prop("piece-of-wood-1", 984, 1); east(923, 1);
+prop("piece-of-wood-2", 984, 2); east(923, 2);
+prop("piece-of-wood-3", 984, 3); east(923, 3);
+prop("piece-of-wood-4", 984, 4); east(923, 4);
+
+human("fellowship-member-female", 929);
+
+tree("tree-27", 932, 0);
+tree("tree-28", 932, 1);
+tree("tree-29", 932, 2);
+tree("tree-30", 932, 3);
+
+prop("millsaw", 933, 0);
+prop("millsaw-belt", 933, 1, 3);
+
+// There are two water wheels, one spins clockwise (when looked from east),
+// the other spins counterclockwise.
+prop("water-wheel-cw"); east(934); extend(0, 5, 0, 951);
+prop("water-wheel-ccw"); east(941); extend(0, 5, 0, 942);
+
+item("gargoyle-jewelry-0", 937, 0);
+item("gargoyle-jewelry-1", 937, 1);
+item("gargoyle-jewelry-2", 937, 2);
+item("gargoyle-jewelry-3", 937, 3);
+item("gargoyle-jewelry-4", 937, 4);
+item("gargoyle-jewelry-5", 937, 5);
+item("gargoyle-jewelry-6", 937, 6);
+
+item("pot-0", 944, 0);
+item("pot-1", 944, 1);
+item("pot-2", 944, 2);
+item("pot-3", 944, 3);
+item("pot-4", 944, 4);
+item("pot-5", 944, 5);
+
+prop("guardian-statue"); east(945, 0); west(945, 1);
+
+item("bee-stinger", 947);
+
+ammo("triple-bolt", 948);
+
+prop("winch", 949); east(950);
+
+item("amulet-0", 955, 0);
+item("amulet-1", 955, 1);
+item("amulet-2", 955, 2);
+item("amulet-3", 955, 3);
+item("amulet-4", 955, 4);
+item("amulet-5", 955, 5);
+item("amulet-6", 955, 6);
+item("amulet-7", 955, 7);
+item("amulet-8", 955, 8);
+item("amulet-9", 955, 9);
+item("amulet-10", 955, 10);
+item("amulet-11", 955, 11);
+
+human("barkeep", 957);
+
+prop("moon-felucca", 958);
+
+prop("mushroom-0", 960, 0);
+prop("mushroom-1", 960, 1);
+prop("mushroom-2", 960, 2);
+
+prop("table-end", 964, 0); east(964, 2); north(964, 1); west(964, 3);
+prop("table-corner", 964, 4);
+
+item("enclosed-prism", 968);
+
+creature("sheep", 970);
+
+prop("wagon-roof", 979, 0); extend(6, 0, 0, 979, 1);
+
+item("sphere-prism", 981, 0);
+item("cube-prism", 981, 1);
+item("tetrahedron-prism", 981, 2);
+
+prop("chimney-0", 982, 0);
+prop("chimney-1", 982, 1);
+prop("chimney-2", 982, 2);
+
+prop("baby-in-cradle"); east(987);
+
+prop("planet-0", 988, 0);
+prop("planet-1", 988, 1);
+prop("planet-2", 988, 2);
+prop("planet-3", 988, 3);
+prop("planet-4", 988, 4);
+prop("planet-5", 988, 5);
+prop("planet-6", 988, 6);
+prop("planet-7", 988, 7);
+prop("sun", 988, 8);
+
+prop("inert-dark-core", 990, 0);
+prop("active-dark-core", 990, 1, 31);
+
+prop("anvil-0", 991, 0);
+prop("anvil-1", 991, 1);
+
+prop("cradle"); east(992);
+
+prop("mushroom-3", 993, 0);
+prop("mushroom-4", 993, 1);
+prop("mushroom-5", 993, 2);
+prop("mushroom-6", 993, 3);
+
+// What's with the other frames?
+item("tongs", 994, 0);
+
+prop("cauldron-0", 995, 0);
+prop("cauldron-1", 995, 1);
+prop("cauldron-2", 995, 2);
+prop("cauldron-3", 995, 3);
+prop("cauldron-4", 995, 4);
+prop("cauldron-5", 995, 5);
+
+item("spent-light-source-0", 997, 0);
+item("spent-light-source-1", 997, 1);
+item("spent-light-source-2", 997, 2);
+item("spent-light-source-3", 997, 3);
+item("spent-light-source-4", 997, 4); east(997, 5);
+item("spent-light-source-5", 997, 6);
+item("spent-light-source-6", 997, 7);
+item("spent-light-source-7", 997, 8);
+item("spent-light-source-8", 997, 9);
+item("spent-light-source-9", 997, 10);
+item("spent-light-source-10", 997, 11);
+item("spent-light-source-11", 997, 12);
+item("spent-light-source-12", 997, 13);
+item("spent-light-source-13", 997, 14);
+item("spent-light-source-14", 997, 15);
+item("spent-light-source-15", 997, 16);
+
+// TODO: Figure out what the other frames are for? Some sort of animation?
+item("horseshoe", 998, 0);
+
+item("potted-plant-0", 999, 0);
+item("potted-plant-1", 999, 1);
+item("potted-plant-2", 999, 2);
+item("potted-plant-3", 999, 3);
+item("potted-plant-4", 999, 4);
+item("potted-plant-5", 999, 5);
+item("potted-plant-6", 999, 6);
+item("potted-plant-7", 999, 7);
+
+prop("table-11", 1000, 0);
+prop("table-12", 1000, 1);
+prop("table-13", 1000, 2);
+
+prop("table-14", 1001);
+
+prop("table-15"); east(1002, 1);
+
+prop("table-16", 1018); east(1003);
+
+item("leather-helm", 1004);
+
+prop("prism", 1010);
+
+prop("rocking-horse"); east(1013);
+
+creature("golem", 1015);
+
+prop("time-barrier", 1021);
+
+prop("haystack-0", 1023, 0);
+prop("haystack-1", 1023, 1);
+prop("haystack-2", 1023, 2);
+prop("haystack-3", 1023, 3);
+prop("haystack-4", 1023, 4);
+prop("haystack-5", 1023, 5);
