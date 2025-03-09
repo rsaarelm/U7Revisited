@@ -12,6 +12,12 @@
 // a "face" that is symmetrical and has more geometric complexity visible. The
 // game's set of shapes has objects facing all cardinal directions.
 
+// Try to name items so that closely related items get alphabetically sorted
+// together. Eg. `box-sealed` and `box-unsealed` rather than `sealed-box` and
+// `unsealed-box` like they're named in the game, because the sprites are
+// practically the same. This makes it easier to find related objects in an
+// alphabetized catalog.
+
 // This description is written in a way that can be used as a C++ include
 // fragment if suitable state machine operating functions are defined outside
 // it that match the definition commands. You can probably also write a parser
@@ -135,13 +141,13 @@ extend(-4, -4, 0, 184, 0);
 extend(0, -4, 0, 184, 1);
 extend(-4, 0, 0, 184, 2);
 
-tree("dead-tree-0", 185, 0);
-tree("dead-tree-1", 185, 1);
-tree("dead-tree-2", 185, 2);
-tree("dead-tree-3", 185, 3);
-tree("dead-tree-4", 185, 4);
-tree("dead-tree-5", 185, 5);
-tree("dead-tree-6", 185, 6);
+tree("tree-dead-0", 185, 0);
+tree("tree-dead-1", 185, 1);
+tree("tree-dead-2", 185, 2);
+tree("tree-dead-3", 185, 3);
+tree("tree-dead-4", 185, 4);
+tree("tree-dead-5", 185, 5);
+tree("tree-dead-6", 185, 6);
 
 // Fortress is a cube so no real point having it here.
 // I just like it as the definitive full-block-cube obj.
@@ -173,10 +179,10 @@ prop("debris-10", 201, 10);
 prop("debris-11", 201, 11);
 prop("debris-12", 201, 12);
 
-prop("large-debris-0", 202, 0);
-prop("large-debris-1", 202, 1);
-prop("large-debris-2", 202, 2);
-prop("large-debris-3", 202, 3);
+prop("debris-large-0", 202, 0);
+prop("debris-large-1", 202, 1);
+prop("debris-large-2", 202, 2);
+prop("debris-large-3", 202, 3);
 
 prop("chicken-coop", 210, 0); east(210, 1); north(210, 2); west(210, 3);
 
@@ -191,17 +197,17 @@ creature("ethereal-monster", 230);
 
 prop("platform-0", 233);
 
-prop("sphere-generator", 237);
+prop("generator-sphere", 237);
 extend(-8, -8, 0, 234);
 extend(0, -8, 0, 235);
 extend(-8, 0, 0, 236);
 
-prop("cube-generator", 241);
+prop("generator-cube", 241);
 extend(-8, -8, 0, 238);
 extend(0, -8, 0, 239);
 extend(-8, 0, 0, 240);
 
-prop("tetrahedron-generator", 245);
+prop("generator-tetrahedron", 245);
 extend(-8, -8, 0, 242);
 extend(0, -8, 0, 243);
 extend(-8, 0, 0, 244);
@@ -241,14 +247,14 @@ item("cloak-0", 285, 0);
 item("cloak-1", 285, 1);
 item("cloak-2", 285, 2);
 
-prop("wooden-seat", 292, 2); north(292, 0); east(292, 1); west(292, 3);
-prop("red-seat", 292, 6); north(292, 4); east(292, 5); west(292, 7);
-prop("blue-seat", 292, 14); north(292, 12); east(292, 13); west(292, 15);
+prop("seat-wooden", 292, 2); north(292, 0); east(292, 1); west(292, 3);
+prop("seat-red", 292, 6); north(292, 4); east(292, 5); west(292, 7);
+prop("seat-blue", 292, 14); north(292, 12); east(292, 13); west(292, 15);
 
-prop("ankh-throne", 292, 18); extend(1, 0, 0, 897, 0);
-prop("skull-throne", 292, 22); extend(1, 0, 0, 897, 1);
+prop("throne-ankh", 292, 18); extend(1, 0, 0, 897, 0);
+prop("throne-skull", 292, 22); extend(1, 0, 0, 897, 1);
 
-prop("gray-seat", 292, 30); north(292, 28); east(292, 29); west(292, 31);
+prop("seat-gray", 292, 30); north(292, 28); east(292, 29); west(292, 31);
 // TODO: Figure out the partial bench parts.
 
 prop("tapestry-0", 849, 0); east(293, 0);
@@ -260,7 +266,7 @@ prop("tapestry-5", 849, 5); east(293, 5);
 prop("tapestry-6", 849, 6); east(293, 6);
 prop("tapestry-7", 849, 7); east(293, 7);
 
-item("wedding-ring", 295);
+item("ring-wedding", 295);
 item("ring-of-invisibility", 296);
 item("ring-of-protection", 297);
 item("ring-of-regeneration", 298);
@@ -297,9 +303,9 @@ tree("evergreen-8", 306, 8);
 
 prop("laboratory-burner", 307);
 
-tree("fallen-tree-0", 309, 0);
-tree("fallen-tree-1", 309, 1);
-tree("fallen-tree-2", 309, 2);
+tree("tree-fallen-0", 309, 0);
+tree("tree-fallen-1", 309, 1);
+tree("tree-fallen-2", 309, 2);
 
 tree("tree-4", 310, 0);
 tree("tree-5", 310, 1);
@@ -353,11 +359,11 @@ plant("weed-15", 314, 15);
 plant("weed-16", 314, 16);
 plant("weed-17", 314, 17);
 
-tree("fallen-tree-3", 315, 0);
-tree("fallen-tree-4", 315, 1);
-tree("fallen-tree-5", 315, 2);
-tree("fallen-tree-6", 315, 3);
-tree("fallen-tree-7", 315, 4);
+tree("tree-fallen-3", 315, 0);
+tree("tree-fallen-4", 315, 1);
+tree("tree-fallen-5", 315, 2);
+tree("tree-fallen-6", 315, 3);
+tree("tree-fallen-7", 315, 4);
 
 rock("large-rock-0", 316, 0);
 rock("large-rock-1", 316, 1);
@@ -395,26 +401,26 @@ plant("cattails-1", 323, 1);
 plant("cattails-2", 323, 2);
 plant("cattails-3", 323, 3);
 
-tree("dead-tree-7", 325, 0);
-tree("dead-tree-8", 325, 1);
-tree("dead-tree-9", 325, 2);
-tree("dead-tree-10", 325, 3);
+tree("tree-dead-7", 325, 0);
+tree("tree-dead-8", 325, 1);
+tree("tree-dead-9", 325, 2);
+tree("tree-dead-10", 325, 3);
 
 plant("tropical-plant-0", 326, 0);
 plant("tropical-plant-1", 326, 1);
 plant("tropical-plant-2", 326, 2);
 
-tree("cypress-tree-0", 327, 0);
-tree("cypress-tree-1", 327, 1);
-tree("cypress-tree-2", 327, 2);
-tree("cypress-tree-3", 327, 3);
-tree("cypress-tree-4", 327, 4);
-tree("cypress-tree-5", 327, 5);
+tree("tree-cypress-0", 327, 0);
+tree("tree-cypress-1", 327, 1);
+tree("tree-cypress-2", 327, 2);
+tree("tree-cypress-3", 327, 3);
+tree("tree-cypress-4", 327, 4);
+tree("tree-cypress-5", 327, 5);
 
-tree("baobab-tree-0", 328, 0);
-tree("baobab-tree-1", 328, 1);
-tree("baobab-tree-2", 328, 2);
-tree("baobab-tree-3", 328, 3);
+tree("tree-baobab-0", 328, 0);
+tree("tree-baobab-1", 328, 1);
+tree("tree-baobab-2", 328, 2);
+tree("tree-baobab-3", 328, 3);
 
 item("virtue-stone-0", 330, 0);
 item("virtue-stone-1", 330, 1);
@@ -463,32 +469,32 @@ item("light-source-15", 336, 16);
 
 creature("ghost", 337);
 
-item("lit-light-source-0", 338, 0);
-item("lit-light-source-1", 338, 1);
-item("lit-light-source-2", 338, 2);
-item("lit-light-source-3", 338, 3);
-item("lit-light-source-4", 338, 4); east(338, 5);
-item("lit-light-source-5", 338, 6);
-item("lit-light-source-6", 338, 7);
-item("lit-light-source-7", 338, 8);
-item("lit-light-source-8", 338, 9);
-item("lit-light-source-9", 338, 10);
-item("lit-light-source-10", 338, 11);
-item("lit-light-source-11", 338, 12);
-item("lit-light-source-12", 338, 13);
-item("lit-light-source-13", 338, 14);
-item("lit-light-source-14", 338, 15);
-item("lit-light-source-15", 338, 16);
+item("light-source-lit-0", 338, 0);
+item("light-source-lit-1", 338, 1);
+item("light-source-lit-2", 338, 2);
+item("light-source-lit-3", 338, 3);
+item("light-source-lit-4", 338, 4); east(338, 5);
+item("light-source-lit-5", 338, 6);
+item("light-source-lit-6", 338, 7);
+item("light-source-lit-7", 338, 8);
+item("light-source-lit-8", 338, 9);
+item("light-source-lit-9", 338, 10);
+item("light-source-lit-10", 338, 11);
+item("light-source-lit-11", 338, 12);
+item("light-source-lit-12", 338, 13);
+item("light-source-lit-13", 338, 14);
+item("light-source-lit-14", 338, 15);
+item("light-source-lit-15", 338, 16);
 
-item("blue-potion", 340, 0);
-item("yellow-potion", 339, 1);
-item("red-potion", 338, 2);
-item("green-potion", 337, 3);
-item("orange-potion", 336, 4);
-item("purple-potion", 335, 5);
-item("white-potion", 334, 6);
-item("black-potion", 333, 7);
-item("red-yellow-potion", 332, 8);
+item("potion-blue", 340, 0);
+item("potion-yellow", 339, 1);
+item("potion-red", 338, 2);
+item("potion-green", 337, 3);
+item("potion-orange", 336, 4);
+item("potion-purple", 335, 5);
+item("potion-white", 334, 6);
+item("potion-black", 333, 7);
+item("potion-red-yellow", 332, 8);
 
 rock("rock-13", 341, 0);
 rock("rock-14", 341, 1);
@@ -512,7 +518,7 @@ rock("boulder-6", 343, 2);
 
 item("greaves", 353);
 
-human("red-liche", 354);
+human("liche-red", 354);
 
 prop("sign-0", 360, 0); east(361, 0);
 prop("sign-1", 360, 1); east(361, 1);
@@ -570,7 +576,7 @@ prop("sign-14", 379, 9); east(379, 1);
 prop("sign-15", 379, 8); east(379, 2);
 prop("sign-16", 379, 10); east(379, 3);
 prop("sign-17"); east(379, 4);
-// XXX: I don't really understand what frames 5 and 6 are supposed to be.
+prop("sign-18", 379, 5); north(379, 6);
 
 creature("cyclops", 380); alt(501);
 
@@ -581,17 +587,17 @@ creature("kissme", 382);
 item("magic-helm", 383);
 
 // Rising step heights.
-prop("wooden-stair-0", 426, 0); east(385, 0);
-prop("wooden-stair-1", 427, 0); east(385, 0);
-prop("wooden-stair-2", 428, 0); east(385, 0);
-prop("wooden-stair-3", 429, 0); east(973, 0);
-prop("wooden-stair-4", 430, 0); east(974, 0);
+prop("stair-wood-0", 426, 0); east(385, 0);
+prop("stair-wood-1", 427, 0); east(385, 0);
+prop("stair-wood-2", 428, 0); east(385, 0);
+prop("stair-wood-3", 429, 0); east(973, 0);
+prop("stair-wood-4", 430, 0); east(974, 0);
 
-prop("stone-stair-0", 426, 1); east(385, 1);
-prop("stone-stair-1", 427, 1); east(385, 1);
-prop("stone-stair-2", 428, 1); east(385, 1);
-prop("stone-stair-3", 429, 1); east(973, 1);
-prop("stone-stair-4", 430, 1); east(974, 1);
+prop("stair-stone-0", 426, 1); east(385, 1);
+prop("stair-stone-1", 427, 1); east(385, 1);
+prop("stair-stone-2", 428, 1); east(385, 1);
+prop("stair-stone-3", 429, 1); east(973, 1);
+prop("stair-stone-4", 430, 1); east(974, 1);
 
 item("eating-utensil-0", 388, 0); north(388, 8);
 item("eating-utensil-1", 388, 1); north(388, 9);
@@ -689,8 +695,8 @@ prop("body-37", 414, 9);
 prop("body-38", 414, 10);
 prop("body-39", 414, 11);
 // Decapitated British gets a fun spreading blood pool animation.
-prop("body-decapitated-british", 414, 30); south(414, 31); south(414, 12);
-prop("body-plaque-british", 414, 13);
+prop("body-british-decapitated", 414, 30); south(414, 31); south(414, 12);
+prop("body-british-plaque", 414, 13);
 prop("body-42", 414, 14);
 prop("body-43", 414, 15);
 prop("body-44", 414, 16);
@@ -781,24 +787,24 @@ plant("crops-25", 423, 25);
 plant("crops-26", 423, 26);
 plant("crops-27", 423, 27);
 
-prop("red-carpet-stairs-0", 426, 2); extend(3, 0, 0, 426, 3);
-prop("red-carpet-stairs-1", 427, 2); extend(3, 0, 0, 427, 3);
-prop("red-carpet-stairs-2", 428, 2); extend(3, 0, 0, 428, 3);
-prop("red-carpet-stairs-3", 429, 2); extend(3, 0, 0, 429, 3);
-prop("red-carpet-stairs-4", 430, 2); extend(3, 0, 0, 430, 3);
+prop("stair-red-carpet-0", 426, 2); extend(3, 0, 0, 426, 3);
+prop("stair-red-carpet-1", 427, 2); extend(3, 0, 0, 427, 3);
+prop("stair-red-carpet-2", 428, 2); extend(3, 0, 0, 428, 3);
+prop("stair-red-carpet-3", 429, 2); extend(3, 0, 0, 429, 3);
+prop("stair-red-carpet-4", 430, 2); extend(3, 0, 0, 430, 3);
 
-prop("black-carpet-stairs-0", 426, 4); extend(3, 0, 0, 426, 5);
-prop("black-carpet-stairs-1", 427, 4); extend(3, 0, 0, 427, 5);
-prop("black-carpet-stairs-2", 428, 4); extend(3, 0, 0, 428, 5);
-prop("black-carpet-stairs-3", 429, 4); extend(3, 0, 0, 429, 5);
-prop("black-carpet-stairs-4", 430, 4); extend(3, 0, 0, 430, 5);
+prop("stair-black-carpet-0", 426, 4); extend(3, 0, 0, 426, 5);
+prop("stair-black-carpet-1", 427, 4); extend(3, 0, 0, 427, 5);
+prop("stair-black-carpet-2", 428, 4); extend(3, 0, 0, 428, 5);
+prop("stair-black-carpet-3", 429, 4); extend(3, 0, 0, 429, 5);
+prop("stair-black-carpet-4", 430, 4); extend(3, 0, 0, 430, 5);
 
 prop("bellows-0", 431, 0, 2);
 prop("bellows-1", 431, 3, 5);
 
 prop("cask"); east(434);
 
-prop("lit-sconce", 435);
+prop("sconce-lit", 435);
 
 prop("wagon-floor", 436);
 
@@ -887,11 +893,11 @@ prop("bars-3", 484, 3);
 
 human("highwayman", 485);
 
-prop("big-statue-0", 486, 0);
-prop("big-statue-1", 486, 1);
-prop("big-statue-2", 486, 2);
-prop("big-statue-3"); east(486, 3); west(486, 4);
-prop("big-statue-4", 486, 5);
+prop("statue-big-0", 486, 0);
+prop("statue-big-1", 486, 1);
+prop("statue-big-2", 486, 2);
+prop("statue-big-3"); east(486, 3); west(486, 4);
+prop("statue-big-4", 486, 5);
 
 human("shamino", 487);
 
@@ -952,13 +958,13 @@ creature("headless", 514);
 
 prop("drawbridge", 515); south(870);
 
-human("black-liche", 519);
+human("liche-black", 519);
 
-prop("virtue-roulette-table", 520);
+prop("table-virtue-roulette", 520);
 
 creature("mouse", 521);
 
-prop("locked-chest", 522, 0); east(522, 1);
+prop("chest-locked", 522, 0); east(522, 1);
 
 creature("rat", 523);
 
@@ -993,7 +999,7 @@ creature("troll", 533); alt(861);
 
 creature("wisp", 534);
 
-prop("spent-sconce", 535);
+prop("sconce-spent", 535);
 
 creature("tentacles", 536);
 
@@ -1230,7 +1236,7 @@ weapon("fire-wand", 630);
 
 // This doesn't seem to go for any sort of 3D structure, just splits the big
 // tree sprite into quarters.
-tree("big-tree", 631);
+tree("tree-big", 631);
 extend(-8, -1, 0, 643, 0);
 extend(-1, -8, 0, 643, 1);
 extend(-8, -8, 0, 643, 2);
@@ -1290,16 +1296,16 @@ item("key-29", 641, 29);
 item("key-30", 641, 30);
 item("key-31", 641, 31);
 
-item("open-book-0", 642, 0);
-item("open-book-1", 642, 3);
-item("open-book-2", 642, 6);
-item("open-book-3", 642, 9);
-item("open-book-4", 642, 12);
-item("open-book-5", 642, 15);
-item("open-book-6", 642, 18);
-item("open-book-7", 642, 21);
-item("open-book-8", 642, 24);
-item("open-book-9", 642, 27);
+item("book-open-0", 642, 0);
+item("book-open-1", 642, 3);
+item("book-open-2", 642, 6);
+item("book-open-3", 642, 9);
+item("book-open-4", 642, 12);
+item("book-open-5", 642, 15);
+item("book-open-6", 642, 18);
+item("book-open-7", 642, 21);
+item("book-open-8", 642, 24);
+item("book-open-9", 642, 27);
 
 // Books have the same flat/upright dynamic as shields, so use that marker.
 shield("book-0", 642, 1); east(642, 2);
@@ -1326,13 +1332,13 @@ item("sleeping-powder", 648, 1);
 
 item("venom", 649);
 
-item("iron-sextant", 650, 0);
-item("gold-sextant", 650, 1);
+item("sextant-iron", 650, 0);
+item("sextant-gold", 650, 1);
 
 prop("spinning-wheel", 651);
 
 prop("bale-of-wool", 653, 0); east(653, 1);
-prop("broken-bale-of-wool", 653, 2);
+prop("bale-of-wool-broken", 653, 2);
 
 item("spindle-0", 654, 0);
 item("spindle-1", 654, 1);
@@ -1394,12 +1400,12 @@ plant("cactus-3", 669, 3);
 plant("cactus-4", 669, 4);
 plant("cactus-5", 669, 5);
 
-tree("maple-tree-0", 670, 0);
-tree("maple-tree-1", 670, 1);
-tree("maple-tree-2", 670, 2);
-tree("maple-tree-3", 670, 3);
-tree("maple-tree-4", 670, 4);
-tree("maple-tree-5", 670, 5);
+tree("tree-maple-0", 670, 0);
+tree("tree-maple-1", 670, 1);
+tree("tree-maple-2", 670, 2);
+tree("tree-maple-3", 670, 3);
+tree("tree-maple-4", 670, 4);
+tree("tree-maple-5", 670, 5);
 
 plant("mushrooms-0", 671, 0);
 plant("mushrooms-1", 671, 1);
@@ -1438,11 +1444,11 @@ plant("plant-6", 673, 6);
 plant("plant-7", 673, 7);
 plant("plant-8", 673, 8);
 
-tree("silverleaf-tree-0", 674, 0);
-tree("silverleaf-tree-1", 674, 1);
-tree("silverleaf-tree-2", 674, 2);
-tree("silverleaf-tree-3", 674, 3);
-tree("silverleaf-tree-4", 674, 4);
+tree("tree-silverleaf-0", 674, 0);
+tree("tree-silverleaf-1", 674, 1);
+tree("tree-silverleaf-2", 674, 2);
+tree("tree-silverleaf-3", 674, 3);
+tree("tree-silverleaf-4", 674, 4);
 
 item("desk-item-0", 675, 0);
 item("desk-item-1", 675, 1);
@@ -1550,7 +1556,7 @@ prop("podium", 697, 3); west(697, 0); east(697, 1); north(697, 2);
 // Are these multiple items or just animation?
 item("shears", 698);
 
-weapon("lit-torch", 701);
+weapon("torch-lit", 701);
 
 prop("cannon", 702, 0); west(702, 1); north(702, 2); east(702, 3);
 
@@ -1616,8 +1622,8 @@ prop("fellowship-icon"); east(724);
 
 prop("virtue-roulette-wheel", 725);
 
-prop("blue-lens", 726, 0);
-prop("purple-lens", 726, 1);
+prop("lens-blue", 726, 0);
+prop("lens-purple", 726, 1);
 
 creature("horse", 727);
 
@@ -1683,13 +1689,13 @@ item("alchemist-apparatus-11", 749, 31);
 item("music-box", 752);
 
 // Again, not "harpie".
-creature("stone-harpy", 753);
+creature("harpy-stone", 753);
 
 item("vial", 754);
 
 item("caltrops", 756);
 
-item("ethereal-ring", 759);
+item("ring-ethereal", 759);
 
 item("gem-0", 760, 0);
 item("gem-1", 760, 1);
@@ -1753,9 +1759,9 @@ weapon("rudyoms-wand", 771);
 
 item("honey", 772);
 
-prop("red-moongate", 776); south(779);
+prop("moongate-red", 776); south(779);
 
-prop("blue-moongate", 777);
+prop("moongate-blue", 777);
 
 prop("body-smith-the-horse", 778, 1);
 prop("body-unicorn", 778, 2);
@@ -1793,8 +1799,8 @@ item("scroll-1", 797, 1);
 item("scroll-2", 797, 2);
 item("scroll-3", 797, 3);
 
-item("sealed-box", 798);
-item("unsealed-box", 799);
+item("box-sealed", 798);
+item("box-unsealed", 799);
 
 item("chest", 800, 0); east(800, 1);
 
@@ -1896,7 +1902,7 @@ item("reagent-sulphur", 842, 7);
 
 item("magic-gorget", 843);
 
-item("demon-mirror", 848);
+item("mirror-demon", 848);
 
 item("cloth-0", 851, 0);
 item("cloth-1", 851, 1);
@@ -1970,7 +1976,7 @@ prop("victim-frederico", 867, 0);
 prop("victim-alagner", 867, 0);
 // The fifth frame is a regular body of alagner, is it used somewhere?
 
-prop("empty-wall-mount", 868, 1); east(868, 0);
+prop("wall-mount-empty", 868, 1); east(868, 0);
 prop("wall-mount-sword", 868, 3); east(868, 2);
 
 prop("chair-0", 873, 2); north(873, 0); east(873, 1); west(873, 3);
@@ -2193,9 +2199,9 @@ creature("sheep", 970);
 
 prop("wagon-roof", 979, 0); extend(6, 0, 0, 979, 1);
 
-item("sphere-prism", 981, 0);
-item("cube-prism", 981, 1);
-item("tetrahedron-prism", 981, 2);
+item("prism-sphere", 981, 0);
+item("prism-cube", 981, 1);
+item("prism-tetrahedron", 981, 2);
 
 prop("chimney-0", 982, 0);
 prop("chimney-1", 982, 1);
@@ -2213,8 +2219,8 @@ prop("planet-6", 988, 6);
 prop("planet-7", 988, 7);
 prop("sun", 988, 8);
 
-prop("inert-dark-core", 990, 0);
-prop("active-dark-core", 990, 1, 31);
+prop("dark-core-inert", 990, 0);
+prop("dark-core-active", 990, 1, 31);
 
 prop("anvil-0", 991, 0);
 prop("anvil-1", 991, 1);
@@ -2236,22 +2242,22 @@ prop("cauldron-3", 995, 3);
 prop("cauldron-4", 995, 4);
 prop("cauldron-5", 995, 5);
 
-item("spent-light-source-0", 997, 0);
-item("spent-light-source-1", 997, 1);
-item("spent-light-source-2", 997, 2);
-item("spent-light-source-3", 997, 3);
-item("spent-light-source-4", 997, 4); east(997, 5);
-item("spent-light-source-5", 997, 6);
-item("spent-light-source-6", 997, 7);
-item("spent-light-source-7", 997, 8);
-item("spent-light-source-8", 997, 9);
-item("spent-light-source-9", 997, 10);
-item("spent-light-source-10", 997, 11);
-item("spent-light-source-11", 997, 12);
-item("spent-light-source-12", 997, 13);
-item("spent-light-source-13", 997, 14);
-item("spent-light-source-14", 997, 15);
-item("spent-light-source-15", 997, 16);
+item("light-source-spent-0", 997, 0);
+item("light-source-spent-1", 997, 1);
+item("light-source-spent-2", 997, 2);
+item("light-source-spent-3", 997, 3);
+item("light-source-spent-4", 997, 4); east(997, 5);
+item("light-source-spent-5", 997, 6);
+item("light-source-spent-6", 997, 7);
+item("light-source-spent-7", 997, 8);
+item("light-source-spent-8", 997, 9);
+item("light-source-spent-9", 997, 10);
+item("light-source-spent-10", 997, 11);
+item("light-source-spent-11", 997, 12);
+item("light-source-spent-12", 997, 13);
+item("light-source-spent-13", 997, 14);
+item("light-source-spent-14", 997, 15);
+item("light-source-spent-15", 997, 16);
 
 // TODO: Figure out what the other frames are for? Some sort of animation?
 item("horseshoe", 998, 0);
