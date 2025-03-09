@@ -301,12 +301,16 @@ prop("trophy-4", 311, 4); east(409, 4);
 prop("trophy-5", 311, 5); east(409, 5);
 prop("trophy-6", 311, 6); east(409, 6);
 prop("trophy-7", 311, 7); east(409, 7);
-prop("trophy-8", 311, 8); east(409, 8);
-prop("trophy-9", 311, 9); east(409, 9);
+// Tricky, the troll and gargoyle switch places on east-facing shape.
+prop("trophy-8", 311, 8); east(409, 9);
+
+prop("trophy-9", 311, 9); east(409, 8);
 prop("trophy-10", 311, 10); east(409, 10);
 prop("trophy-11", 311, 11); east(409, 11);
 prop("trophy-12", 311, 12); east(409, 12);
-prop("trophy-13", 311, 13); east(409, 13);
+prop("trophy-13", 311, 13);
+// Also this last one has different hair.
+prop("trophy-14"); east(409, 13);
 
 prop("gargoyle-futon", 312); east(363);
 
@@ -983,7 +987,7 @@ creature("snake", 530);
 // Game uses "harpie", that isn't right.
 creature("harpy", 532);
 
-creature("troll", 533);
+creature("troll", 533); alt(861);
 
 creature("wisp", 534);
 

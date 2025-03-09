@@ -8,6 +8,10 @@ using namespace std;
 
 // Normalized frame address: shape_num * 32 + frame_num
 
+// TODO: Weapons and ammo have frames that shouldn't go into catalog animation
+// TODO: Add "up" facing to the cardinal facings, needed with shields,
+// different encoding in items
+
 enum ObjectType {
     Prop,
     Character,
@@ -105,21 +109,24 @@ struct ObjectStarter {
     }
 
     void operator()(const char* name) {
+        // Objects with no south-facing view.
         cycle(name);
-        // nosies
     }
 
     void operator()(const char* name, int shape) {
+        // Character or south view of all shape frames.
         cycle(name);
         m_context.add(South, shape);
     }
 
     void operator()(const char* name, int shape, int frame) {
+        // Single frame south view.
         cycle(name);
         m_context.add(South, shape, frame);
     }
 
     void operator()(const char* name, int shape, int frame, int endFrame) {
+        // Frame range south view.
         cycle(name);
         m_context.add(South, shape, frame, endFrame);
     }
@@ -127,31 +134,31 @@ struct ObjectStarter {
 
 struct Functor {
     void operator()() {
-        // nosies
+        // TODO
     }
 
     void operator()(int shape) {
-        // onesies
+        // TODO
     }
 
     void operator()(int shape, int frame) {
-        // onesies
+        // TODO
     }
 
     void operator()(int shape, int frame, int endFrame) {
-        // onesies
+        // TODO
     }
 
     void operator()(int x, int y, int z, int shape) {
-        // onesies
+        // TODO
     }
 
     void operator()(int x, int y, int z, int shape, int frame) {
-        // onesies
+        // TODO
     }
 
     void operator()(int x, int y, int z, int shape, int frame, int endFrame) {
-        // onesies
+        // TODO
     }
 };
 
@@ -188,13 +195,36 @@ map<string, ObjectData> buildDatabase() {
 int main() {
     auto database = buildDatabase();
 
+    int count = 0;
     for (auto& pair : database) {
-        printf("%s ", pair.first.c_str());
-        // Print the default view frame.
-        for (int frame : pair.second.south_views) {
-            printf("%d:%d", frame / 32, frame % 32);
-            break;
+        count++;
+        printf("%s\n", pair.first.c_str());
+        if (pair.second.north_views.size() > 0) {
+            printf("  north");
+            for (int frame : pair.second.north_views)
+                printf(" %d:%d", frame / 32, frame % 32);
+            printf("\n");
         }
-        printf("\n");
+        if (pair.second.east_views.size() > 0) {
+            printf("  east");
+            for (int frame : pair.second.east_views)
+                printf(" %d:%d", frame / 32, frame % 32);
+            printf("\n");
+        }
+        if (pair.second.south_views.size() > 0) {
+            printf("  south");
+            for (int frame : pair.second.south_views)
+                printf(" %d:%d", frame / 32, frame % 32);
+            printf("\n");
+        }
+
+        if (pair.second.west_views.size() > 0) {
+            printf("  west");
+            for (int frame : pair.second.west_views)
+                printf(" %d:%d", frame / 32, frame % 32);
+            printf("\n");
+        }
     }
+
+    fprintf(stderr, "\nTotal objects: %d\n", count);
 }
