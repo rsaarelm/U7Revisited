@@ -94,10 +94,10 @@
 //   x = tile_x * 8 - tile_z * 4
 //   y = tile_y * 8 - tile_z * 4
 //
-// - extend(tile_x, tile_y, tile_z);
-//   Next declared view is added as an extension to the main object offset by
-//   the given tile coordinates. Use this when the view isn't south-facing and
-//   must be specified separately.
+// Extend uses the same facing direction as the previous statement. Start by
+// declaring the base object for a given view direction, then add the extended
+// objects.
+//
 // - extend(tile_x, tile_y, tile_z, shape);
 //   Extend the object with all frames from the given shape.
 // - extend(tile_x, tile_y, tile_z, shape, frame);
@@ -652,7 +652,7 @@ prop("nightstand", 406, 1); east(406, 0);
 
 prop("mining-machine");
 east(411);
-extend(-7, 2, 0); east(410);
+extend(-7, 2, 0, 410);
 
 prop("black-gate-dais", 412, 4);
 extend(-5, -5, 0, 412, 0);
@@ -767,6 +767,7 @@ plant("crops-25", 423, 25);
 plant("crops-26", 423, 26);
 plant("crops-27", 423, 27);
 
+// Should these be joined into one red-stairs and black-stairs object?
 prop("red-carpet-stairs-left-0", 426, 2);
 prop("red-carpet-stairs-left-1", 427, 2);
 prop("red-carpet-stairs-left-2", 428, 2);
