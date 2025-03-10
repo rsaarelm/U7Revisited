@@ -113,7 +113,10 @@
 
 human("mage-male", 154); alt(445);
 
-human("ferryman", 155); alt(952);
+// There's a presumably unused ferryman character at 952.
+// The 155 ferryman is just a static object, it doesn't use the character
+// frame schema.
+prop("ferryman", 155); alt(952);
 
 prop("shaft-stand", 158, 1); east(158, 0);
 
@@ -203,9 +206,9 @@ extend(0, -8, 0, 235);
 extend(-8, 0, 0, 236);
 
 prop("generator-cube", 241);
-extend(-8, -8, 0, 238);
-extend(0, -8, 0, 239);
-extend(-8, 0, 0, 240);
+extend(-6, -6, 0, 238);
+extend(0, -6, 0, 239);
+extend(-6, 0, 0, 240);
 
 prop("generator-tetrahedron", 245);
 extend(-8, -8, 0, 242);
@@ -281,11 +284,16 @@ prop("cooking-utensils-4", 300, 8, 9);
 
 // TODO 301 "cart", I don't understand what this is supposed to be...
 
-prop("pumpkin-small", 302, 1); south(302, 3);
-prop("pumpkin-medium", 302, 0); south(302, 4); south(302, 5);
-prop("pumpkin-large", 302, 2);
-prop("pumpkin-rotten", 302, 7, 9);
-prop("pumpkin-rotten-large", 302, 10);
+prop("pumpkin-0", 302, 0);
+prop("pumpkin-1", 302, 1);
+prop("pumpkin-2", 302, 2);
+prop("pumpkin-3", 302, 3);
+prop("pumpkin-4", 302, 4);
+prop("pumpkin-5", 302, 5);
+prop("pumpkin-6", 302, 6);
+prop("pumpkin-7", 302, 7);
+prop("pumpkin-8", 302, 8);
+prop("pumpkin-9", 302, 9);
 
 human("blacksmith", 304);
 
@@ -394,7 +402,7 @@ plant("reeds-7", 321, 7);
 plant("reeds-8", 321, 8);
 plant("reeds-9", 321, 9);
 plant("reeds-10", 321, 10);
-plant("reeds-11", 321, 11);
+plant("crucifix", 321, 11);
 
 plant("cattails-0", 323, 0);
 plant("cattails-1", 323, 1);
@@ -465,7 +473,6 @@ item("light-source-11", 336, 12);
 item("light-source-12", 336, 13);
 item("light-source-13", 336, 14);
 item("light-source-14", 336, 15);
-item("light-source-15", 336, 16);
 
 creature("ghost", 337);
 
@@ -484,17 +491,16 @@ item("light-source-lit-11", 338, 12);
 item("light-source-lit-12", 338, 13);
 item("light-source-lit-13", 338, 14);
 item("light-source-lit-14", 338, 15);
-item("light-source-lit-15", 338, 16);
 
 item("potion-blue", 340, 0);
-item("potion-yellow", 339, 1);
-item("potion-red", 338, 2);
-item("potion-green", 337, 3);
-item("potion-orange", 336, 4);
-item("potion-purple", 335, 5);
-item("potion-white", 334, 6);
-item("potion-black", 333, 7);
-item("potion-red-yellow", 332, 8);
+item("potion-yellow", 340, 1);
+item("potion-red", 340, 2);
+item("potion-green", 340, 3);
+item("potion-orange", 340, 4);
+item("potion-purple", 340, 5);
+item("potion-white", 340, 6);
+item("potion-black", 340, 7);
+item("potion-red-yellow", 340, 8);
 
 rock("rock-13", 341, 0);
 rock("rock-14", 341, 1);
@@ -754,9 +760,9 @@ prop("giant-skull-1", 418, 1);
 prop("giant-skull-2", 418, 2);
 
 prop("giant-spine", 418, 3);
-extend(0, -18, 0, 418, 6);
+extend(0, -6, 0, 418, 4);
 extend(0, -12, 0, 418, 5);
-extend(0, -6, 0, 417, 4);
+extend(0, -18, 0, 418, 6);
 
 plant("crops-0", 423, 0);
 plant("crops-1", 423, 1);
@@ -810,8 +816,8 @@ prop("wagon-floor", 436);
 
 prop("wagon-wheel", 437);
 
-item("hood-0", 444);
-item("hood-1", 445);
+item("hood-0", 444, 0);
+item("hood-1", 444, 1);
 
 human("mage-female", 446);
 
@@ -861,12 +867,12 @@ human("jester", 467);
 human("entertainer-male", 468);
 human("entertainer-female", 469);
 
-prop("well-0", 470, 0);
-prop("well-1", 470, 1);
+prop("well-0", 470, 0); extend(1, -1, 2, 740, 0, 11);
+prop("well-1", 470, 1); extend(1, -1, 2, 740, 12, 23);
 
-human("peasant-child", 471); alt(965);
+human("child-peasant", 471); alt(965);
 
-human("noble-child", 472);
+human("child-noble", 472);
 
 human("gargoyle-noble", 473);
 
@@ -1213,22 +1219,14 @@ weapon("hoe", 626);
 
 pile("lockpick", 627);
 
-item("cup-0", 628, 0);
-item("cup-1", 628, 1);
-item("cup-2", 628, 2);
-item("cup-3", 628, 3);
-item("cup-4", 628, 4);
-item("cup-5", 628, 5);
-item("cup-6", 628, 6);
-item("cup-7", 628, 7);
-item("cup-8", 628, 8);
-item("cup-9", 628, 9);
-item("cup-10", 628, 10);
-item("cup-11", 628, 11);
-item("cup-12", 628, 12);
-item("cup-13", 628, 13);
-item("cup-14", 628, 14);
-item("cup-15", 628, 15);
+item("cup-0", 628, 0, 1);
+item("cup-1", 628, 2, 3);
+item("cup-2", 628, 4, 5);
+item("cup-3", 628, 6, 7);
+item("cup-4", 628, 8, 9);
+item("cup-5", 628, 10, 11);
+item("cup-6", 628, 12, 13);
+item("cup-7", 628, 14, 15);
 
 weapon("lightning-wand", 629);
 
@@ -1359,18 +1357,12 @@ prop("topiary-swan", 655, 3);
 prop("wine-press", 656, 0);
 prop("wine-press-cask", 656, 1);
 
-prop("curtain-0", 657, 0); east(678, 0);
-prop("curtain-1", 657, 1); east(678, 1);
-prop("curtain-2", 657, 2); east(678, 2);
-prop("curtain-3", 657, 3); east(678, 3);
-prop("curtain-4", 657, 4); east(678, 4);
-prop("curtain-5", 657, 5); east(678, 5);
-prop("curtain-6", 657, 6); east(678, 6);
-prop("curtain-7", 657, 7); east(678, 7);
-prop("curtain-8", 657, 8); east(678, 8);
-prop("curtain-9", 657, 9); east(678, 9);
-prop("curtain-10", 657, 10); east(678, 10);
-prop("curtain-11", 657, 11); east(678, 11);
+prop("curtain-0", 657, 0, 1); east(678, 0, 1);
+prop("curtain-1", 657, 2, 3); east(678, 2, 3);
+prop("curtain-2", 657, 4, 5); east(678, 4, 5);
+prop("curtain-3", 657, 6, 7); east(678, 6, 7);
+prop("curtain-4", 657, 8, 9); east(678, 8, 9);
+prop("curtain-5", 657, 10, 11); east(678, 10, 11);
 
 item("dough-0", 658, 0);
 item("dough-1", 658, 1);
@@ -1460,17 +1452,15 @@ item("desk-item-6", 675, 6);
 item("desk-item-7", 675, 7);
 item("desk-item-8", 675, 8);
 item("desk-item-9", 675, 9);
-item("desk-item-10", 675, 10);
-item("desk-item-11", 675, 11);
+item("parrot", 675, 10);
+item("abacus", 675, 11);
 item("desk-item-12", 675, 12);
 item("desk-item-13", 675, 13);
 item("desk-item-14", 675, 14);
 item("desk-item-15", 675, 15);
 item("desk-item-16", 675, 16);
-item("desk-item-17", 675, 17);
-item("desk-item-18", 675, 18);
-item("desk-item-19", 675, 19);
-item("desk-item-20", 675, 20);
+item("desk-item-17", 675, 17, 19);
+item("desk-item-18", 675, 20);
 
 item("sack-of-wheat", 677);
 
@@ -1572,8 +1562,7 @@ weapon("black-sword", 707);
 
 prop("stocks", 708);
 
-// TODO: Figure out of the extension is right.
-prop("guillotine", 734); extend(0, -2, 0, 709);
+prop("guillotine", 734); extend(0, -1, 0, 709);
 
 item("log-saw", 710);
 
@@ -1650,9 +1639,6 @@ item("pants-5", 738, 5);
 prop("firepit-0", 739, 0, 4);
 prop("firepit-1", 739, 5, 8);
 
-prop("well-pulley-0", 740, 0, 11);
-prop("well-pulley-1", 740, 12, 23);
-
 prop("water-trough-1", 741, 4, 7);
 
 item("stuffed-toy-0", 742, 0);
@@ -1660,15 +1646,15 @@ item("stuffed-toy-1", 742, 1);
 
 prop("strength-tester", 743);
 
-prop("telescope"); east(744);
+prop("telescope"); west(744);
 
 prop("harp", 745, 0); east(745, 1);
 
 item("orrery-crystal", 746);
 
-item("empowered-soul-cage", 747, 0);
+item("soul-cage-empowered", 747, 0);
 item("soul-cage", 747, 1);
-item("unfinished-soul-cage", 747, 2);
+item("soul-cage-unfinished", 747, 2);
 
 prop("well-of-souls", 748);
 
@@ -1792,7 +1778,17 @@ item("invisibility-dust", 790);
 
 weapon("magicians-wand", 792);
 
-creature("draft-horse", 796);
+// Draft horse is an anomaly, it does not use creature's frame schema, it
+// just has interleaved north and south walking frames.
+prop("draft-horse", 796, 1, 2);
+north(796, 0);
+north(796, 3, 4);
+north(796, 7, 8);
+north(796, 11, 12);
+north(796, 15);
+south(796, 5, 6);
+south(796, 9, 10);
+south(796, 13, 14);
 
 item("scroll-0", 797, 0);
 item("scroll-1", 797, 1);
@@ -1815,8 +1811,7 @@ item("crate", 804);
 // Identical to gargoyle-worker
 human("forskis", 805);
 
-// TODO: Check construction
-prop("triples-game-display", 818); extend(-1, 0, 1, 809); extend(-2, 0, 1, 809); extend(-3, 0, 1, 809);
+prop("triples-game-display", 818); extend(0, 0, 2, 809); extend(-1, 0, 2, 809); extend(-2, 0, 2, 809);
 
 item("empty-bucket", 810, 0);
 item("bucket-water", 810, 1);
@@ -1829,7 +1824,6 @@ creature("rabbit", 811);
 
 prop("iron-maiden", 812);
 
-// TODO: Check construction.
 prop("rack"); east(813, 0); extend(4, 0, 0, 813, 1);
 
 prop("triples-game-table", 814);
@@ -1871,7 +1865,7 @@ item("pitcher-2", 824, 4, 5);
 
 prop("campfire", 825);
 
-tree("tree-top", 826, 1); extend(0, 0, -5, 826, 0);
+tree("tree-top", 826, 1); extend(0, 0, 5, 826, 0);
 
 item("bandage-0", 827, 0);
 item("bandage-1", 827, 1);
@@ -1935,7 +1929,8 @@ prop("statue-mage", 854, 16);
 prop("statue-avatar-male", 854, 19); north(854, 18);
 prop("statue-avatar-female", 854, 21); north(854, 20);
 
-prop("rats-face-cage", 855, 0, 1); extend(0, 0, 10, 855, 2);
+// XXX: I can't get this to align quite right...
+prop("rats-face-cage", 855, 0, 1); extend(0, 0, 9, 855, 2);
 
 prop("bookshelf-0", 919, 0); east(858, 0);
 prop("bookshelf-1", 919, 1); east(858, 1);
@@ -1971,9 +1966,9 @@ creature("spider", 865);
 prop("thumbscrews", 866);
 
 prop("victim-christopher", 867, 0);
-prop("victim-tania", 867, 0);
-prop("victim-frederico", 867, 0);
-prop("victim-alagner", 867, 0);
+prop("victim-tania", 867, 1);
+prop("victim-frederico", 867, 2);
+prop("victim-alagner", 867, 3);
 // The fifth frame is a regular body of alagner, is it used somewhere?
 
 prop("wall-mount-empty", 868, 1); east(868, 0);
@@ -2143,8 +2138,8 @@ prop("millsaw-belt", 933, 1, 3);
 
 // There are two water wheels, one spins clockwise (when looked from east),
 // the other spins counterclockwise.
-prop("water-wheel-cw"); east(934); extend(0, 5, 0, 951);
-prop("water-wheel-ccw"); east(941); extend(0, 5, 0, 942);
+prop("water-wheel-cw"); east(934); extend(0, -5, 0, 951);
+prop("water-wheel-ccw"); east(941); extend(0, -5, 0, 942);
 
 item("gargoyle-jewelry-0", 937, 0);
 item("gargoyle-jewelry-1", 937, 1);
@@ -2257,7 +2252,6 @@ item("light-source-spent-11", 997, 12);
 item("light-source-spent-12", 997, 13);
 item("light-source-spent-13", 997, 14);
 item("light-source-spent-14", 997, 15);
-item("light-source-spent-15", 997, 16);
 
 // TODO: Figure out what the other frames are for? Some sort of animation?
 item("horseshoe", 998, 0);
