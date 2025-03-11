@@ -329,24 +329,26 @@ tree("tree-6", 310, 2);
 tree("tree-7", 310, 3);
 tree("tree-8", 310, 4);
 
-prop("trophy-0", 311, 0); east(409, 0);
-prop("trophy-1", 311, 1); east(409, 1);
-prop("trophy-2", 311, 2); east(409, 2);
-prop("trophy-3", 311, 3); east(409, 3);
-prop("trophy-4", 311, 4); east(409, 4);
-prop("trophy-5", 311, 5); east(409, 5);
-prop("trophy-6", 311, 6); east(409, 6);
-prop("trophy-7", 311, 7); east(409, 7);
-// Tricky, the troll and gargoyle switch places on east-facing shape.
-prop("trophy-8", 311, 8); east(409, 9);
+prop("trophy-0", 311, 0);
+prop("trophy-1"); east(409, 0);
 
-prop("trophy-9", 311, 9); east(409, 8);
-prop("trophy-10", 311, 10); east(409, 10);
-prop("trophy-11", 311, 11); east(409, 11);
-prop("trophy-12", 311, 12); east(409, 12);
-prop("trophy-13", 311, 13);
+prop("trophy-2", 311, 1); east(409, 1);
+prop("trophy-3", 311, 2); east(409, 2);
+prop("trophy-4", 311, 3); east(409, 3);
+prop("trophy-5", 311, 4); east(409, 4);
+prop("trophy-6", 311, 5); east(409, 5);
+prop("trophy-7", 311, 6); east(409, 6);
+prop("trophy-8", 311, 7); east(409, 7);
+// Tricky, the troll and gargoyle switch places on east-facing shape.
+prop("trophy-9", 311, 8); east(409, 9);
+
+prop("trophy-10", 311, 9); east(409, 8);
+prop("trophy-11", 311, 10); east(409, 10);
+prop("trophy-12", 311, 11); east(409, 11);
+prop("trophy-13", 311, 12); east(409, 12);
+prop("trophy-14", 311, 13);
 // Also this last one has different hair.
-prop("trophy-14"); east(409, 13);
+prop("trophy-15"); east(409, 13);
 
 prop("gargoyle-futon", 312); east(363);
 
@@ -602,14 +604,14 @@ item("magic-helm", 383);
 
 // Rising step heights.
 prop("stair-wood-0", 426, 0); east(385, 0);
-prop("stair-wood-1", 427, 0); east(385, 0);
-prop("stair-wood-2", 428, 0); east(385, 0);
+prop("stair-wood-1", 427, 0); east(386, 0);
+prop("stair-wood-2", 428, 0); east(387, 0);
 prop("stair-wood-3", 429, 0); east(973, 0);
 prop("stair-wood-4", 430, 0); east(974, 0);
 
 prop("stair-stone-0", 426, 1); east(385, 1);
-prop("stair-stone-1", 427, 1); east(385, 1);
-prop("stair-stone-2", 428, 1); east(385, 1);
+prop("stair-stone-1", 427, 1); east(386, 1);
+prop("stair-stone-2", 428, 1); east(387, 1);
 prop("stair-stone-3", 429, 1); east(973, 1);
 prop("stair-stone-4", 430, 1); east(974, 1);
 
@@ -759,7 +761,7 @@ prop("garbage-29", 415, 29);
 prop("garbage-30", 415, 30);
 prop("garbage-31", 415, 31);
 
-prop("drawers", 416); east(679);
+prop("drawers-0", 416);
 
 ammo("magic-bolt", 417);
 
@@ -1472,6 +1474,8 @@ item("desk-item-18", 675, 20);
 
 item("sack-of-wheat", 677);
 
+prop("drawers-1"); east(679);
+
 item("jar-0", 681, 0);
 item("jar-1", 681, 1);
 item("jar-2", 681, 2);
@@ -2076,8 +2080,8 @@ rock("monolith-4", 894, 4);
 
 // TODO: Figure out fellowship pews from 897
 
-prop("marble-altar", 898, 0);
-prop("dark-altar", 898, 0);
+prop("altar-marble", 898, 0);
+prop("altar-dark", 898, 1);
 
 prop("green-statue-0", 906, 0);
 prop("green-statue-1", 906, 1);
@@ -2226,11 +2230,13 @@ prop("planet-6", 988, 6);
 prop("planet-7", 988, 7);
 prop("sun", 988, 8);
 
+human("avatar-female", 989);
+
 prop("dark-core-inert", 990, 0);
 prop("dark-core-active", 990, 1, 31);
 
-prop("anvil-0", 991, 0);
-prop("anvil-1", 991, 1);
+prop("anvil-0"); east(991, 0);
+prop("anvil-1"); east(991, 1);
 
 prop("cradle"); east(992);
 
