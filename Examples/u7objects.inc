@@ -225,7 +225,7 @@ extend(-8, 0, 0, 244);
 
 human("paladin", 247); alt(464);
 
-prop("grandfather-clock", 695); east(252);
+prop("grandfather-clock", 695); offset(1, 0); east(252);
 
 prop("keg", 258);
 
@@ -2150,8 +2150,8 @@ prop("millsaw-belt", 933, 1, 3);
 // NB. Flipping from east view to south view reverses the apparent rotation
 // direction so the reference sprites look like they're rotating the wrong
 // way. Don't be confused and trust the names.
-prop("water-wheel-cw"); east(934); extend(0, -5, 0, 951);
-prop("water-wheel-ccw"); east(941); extend(0, -5, 0, 942);
+prop("water-wheel-cw"); east(934); offset(-10, -18); extend(0, -5, 0, 951); offset(-10, -18);
+prop("water-wheel-ccw"); east(941); offset(-10, -18); extend(0, -5, 0, 942); offset(-10, -18);
 
 item("gargoyle-jewelry-0", 937, 0);
 item("gargoyle-jewelry-1", 937, 1);
