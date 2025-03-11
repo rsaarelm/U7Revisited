@@ -1,5 +1,10 @@
 // This is an object database for Ultima 7 with the Black Gate expansion.
 
+// This description is written in a way that can be used as a C++ include
+// fragment if suitable state machine operating functions are defined outside
+// it that match the definition commands. You can probably also write a parser
+// for it.
+
 // It names *objects* from the game that are plausibly a single thing with
 // nontrivial three-dimensional structure and possible animation. Shapes and
 // frames in the game data are treated as *views* to the objects, with
@@ -18,10 +23,13 @@
 // practically the same. This makes it easier to find related objects in an
 // alphabetized catalog.
 
-// This description is written in a way that can be used as a C++ include
-// fragment if suitable state machine operating functions are defined outside
-// it that match the definition commands. You can probably also write a parser
-// for it.
+// Try to merge things into one object whenever they are plausibly different
+// views or animation states. The one place where alternative states of the
+// same thing are made into different objects is when the states have engine
+// or gameplay significance that's difficult to express with just an
+// animation. Lit light sources emit light while unlit ones don't, and if you
+// break the seal on the sealed Fellowship box, the game script will recognize
+// this. So lit light sources and the unsealed box are separate objects.
 
 // Syntax:
 
@@ -2138,6 +2146,10 @@ prop("millsaw-belt", 933, 1, 3);
 
 // There are two water wheels, one spins clockwise (when looked from east),
 // the other spins counterclockwise.
+
+// NB. Flipping from east view to south view reverses the apparent rotation
+// direction so the reference sprites look like they're rotating the wrong
+// way. Don't be confused and trust the names.
 prop("water-wheel-cw"); east(934); extend(0, -5, 0, 951);
 prop("water-wheel-ccw"); east(941); extend(0, -5, 0, 942);
 
