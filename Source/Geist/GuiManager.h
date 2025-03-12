@@ -29,7 +29,7 @@ public:
 	virtual void Update();
 	virtual void Draw();
 
-	void AddGui(std::shared_ptr<Gui>& gui);
+	void AddGui(std::shared_ptr<Gui> gui);
 
 	Config                               m_GUIManagerConfig;
 	std::string                          m_ConfigFileName;

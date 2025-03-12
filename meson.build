@@ -34,7 +34,6 @@ executable('U7Revisited',
   'Source/Geist/StateMachine.cpp',
   'Source/Geist/TooltipSystem.cpp',
 
-  #'Source/GUMP.cpp',  # FIXME won't compile with this included
   'Source/LoadingState.cpp',
   'Source/Main.cpp',
   'Source/MainState.cpp',
@@ -45,6 +44,7 @@ executable('U7Revisited',
   'Source/Terrain.cpp',
   'Source/TitleState.cpp',
   'Source/U7Globals.cpp',
+  'Source/U7Gump.cpp',
   'Source/U7Object.cpp',
   'Source/WorldEditorState.cpp',
 

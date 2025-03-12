@@ -45,7 +45,7 @@ void GuiManager::Draw()
 	}
 }
 
-void GuiManager::AddGui(std::shared_ptr<Gui>& gui)
+void GuiManager::AddGui(std::shared_ptr<Gui> gui)
 {
 	m_GuiList.push_back(gui);
 }
