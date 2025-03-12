@@ -4,9 +4,12 @@
 #include "Geist/State.h"
 #include "Geist/Gui.h"
 #include "U7Object.h"
+#include "Geist/GuiManager.h"
 #include <list>
 #include <deque>
 #include <math.h>
+
+class GuiManager;
 
 enum GUIIDS
 {
@@ -45,7 +48,7 @@ public:
    void TestUpdate();
    void TestDraw();
    
-   Gui* m_TitleGui = nullptr;
+   std::shared_ptr<Gui> m_TitleGui;
 
    std::vector<std::shared_ptr<U7Object>> m_sortedVisibleObjects;
 
@@ -53,6 +56,8 @@ public:
 
    bool m_mouseMoved;
    Texture* m_title;
+
+   GuiManager m_guiManager;
 };
 
 #endif
