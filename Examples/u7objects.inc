@@ -1947,8 +1947,8 @@ prop("bookshelf-3", 919, 3); east(858, 3);
 
 prop("fencing-dummy", 860);
 
-prop("smooth-shaft", 862, 0); east(880, 0);
-prop("geared-shaft", 862, 1, 3); east(880, 1, 3);
+prop("shaft-smooth", 862, 0); east(880, 0);
+prop("shaft-geared", 862, 1, 3); east(880, 1, 3);
 
 item("kitchen-item-0", 863, 0);
 item("kitchen-item-1", 863, 1);
@@ -2099,7 +2099,7 @@ item("chunk-of-iron-ore-2", 916, 2);
 item("chunk-of-iron-ore-3", 916, 3);
 
 prop("shaft-pole", 917, 0);
-prop("tall-shaft-stand", 917, 2); east(917, 1);
+prop("shaft-stand-tall", 917, 2); east(917, 1);
 
 item("betting-marker-0", 921, 0);
 item("betting-marker-1", 921, 1);
@@ -2150,8 +2150,8 @@ prop("millsaw-belt", 933, 1, 3);
 // NB. Flipping from east view to south view reverses the apparent rotation
 // direction so the reference sprites look like they're rotating the wrong
 // way. Don't be confused and trust the names.
-prop("water-wheel-cw"); east(934); offset(-10, -18); extend(0, -5, 0, 951); offset(-10, -18);
-prop("water-wheel-ccw"); east(941); offset(-10, -18); extend(0, -5, 0, 942); offset(-10, -18);
+prop("water-wheel-cw"); east(934); offset(-4, 0); extend(0, -5, 0, 951); offset(-4, 0);
+prop("water-wheel-ccw"); east(941); offset(-4, 0); extend(0, -5, 0, 942); offset(-4, 0);
 
 item("gargoyle-jewelry-0", 937, 0);
 item("gargoyle-jewelry-1", 937, 1);

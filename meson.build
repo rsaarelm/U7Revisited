@@ -64,3 +64,9 @@ executable('model-viewer',
 executable('object-database',
   'Examples/ObjectDatabase.cpp',
 )
+
+executable('scene-test',
+  'Examples/SceneTest.cpp',
+
+  dependencies: deps,
+)
