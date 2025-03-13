@@ -101,21 +101,24 @@ Mesh makeShellMesh(float weight, Mesh* source) {
 
     // Set up animation stuff.
     if (source->animVertices) {
-        mesh.animVertices = (float*)RL_MALLOC(mesh.vertexCount * 3 * sizeof(float));
+        mesh.animVertices =
+            (float*)RL_MALLOC(mesh.vertexCount * 3 * sizeof(float));
         memcpy(mesh.animVertices, mesh.vertices,
-            mesh.vertexCount * 3 * sizeof(float));
+               mesh.vertexCount * 3 * sizeof(float));
     }
 
     mesh.animNormals = nullptr;
 
     // Copy skinning data from source mesh for animations.
     if (source->boneIds && source->boneWeights) {
-        mesh.boneIds = (uint8_t*)RL_MALLOC(mesh.vertexCount * 4 * sizeof(uint8_t));
-        mesh.boneWeights = (float*)RL_MALLOC(mesh.vertexCount * 4 * sizeof(float));
+        mesh.boneIds =
+            (uint8_t*)RL_MALLOC(mesh.vertexCount * 4 * sizeof(uint8_t));
+        mesh.boneWeights =
+            (float*)RL_MALLOC(mesh.vertexCount * 4 * sizeof(float));
         memcpy(mesh.boneIds, source->boneIds,
-            mesh.vertexCount * 4 * sizeof(uint8_t));
+               mesh.vertexCount * 4 * sizeof(uint8_t));
         memcpy(mesh.boneWeights, source->boneWeights,
-            mesh.vertexCount * 4 * sizeof(float));
+               mesh.vertexCount * 4 * sizeof(float));
     }
 
     UploadMesh(&mesh, false);
@@ -180,17 +183,17 @@ int main(int argc, char* argv[]) {
     shellifyModel(0.05, &edgeShell);
 
     // Camera setup.
-    Camera camera = {{0}};
-    camera.position = (Vector3){6.0f, 6.0f, 6.0f};
-    camera.target = (Vector3){0.0f, 2.0f, 0.0f};
-    camera.up = (Vector3){0.0f, 1.0f, 0.0f};
+    Camera camera;
+    camera.position = Vector3{6.0f, 6.0f, 6.0f};
+    camera.target = Vector3{0.0f, 2.0f, 0.0f};
+    camera.up = Vector3{0.0f, 1.0f, 0.0f};
     camera.fovy = 45.0f;
     camera.projection = CAMERA_PERSPECTIVE;
 
-    Camera tileCamera = {{0}};
-    tileCamera.position = (Vector3){0.0f, 20.0f, 0.0f};
-    tileCamera.target = (Vector3){0.0f, 0.0f, 0.0f};
-    tileCamera.up = (Vector3){0.0f, 0.0f, -1.0f};
+    Camera tileCamera;
+    tileCamera.position = Vector3{0.0f, 20.0f, 0.0f};
+    tileCamera.target = Vector3{0.0f, 0.0f, 0.0f};
+    tileCamera.up = Vector3{0.0f, 0.0f, -1.0f};
     tileCamera.fovy = 4.0f;
     tileCamera.projection = CAMERA_ORTHOGRAPHIC;
 
@@ -247,12 +250,13 @@ int main(int argc, char* argv[]) {
 
             DrawTextureRec(
                 obliqueView.texture,
-                (Rectangle){0, 0, static_cast<float>(obliqueView.texture.width),
-                            static_cast<float>(-obliqueView.texture.height)},
-                (Vector2){8, 32}, WHITE);
+                Rectangle{0, 0, static_cast<float>(obliqueView.texture.width),
+                          static_cast<float>(-obliqueView.texture.height)},
+                Vector2{8, 32}, WHITE);
             // Print animation count on screen
             if (animsCount > 0)
-                DrawText(TextFormat("Animation: %d", currentAnim), 10, 8, 20, BLACK);
+                DrawText(TextFormat("Animation: %d", currentAnim), 10, 8, 20,
+                         BLACK);
         }
         EndDrawing();
 
@@ -261,10 +265,6 @@ int main(int argc, char* argv[]) {
             currentAnim = (currentAnim + 1) % animsCount;
         }
     }
-
-
-    UnloadShader(shader);
-    CloseWindow();
 
     return 0;
 }

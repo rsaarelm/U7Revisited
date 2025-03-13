@@ -1,4 +1,8 @@
-project('Ultima 7 Revisited', 'cpp')
+project(
+  'Ultima 7 Revisited',
+  'cpp',
+  default_options: ['cpp_std=c++20']
+)
 
 cmake = import('cmake')
 
