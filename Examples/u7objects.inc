@@ -237,7 +237,7 @@ human("townsman", 265);
 
 prop("bloodfang-superfighter", 267, 1); extend(0, 0, 3, 267, 0);
 
-prop("mirror", 268);
+prop("mirror"); east(268);
 
 human("gargoyle-warrior", 274);
 
