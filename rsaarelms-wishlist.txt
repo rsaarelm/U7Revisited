@@ -1,0 +1,15 @@
+Stuff to do to main codebase. Kept out of develop branch to keep the delta
+from upstream small
+
+* Delete old build files, the meson configuration should be the only build bit
+  that's actually stored in VC.
+
+  - The whole Linux/ subdirectory, handled by generated meson build
+  - The whole ThirdParty/ subdirectory, meson handles raylib dependency
+  - U7Revisited.sln and U7Revisited.vxproj*
+
+* Apply clang-format to all the sources, (`just format-sources`), then enable
+  `clang-format-check.yml` CI script to watch that the sources stay formatted.
+
+  This changes include order of headers and can expose headers that don't have
+  enough includes themselves to be standalone, those need to be fixed too.
