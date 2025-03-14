@@ -1,5 +1,7 @@
 #version 330
 
+// Color render vertex shader.
+
 in vec3 vertexPosition;
 in vec2 vertexTexCoord;
 in vec3 vertexNormal;
@@ -14,8 +16,6 @@ out vec3 fragNormal;
 void main() {
     fragPosition = vec3(matModel * vec4(vertexPosition, 1.0));
     fragTexCoord = vertexTexCoord;
-    // fragNormal = normalize(mat3(matModel) * vertexNormal);
-    fragNormal = vertexNormal;
-    // fragPosition = vec3(matModel * vec4(vertexPosition, 1.0));
+    fragNormal = normalize(mat3(matModel) * vertexNormal);
     gl_Position = mvp * vec4(vertexPosition, 1.0);
 }

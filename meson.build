@@ -61,6 +61,12 @@ executable('model-viewer',
   dependencies: deps,
 )
 
+executable('model-viewer-2',
+  'Examples/ModelViewer2.cpp',
+
+  dependencies: deps,
+)
+
 executable('object-database',
   'Examples/ObjectDatabase.cpp',
 )

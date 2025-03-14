@@ -13,6 +13,31 @@ const int SCREEN_H = 1080;
 
 using namespace std;
 
+// NB. Inverted shells are a straightforward technique to get black outlines,
+// but they probably aren't a viable way to go with U7R. Consider a compound
+// object made of two cubes:
+//
+//  ----
+//  |  |
+//  |--|
+//  |  |
+//  ----
+//
+//   ^
+//   |  viewed from here
+//
+// The seam is completely hidden when the objects' vertices snap together
+// perfectly, but now consider what happens with the outline shells:
+// ====
+// I----
+// I== |  <- The shell of the front cube leaks through the seam and creates
+// I|--|     a false outline in the middle of the brick.
+// I|  |
+//  ----
+//
+// This isn't a problem if we use a post-processing shader to generate
+// outlines, see ModelViewer2.cpp for an implementation of those.
+
 Mesh makeShellMesh(float weight, Mesh* source) {
     Mesh mesh = {0};
     mesh.vertexCount = source->vertexCount;
