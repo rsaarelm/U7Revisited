@@ -454,6 +454,12 @@ struct RayModel {
         UpdateModelAnimation(m_model, m_animations[anim], frame);
     }
 
+    void updateAnimation(int t) {
+        if (m_animCount > 0) {
+            setAnimFrame(0, t % m_animations[0].frameCount);
+        }
+    }
+
  private:
     // non-copyable
     RayModel();
@@ -532,12 +538,19 @@ int main(int argc, char* argv[]) {
         }
     }
 
+    int tick = 0;
+
     while (!WindowShouldClose()) {
         if (IsKeyDown(KEY_SPACE)) {
             UpdateCamera(&camera, CAMERA_ORBITAL);
             UpdateCamera(&camera, CAMERA_ORBITAL);
             UpdateCamera(&camera, CAMERA_ORBITAL);
             UpdateCamera(&camera, CAMERA_ORBITAL);
+        }
+
+        // Update animations on models
+        for (auto& [name, model] : engine.m_models) {
+            model.updateAnimation(tick);
         }
 
         // Render a main perspective view of the model.
@@ -584,6 +597,8 @@ int main(int argc, char* argv[]) {
             EndMode3D();
         }
         EndDrawing();
+
+        tick++;
     }
 
     return 0;
