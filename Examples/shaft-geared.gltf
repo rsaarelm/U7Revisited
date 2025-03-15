@@ -8,14 +8,127 @@
 		{
 			"name":"Scene",
 			"nodes":[
-				0
+				3
 			]
 		}
 	],
 	"nodes":[
 		{
+			"name":"rotor",
+			"rotation":[
+				-8.557136332854043e-09,
+				1.7114272665708086e-08,
+				-2.928983286277023e-16,
+				1
+			],
+			"translation":[
+				0,
+				0.19999998807907104,
+				0
+			]
+		},
+		{
+			"name":"inert",
+			"rotation":[
+				-8.557136332854043e-09,
+				1.7114272665708086e-08,
+				-2.928983286277023e-16,
+				1
+			]
+		},
+		{
 			"mesh":0,
-			"name":"862-shaft-teeth"
+			"name":"862-shaft-teeth",
+			"skin":0
+		},
+		{
+			"children":[
+				2,
+				0,
+				1
+			],
+			"name":"Armature"
+		}
+	],
+	"animations":[
+		{
+			"channels":[
+				{
+					"sampler":0,
+					"target":{
+						"node":0,
+						"path":"translation"
+					}
+				},
+				{
+					"sampler":1,
+					"target":{
+						"node":0,
+						"path":"rotation"
+					}
+				},
+				{
+					"sampler":2,
+					"target":{
+						"node":0,
+						"path":"scale"
+					}
+				},
+				{
+					"sampler":3,
+					"target":{
+						"node":1,
+						"path":"translation"
+					}
+				},
+				{
+					"sampler":4,
+					"target":{
+						"node":1,
+						"path":"rotation"
+					}
+				},
+				{
+					"sampler":5,
+					"target":{
+						"node":1,
+						"path":"scale"
+					}
+				}
+			],
+			"name":"idle",
+			"samplers":[
+				{
+					"input":7,
+					"interpolation":"LINEAR",
+					"output":8
+				},
+				{
+					"input":9,
+					"interpolation":"LINEAR",
+					"output":10
+				},
+				{
+					"input":7,
+					"interpolation":"LINEAR",
+					"output":11
+				},
+				{
+					"input":7,
+					"interpolation":"LINEAR",
+					"output":12
+				},
+				{
+					"input":7,
+					"interpolation":"LINEAR",
+					"output":13
+				},
+				{
+					"input":7,
+					"interpolation":"LINEAR",
+					"output":14
+				}
+			]
 		}
 	],
 	"materials":[
@@ -39,9 +152,11 @@
 					"attributes":{
 						"POSITION":0,
 						"NORMAL":1,
-						"TEXCOORD_0":2
+						"TEXCOORD_0":2,
+						"JOINTS_0":3,
+						"WEIGHTS_0":4
 					},
-					"indices":3,
+					"indices":5,
 					"material":0
 				}
 			]
@@ -58,6 +173,16 @@
 			"mimeType":"image/png",
 			"name":"palette",
 			"uri":"palette.png"
+		}
+	],
+	"skins":[
+		{
+			"inverseBindMatrices":6,
+			"joints":[
+				0,
+				1
+			],
+			"name":"Armature"
 		}
 	],
 	"accessors":[
@@ -91,9 +216,87 @@
 		},
 		{
 			"bufferView":3,
+			"componentType":5121,
+			"count":106,
+			"type":"VEC4"
+		},
+		{
+			"bufferView":4,
+			"componentType":5126,
+			"count":106,
+			"type":"VEC4"
+		},
+		{
+			"bufferView":5,
 			"componentType":5123,
 			"count":204,
 			"type":"SCALAR"
+		},
+		{
+			"bufferView":6,
+			"componentType":5126,
+			"count":2,
+			"type":"MAT4"
+		},
+		{
+			"bufferView":7,
+			"componentType":5126,
+			"count":2,
+			"max":[
+				3
+			],
+			"min":[
+				0
+			],
+			"type":"SCALAR"
+		},
+		{
+			"bufferView":8,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":9,
+			"componentType":5126,
+			"count":73,
+			"max":[
+				3
+			],
+			"min":[
+				0
+			],
+			"type":"SCALAR"
+		},
+		{
+			"bufferView":10,
+			"componentType":5126,
+			"count":73,
+			"type":"VEC4"
+		},
+		{
+			"bufferView":11,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":12,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":13,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC4"
+		},
+		{
+			"bufferView":14,
+			"componentType":5126,
+			"count":2,
+			"type":"VEC3"
 		}
 	],
 	"bufferViews":[
@@ -117,9 +320,66 @@
 		},
 		{
 			"buffer":0,
-			"byteLength":408,
+			"byteLength":424,
 			"byteOffset":3392,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":1696,
+			"byteOffset":3816,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":408,
+			"byteOffset":5512,
 			"target":34963
+		},
+		{
+			"buffer":0,
+			"byteLength":128,
+			"byteOffset":5920
+		},
+		{
+			"buffer":0,
+			"byteLength":8,
+			"byteOffset":6048
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":6056
+		},
+		{
+			"buffer":0,
+			"byteLength":292,
+			"byteOffset":6080
+		},
+		{
+			"buffer":0,
+			"byteLength":1168,
+			"byteOffset":6372
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":7540
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":7564
+		},
+		{
+			"buffer":0,
+			"byteLength":32,
+			"byteOffset":7588
+		},
+		{
+			"buffer":0,
+			"byteLength":24,
+			"byteOffset":7620
 		}
 	],
 	"samplers":[
@@ -130,7 +390,7 @@
 	],
 	"buffers":[
 		{
-			"byteLength":3800,
+			"byteLength":7644,
 			"uri":"shaft-geared.bin"
 		}
 	]
