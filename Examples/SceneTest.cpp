@@ -471,7 +471,7 @@ struct Engine {
 
         /// Load all glTF models that have names of known objects from disk
         /// into runtime model storage.
-        auto files = LoadDirectoryFilesEx("Examples", ".glb", false);
+        auto files = LoadDirectoryFilesEx("Examples", ".gltf", false);
         for (unsigned int i = 0; i < files.count; i++) {
             const char* name = GetFileNameWithoutExt(files.paths[i]);
             if (m_db.m_objects.find(name) != m_db.m_objects.end()) {
