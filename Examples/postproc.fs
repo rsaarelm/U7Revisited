@@ -11,7 +11,8 @@ uniform sampler2D depthTexture;
 // Output fragment color
 out vec4 finalColor;
 
-// NOTE: Add your custom variables here
+// TODO: Parametrize postprocessing resolution from outside, this specifies
+// the pixel scale for outlines.
 uniform vec2 resolution = vec2(640, 360);
 
 float depth(vec2 coord) {
@@ -27,6 +28,9 @@ void main()
     // See if there are large depth differences near the current pixel.
     float d = depth(fragTexCoord);
     vec2 n = normal(fragTexCoord);
+
+    // TODO: Sample for depth/normal differences in four directions, not just
+    // one.
 
     // Compute the gradient of the depth field.
     float dx = d - depth(fragTexCoord + vec2(1, 0) / resolution);
