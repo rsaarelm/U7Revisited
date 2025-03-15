@@ -57,21 +57,21 @@ Vector3 sizeData(int shape) {
     // Object sizes can be found in game data. Adding the subset used in the
     // scene since I don't want to have any game data dependency here.
     switch (shape) {
-    case 158:
+    case 158:  // shaft-stand
         return Vector3{1, 1, 1};
-    case 711:
+    case 711:  // mill-stone
         return Vector3{4, 5, 2};
-    case 830:
+    case 830:  // gear
         return Vector3{3, 3, 1};
-    case 862:
+    case 862:  // shaft-smooth, shaft-geared
         return Vector3{1, 1, 1};
-    case 880:
+    case 880:  // shaft-smooth, shaft-geared
         return Vector3{1, 1, 1};
-    case 917:
+    case 917:  // shaft-pole, shaft-stand-tall
         return Vector3{1, 1, 4};
-    case 941:
+    case 941:  // water-wheel-ccw
         return Vector3{2, 5, 7};
-    case 942:
+    case 942:  // water-wheel-ccw
         return Vector3{2, 5, 7};
     }
 
