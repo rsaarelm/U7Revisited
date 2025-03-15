@@ -99,7 +99,9 @@ int main(int argc, char* argv[]) {
         // Draw regular
         BeginTextureMode(target);
         {
-            model.materials[1].shader = color;
+            for (int i = 0; i < model.materialCount; i++) {
+                model.materials[i].shader = color;
+            }
             ClearBackground(RAYWHITE);
 
             BeginMode3D(camera);
@@ -114,7 +116,9 @@ int main(int argc, char* argv[]) {
         // Draw depth
         BeginTextureMode(depthTarget);
         {
-            model.materials[1].shader = depth;
+            for (int i = 0; i < model.materialCount; i++) {
+                model.materials[i].shader = depth;
+            }
             ClearBackground(RAYWHITE);
 
             BeginMode3D(camera);

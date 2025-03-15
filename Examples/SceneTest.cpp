@@ -527,7 +527,9 @@ int main(int argc, char* argv[]) {
     SetShaderValue(shader, ambientLoc, &ambientLight, SHADER_UNIFORM_VEC3);
 
     for (auto& [name, model] : engine.m_models) {
-        model.m_model.materials[1].shader = shader;
+        for (int i = 0; i < model.m_model.materialCount; i++) {
+            model.m_model.materials[i].shader = shader;
+        }
     }
 
     while (!WindowShouldClose()) {
