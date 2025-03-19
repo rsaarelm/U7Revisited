@@ -1,4 +1,5 @@
-// This is an object database for Ultima 7 with the Black Gate expansion.
+// This is an object database for Ultima 7: Black Gate with the Forge of
+// Virtue expansion.
 
 // This description is written in a way that can be used as a C++ include
 // fragment if suitable state machine operating functions are defined outside
