@@ -1514,8 +1514,15 @@ item("magic-leggings", 686);
 prop("pillar-0", 687, 0);
 prop("pillar-1", 687, 1);
 prop("pillar-2", 687, 2);
+prop("pillar-2-half", 920, 0); alt(920, 4); east(913, 0); north(920, 1); west(913, 1);
 prop("pillar-3", 687, 3);
+prop("pillar-3-half", 920, 2);
 prop("pillar-4", 687, 4);
+
+// These two are half-pillar bits that look like pillar-2 but are missing
+// bottom and top bits. They seem to only have the east view.
+prop("pillar-5-half"); east(913, 4);
+prop("pillar-6-half"); east(913, 5);
 
 prop("harpsichord", 689, 0); east(689, 1);
 
@@ -1557,6 +1564,8 @@ item("shears", 698);
 
 weapon("torch-lit", 701);
 
+// XXX: The barrel length is different in north/south and east/west views.
+// Still assuming these are all intended to represent the same cannon.
 prop("cannon", 702, 0); west(702, 1); north(702, 2); east(702, 3);
 
 item("cannon-ball", 703);
@@ -2084,8 +2093,6 @@ prop("green-statue-0", 906, 0);
 prop("green-statue-1", 906, 1);
 prop("green-statue-2", 906, 2);
 prop("statue-plinth", 906, 3);
-
-// TODO: Are the weird partial pillars in 913 and 920 used anywhere?
 
 item("blackrock", 914);
 
