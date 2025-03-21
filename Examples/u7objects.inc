@@ -120,6 +120,8 @@
 // - extend(tile_x, tile_y, tile_z, shape, f1, f2);
 //   Extend the object with frames from f1 to f2 (inclusive) from shape.
 
+// Additional names reference: https://wiki.ultimacodex.com/wiki/Ultima_VII_%E2%80%93_item_list
+
 human("mage-male", 154); alt(445);
 
 // There's a presumably unused ferryman character at 952.
@@ -236,7 +238,7 @@ prop("loom", 261);
 
 human("townsman", 265);
 
-prop("bloodfang-superfighter", 267, 1); extend(0, 0, 3, 267, 0);
+prop("bloodfang-superfighter") east(267, 1); extend(0, 0, 3, 267, 0);
 
 prop("mirror"); east(268);
 
@@ -1034,13 +1036,13 @@ prop("broken-column-2", 544, 2);
 prop("broken-column-3", 544, 3);
 prop("broken-column-4", 544, 4);
 prop("broken-column-5", 544, 5);
-prop("broken-column-6", 544, 6);
-prop("broken-column-7", 544, 7);
-prop("broken-column-8", 544, 8);
-prop("broken-column-9", 544, 9);
+prop("broken-column-6", 544, 6); east(544, 7);
+prop("broken-column-7", 544, 8); east(544, 9);
 
 shield("curved-heater", 545, 0); east(545, 1); south(545, 2);
 
+// XXX: Some of the broken dishes are the same object broken in a different
+// pattern, but they're not generally clear rotations.
 item("broken-dish-0", 546, 0);
 item("broken-dish-1", 546, 1);
 item("broken-dish-2", 546, 2);
@@ -1191,19 +1193,17 @@ weapon("knife", 615);
 item("bottle-0", 616, 0);
 item("bottle-1", 616, 1);
 item("bottle-2", 616, 2);
-item("bottle-3", 616, 3);
-item("bottle-4", 616, 4);
-item("bottle-5", 616, 5);
-item("bottle-6", 616, 6);
-item("bottle-7", 616, 7);
-item("bottle-8", 616, 8);
-item("bottle-9", 616, 9);
-item("bottle-10", 616, 10);
-item("bottle-11", 616, 11);
-item("bottle-12", 616, 12);
-item("bottle-13", 616, 13);
-item("bottle-14", 616, 14);
-item("bottle-15", 616, 15);
+item("bottle-3", 616, 3, 4);
+item("bottle-4", 616, 5);
+item("bottle-5", 616, 6);
+item("bottle-6", 616, 7);
+item("bottle-7", 616, 8);
+item("bottle-8", 616, 9);
+item("bottle-9", 616, 10);
+item("bottle-10", 616, 11);
+item("bottle-11", 616, 12);
+item("bottle-12", 616, 13, 14);
+item("bottle-13", 616, 15);
 
 human("time-lord", 617);
 
@@ -1451,25 +1451,23 @@ tree("tree-silverleaf-2", 674, 2);
 tree("tree-silverleaf-3", 674, 3);
 tree("tree-silverleaf-4", 674, 4);
 
-item("desk-item-0", 675, 0);
-item("desk-item-1", 675, 1);
-item("desk-item-2", 675, 2);
-item("desk-item-3", 675, 3);
-item("desk-item-4", 675, 4);
-item("desk-item-5", 675, 5);
-item("desk-item-6", 675, 6);
-item("desk-item-7", 675, 7);
-item("desk-item-8", 675, 8);
-item("desk-item-9", 675, 9);
+item("gavel", 675, 0);
+item("quill-0", 675, 1); east(675, 15);
+item("inkwell", 675, 2);
+item("quill-holder", 675, 3);
+item("book-mark", 675, 4);
+item("letter-opener", 675, 5);
+item("document", 675, 6); east(675, 13);
+item("sealing-wax-0", 675, 7);
+item("seal", 675, 8);
+item("blotter", 675, 9);
 item("parrot", 675, 10);
 item("abacus", 675, 11);
-item("desk-item-12", 675, 12);
-item("desk-item-13", 675, 13);
-item("desk-item-14", 675, 14);
-item("desk-item-15", 675, 15);
-item("desk-item-16", 675, 16);
-item("desk-item-17", 675, 17, 19);
-item("desk-item-18", 675, 20);
+item("sealing-wax-1", 675, 12);
+item("quill-1", 675, 14);
+item("hand-mirror", 675, 16);
+item("newtons-cradle", 675, 17, 19);
+item("bell", 675, 20);
 
 item("sack-of-wheat", 677);
 
@@ -1634,11 +1632,10 @@ prop("lens-purple", 726, 1);
 
 creature("horse", 727);
 
-item("caddelite-chunks-0", 728, 0);
+item("caddelite-chunks-0", 728, 0); alt(728, 2);
 item("caddelite-chunks-1", 728, 1);
-item("caddelite-chunks-2", 728, 2);
-item("caddelite-chunks-3", 728, 3);
-item("caddelite-chunks-4", 728, 4);
+item("caddelite-chunks-2", 728, 3);
+item("caddelite-chunks-3", 728, 4);
 
 item("crystal-ball", 729);
 
@@ -2086,8 +2083,8 @@ rock("monolith-4", 894, 4);
 
 // TODO: Figure out fellowship pews from 897
 
-prop("marble-altar", 898, 0);
-prop("dark-altar", 898, 0);
+prop("altar-marble", 898, 0);
+prop("altar-dark", 898, 1);
 
 prop("green-statue-0", 906, 0);
 prop("green-statue-1", 906, 1);
