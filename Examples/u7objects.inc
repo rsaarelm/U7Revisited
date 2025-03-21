@@ -332,7 +332,7 @@ tree("tree-6", 310, 2);
 tree("tree-7", 310, 3);
 tree("tree-8", 310, 4);
 
-prop("trophy-0", 311, 0); east(409, 0);
+prop("trophy-0", 311, 0);
 prop("trophy-1", 311, 1); east(409, 1);
 prop("trophy-2", 311, 2); east(409, 2);
 prop("trophy-3", 311, 3); east(409, 3);
@@ -350,6 +350,7 @@ prop("trophy-12", 311, 12); east(409, 12);
 prop("trophy-13", 311, 13);
 // Also this last one has different hair.
 prop("trophy-14"); east(409, 13);
+prop("trophy-15"); east(409, 0);
 
 prop("gargoyle-futon", 312); east(363);
 
@@ -402,17 +403,14 @@ plant("brambles-3", 320, 3);
 plant("brambles-4", 320, 4);
 plant("brambles-5", 320, 5);
 
-plant("reeds-0", 321, 0);
+plant("reeds-0", 321, 0); south(321, 4);
 plant("reeds-1", 321, 1);
 plant("reeds-2", 321, 2);
 plant("reeds-3", 321, 3);
-plant("reeds-4", 321, 4);
-plant("reeds-5", 321, 5);
-plant("reeds-6", 321, 6);
-plant("reeds-7", 321, 7);
-plant("reeds-8", 321, 8);
-plant("reeds-9", 321, 9);
-plant("reeds-10", 321, 10);
+plant("reeds-4", 321, 5);
+plant("reeds-5", 321, 6);
+plant("reeds-6", 321, 7); south(321, 10);
+plant("reeds-7", 321, 8, 9);
 plant("crucifix", 321, 11);
 
 plant("cattails-0", 323, 0);
@@ -605,14 +603,14 @@ item("magic-helm", 383);
 
 // Rising step heights.
 prop("stair-wood-0", 426, 0); east(385, 0);
-prop("stair-wood-1", 427, 0); east(385, 0);
-prop("stair-wood-2", 428, 0); east(385, 0);
+prop("stair-wood-1", 427, 0); east(386, 0);
+prop("stair-wood-2", 428, 0); east(387, 0);
 prop("stair-wood-3", 429, 0); east(973, 0);
 prop("stair-wood-4", 430, 0); east(974, 0);
 
 prop("stair-stone-0", 426, 1); east(385, 1);
-prop("stair-stone-1", 427, 1); east(385, 1);
-prop("stair-stone-2", 428, 1); east(385, 1);
+prop("stair-stone-1", 427, 1); east(386, 1);
+prop("stair-stone-2", 428, 1); east(387, 1);
 prop("stair-stone-3", 429, 1); east(973, 1);
 prop("stair-stone-4", 430, 1); east(974, 1);
 
@@ -762,7 +760,9 @@ prop("garbage-29", 415, 29);
 prop("garbage-30", 415, 30);
 prop("garbage-31", 415, 31);
 
-prop("drawers", 416); east(679);
+// These look sort of similar, but the other one is clearly wider.
+prop("drawers-0", 416);
+prop("drawers-1"); east(679);
 
 ammo("magic-bolt", 417);
 
@@ -1330,7 +1330,7 @@ pile("gold-coin", 644);
 
 item("gold-nugget", 645, 0); east(645, 1);
 
-item("gold-bar", 646, 0); east(645, 1);
+item("gold-bar", 646, 1); east(646, 1);
 
 weapon("triple-crossbow", 647);
 
@@ -1427,13 +1427,12 @@ plant("mushrooms-15", 671, 15);
 plant("mushrooms-16", 671, 16);
 plant("mushrooms-17", 671, 17);
 
-plant("shrubbery-0", 672, 0);
+plant("shrubbery-0", 672, 0); south(672, 3);
 plant("shrubbery-1", 672, 1);
 plant("shrubbery-2", 672, 2);
-plant("shrubbery-3", 672, 3);
-plant("shrubbery-4", 672, 4);
-plant("shrubbery-5", 672, 5);
-plant("shrubbery-6", 672, 6);
+plant("shrubbery-3", 672, 4);
+plant("shrubbery-4", 672, 5);
+plant("shrubbery-5", 672, 6);
 
 plant("plant-0", 673, 0);
 plant("plant-1", 673, 1);
@@ -1486,14 +1485,13 @@ item("glass-item-0", 682, 0);
 item("glass-item-1", 682, 1);
 item("glass-item-2", 682, 2);
 item("glass-item-3", 682, 3);
-item("glass-item-4", 682, 4);
-item("glass-item-5", 682, 5);
-item("glass-item-6", 682, 6);
-item("glass-item-7", 682, 7);
-item("glass-item-8", 682, 8);
-item("glass-item-9", 682, 9);
-item("glass-item-10", 682, 10);
-item("glass-item-11", 682, 11);
+item("glass-item-4", 682, 4, 5);
+item("glass-item-5", 682, 6);
+item("glass-item-6", 682, 7);
+item("glass-item-7", 682, 8);
+item("glass-item-8", 682, 9);
+item("glass-item-9", 682, 10);
+item("glass-item-10", 682, 11);
 
 tree("tree-20", 683, 0);
 tree("tree-21", 683, 1);
@@ -1528,8 +1526,8 @@ prop("xylophone", 690);
 
 item("lyre", 691);
 
-item("lute-0", 692, 0);
-item("lute-1", 692, 1);
+// Other frame is in a 45 degree angle, no way to express that yet.
+item("lute", 692);
 
 item("whistle-0", 693, 0);
 item("whistle-1", 693, 1);
@@ -1610,7 +1608,7 @@ prop("pedestal-0", 718, 0);
 prop("pedestal-1", 718, 1);
 prop("pedestal-2", 718, 2);
 prop("pedestal-3", 718, 3);
-prop("pedestal-4", 718, 4);
+prop("pedestal-4", 718, 4); // Very similar to pedestal-2
 prop("pedestal-5", 718, 5);
 
 prop("water-trough-0", 741, 0, 3); east(719);
@@ -2166,12 +2164,11 @@ item("gargoyle-jewelry-4", 937, 4);
 item("gargoyle-jewelry-5", 937, 5);
 item("gargoyle-jewelry-6", 937, 6);
 
-item("pot-0", 944, 0);
-item("pot-1", 944, 1);
-item("pot-2", 944, 2);
-item("pot-3", 944, 3);
-item("pot-4", 944, 4);
-item("pot-5", 944, 5);
+item("pot-0", 944, 0, 1);
+item("pot-1", 944, 2);
+item("pot-2", 944, 3);
+item("pot-3", 944, 4);
+item("pot-4", 944, 5);
 
 prop("guardian-statue"); east(945, 0); west(945, 1);
 
