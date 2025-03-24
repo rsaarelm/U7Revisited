@@ -13,27 +13,26 @@
 
 #include <memory>
 
-#include "Object.h"
 #include "Config.h"
+#include "Object.h"
 
 class Gui;
 
-class GuiManager : public Object
-{
-public:
-	GuiManager() {};
+class GuiManager : public Object {
+ public:
+    GuiManager() {};
 
-	virtual void Init() { Init(std::string("")); }
-	virtual void Init(const std::string& configfile);
-	virtual void Shutdown();
-	virtual void Update();
-	virtual void Draw();
+    virtual void Init() { Init(std::string("")); }
+    virtual void Init(const std::string& configfile);
+    virtual void Shutdown();
+    virtual void Update();
+    virtual void Draw();
 
-	void AddGui(std::shared_ptr<Gui> gui);
+    void AddGui(std::shared_ptr<Gui> gui);
 
-	Config                               m_GUIManagerConfig;
-	std::string                          m_ConfigFileName;
-	std::vector<std::shared_ptr<Gui>>    m_GuiList;
+    Config m_GUIManagerConfig;
+    std::string m_ConfigFileName;
+    std::vector<std::shared_ptr<Gui>> m_GuiList;
 };
 
 #endif
