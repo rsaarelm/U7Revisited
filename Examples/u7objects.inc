@@ -238,7 +238,7 @@ prop("loom", 261);
 
 human("townsman", 265);
 
-prop("bloodfang-superfighter") east(267, 1); extend(0, 0, 3, 267, 0);
+prop("bloodfang-superfighter"); east(267, 1); extend(0, 0, 3, 267, 0);
 
 prop("mirror"); east(268);
 
