@@ -1,4 +1,5 @@
 #include "ResourceManager.h"
+#include <cassert>
 #include "Config.h"
 #include "Globals.h"
 #include "Logging.h"
@@ -11,24 +12,25 @@ using namespace std;
 void ResourceManager::Init(const std::string& configfile) {}
 
 void ResourceManager::Shutdown() {
-    map<std::string, unique_ptr<Texture>>::iterator node;
-    for (node = m_TextureList.begin(); node != m_TextureList.end(); ++node) {
-        UnloadTexture(*(*node).second);
+    for (auto& node : m_TextureList) {
+        UnloadTexture(*node.second);
     }
 
-    map<std::string, unique_ptr<Model>>::iterator node2;
-    for (node2 = m_ModelList.begin(); node2 != m_ModelList.end(); ++node2) {
-        UnloadModel(*(*node2).second);
+    for (auto& node : m_ModelList) {
+        UnloadModel(*node.second);
     }
 
-    map<std::string, unique_ptr<Wave>>::iterator node3;
-    for (node3 = m_SoundList.begin(); node3 != m_SoundList.end(); ++node3) {
-        UnloadWave(*(*node3).second);
+    for (auto& node : m_ModelAnimList) {
+        auto [anims, count] = *node.second;
+        UnloadModelAnimations(anims, count);
     }
 
-    map<std::string, unique_ptr<Music>>::iterator node4;
-    for (node4 = m_MusicList.begin(); node4 != m_MusicList.end(); ++node3) {
-        UnloadMusicStream(*(*node4).second);
+    for (auto& node : m_SoundList) {
+        UnloadWave(*node.second);
+    }
+
+    for (auto& node : m_MusicList) {
+        UnloadMusicStream(*node.second);
     }
 }
 
@@ -57,6 +59,16 @@ void ResourceManager::AddModel(const std::string& modelName) {
     Log("Loading model " + modelName);
     m_ModelList[modelName] =
         std::make_unique<Model>(LoadModel(modelName.c_str()));
+
+    int animCount = 0;
+    ModelAnimation* anims = LoadModelAnimations(modelName.c_str(), &animCount);
+
+    if (anims && animCount > 0) {
+        m_ModelAnimList[modelName] =
+            std::make_unique<std::tuple<ModelAnimation*, int>>(anims,
+                                                               animCount);
+    }
+
     Log("Load successful.");
 }
 
@@ -106,6 +118,40 @@ Model* ResourceManager::GetModel(const std::string& modelName) {
         AddModel(modelName);
         return m_ModelList[modelName].get();
     }
+}
+
+void ResourceManager::AnimateModel(const std::string& modelName,
+                                   const std::string& animName,
+                                   unsigned int frame) {
+    auto model = GetModel(modelName);
+
+    map<std::string, unique_ptr<std::tuple<ModelAnimation*, int>>>::iterator
+        node;
+    node = m_ModelAnimList.find(modelName);
+
+    if (node == m_ModelAnimList.end()) {
+        Log("Model " + modelName + " has no animations!");
+        return;
+    }
+
+    auto [anims, count] = *node->second;
+
+    // If animations are present, there must be at least one.
+    assert(count > 0);
+
+    for (int i = 0; i < count; i++) {
+        if (animName == anims[i].name) {
+            UpdateModelAnimation(*model, anims[i],
+                                 frame % (unsigned int)anims[i].frameCount);
+            return;
+        }
+    }
+
+    // The named animation wasn't found for this model. Animation calls need
+    // to clear earlier animation states though, so at least we can set the
+    // model into a possibly neutral state.
+    Log("Animation " + animName + " not found for model " + modelName);
+    UpdateModelAnimation(*model, anims[0], 0);
 }
 
 Wave* ResourceManager::GetSound(const std::string& soundName) {

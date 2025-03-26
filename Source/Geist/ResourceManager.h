@@ -30,6 +30,7 @@ class ResourceManager : public Object {
 
     std::map<std::string, std::unique_ptr<Texture>> m_TextureList;
     std::map<std::string, std::unique_ptr<Model>> m_ModelList;
+    std::map<std::string, std::unique_ptr<std::tuple<ModelAnimation*, int>>> m_ModelAnimList;
     std::map<std::string, std::unique_ptr<Wave>> m_SoundList;
     std::map<std::string, std::unique_ptr<Music>> m_MusicList;
     std::map<std::string, std::unique_ptr<Config>> m_configList;
@@ -45,10 +46,15 @@ class ResourceManager : public Object {
     //  delete them.  You didn't make these resources, you have no business
     //  deleting them.
     Texture* GetTexture(const std::string& textureName, bool mipmaps = true);
-    Model* GetModel(const std::string& meshname);
-    Wave* GetSound(const std::string& soundname);
-    Music* GetMusic(const std::string& musicname);
-    Config* GetConfig(const std::string& configname);
+    Model* GetModel(const std::string& meshName);
+    Wave* GetSound(const std::string& soundName);
+    Music* GetMusic(const std::string& musicName);
+    Config* GetConfig(const std::string& configName);
+
+    /// Set the animation frame of a given mesh model. Yes, this modifies the
+    /// actual model resource. You'll need to do this before every draw call
+    /// for animated models.
+    void AnimateModel(const std::string& meshName, const std::string& animName, unsigned int frame);
 
     //  Utilities
     bool DoesFileExist(const std::string& filename);
