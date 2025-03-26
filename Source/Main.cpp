@@ -45,6 +45,19 @@ int main(int argv, char** argc) {
 
         g_alphaDiscard = LoadShader(NULL, "Data/Shaders/alphaDiscard.fs");
 
+
+        g_modelShader =
+            LoadShader("Data/Shaders/model.vs", "Data/Shaders/model.fs");
+        // Set up directional light
+        int lightDirLoc = GetShaderLocation(g_modelShader, "lightDir");
+        Vector3 lightDir = {2.0f, -4.0f, -2.0f};
+        SetShaderValue(g_modelShader, lightDirLoc, &lightDir, SHADER_UNIFORM_VEC3);
+
+        Vector3 ambientLight = {0.2f, 0.2f, 0.2f};
+        int ambientLoc = GetShaderLocation(g_modelShader, "ambient");
+        SetShaderValue(g_modelShader, ambientLoc, &ambientLight, SHADER_UNIFORM_VEC3);
+
+
         rlDisableBackfaceCulling();
         rlEnableDepthTest();
 
