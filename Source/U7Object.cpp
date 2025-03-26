@@ -57,10 +57,19 @@ void U7Object::Draw() {
             }
         }
 
-        g_ResourceManager->AnimateModel(m_shapeData->m_customMeshName, "idle", GetTime() * 48.0f);
-    }
+        g_ResourceManager->AnimateModel(m_shapeData->m_customMeshName, "walk",
+                                        GetTime() * 72.0f);
 
-    m_shapeData->Draw(m_Pos, m_Angle, m_color);
+        // Walk in a circle
+        auto angle = GetTime() * 15.0f;
+        auto pos =
+            Vector3Add(m_Pos, Vector3{-cosf(angle / 180.0f * PI) * 10.0f + 3.0f,
+                                      0, sinf(angle / 180.0f * PI) * 10.0f});
+
+        m_shapeData->Draw(pos, angle, m_color);
+    } else {
+        m_shapeData->Draw(m_Pos, m_Angle, m_color);
+    }
 
     if (g_Engine->m_debugDrawing) {
         DrawBoundingBox(m_boundingBox, MAGENTA);
