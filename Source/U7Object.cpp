@@ -43,6 +43,23 @@ void U7Object::Draw() {
         }
     }
 
+    // HAX: Override specifically for the noble-male objecte
+    if (m_shapeData->GetShape() == 451) {
+        // TODO: Figure out the proper point where shader materials are
+        // assigned. We need to make a difference between "baked" objects that
+        // have lighting in the model, and unbaked ones, which are most of the
+        // animated ones and need the shader.
+
+        Model* model = m_shapeData->m_customMesh;
+        if (model) {
+            for (int i = 0; i < model->materialCount; i++) {
+                model->materials[i].shader = g_modelShader;
+            }
+        }
+
+        g_ResourceManager->AnimateModel(m_shapeData->m_customMeshName, "idle", GetTime() * 48.0f);
+    }
+
     m_shapeData->Draw(m_Pos, m_Angle, m_color);
 
     if (g_Engine->m_debugDrawing) {
