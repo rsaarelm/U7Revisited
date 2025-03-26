@@ -772,7 +772,7 @@ void ShapeData::Draw(const Vector3& pos, float angle, Color color,
             glStencilFunc(GL_ALWAYS, 1, -1);
             glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 
-            DrawModelEx(*m_customMesh, finalPos, {0, 1, 0}, m_rotation,
+            DrawModelEx(*m_customMesh, finalPos, {0, 1, 0}, m_rotation + angle,
                         m_Scaling, WHITE);
 
             glStencilFunc(GL_NOTEQUAL, 1, -1);
@@ -785,13 +785,13 @@ void ShapeData::Draw(const Vector3& pos, float angle, Color color,
             glEnable(GL_LINE_SMOOTH);
             glPolygonMode(GL_FRONT, GL_LINE);
 
-            DrawModelEx(*m_customMesh, finalPos, {0, 1, 0}, m_rotation,
+            DrawModelEx(*m_customMesh, finalPos, {0, 1, 0}, m_rotation + angle,
                         m_Scaling, BLACK);
 
             glPolygonMode(GL_FRONT, GL_FILL);
             glDisable(GL_STENCIL_TEST);
         } else {
-            DrawModelEx(*m_customMesh, finalPos, {0, 1, 0}, m_rotation,
+            DrawModelEx(*m_customMesh, finalPos, {0, 1, 0}, m_rotation + angle,
                         m_Scaling, WHITE);
         }
         break;
