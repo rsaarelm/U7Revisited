@@ -7,3 +7,8 @@
 !Redist/Data/U7/U7.txt
 
 /subprojects/raylib/
+
+# Nix flake directory
+/.direnv/
+# clangd language client cache
+/.cache/
