@@ -1,4 +1,8 @@
-project('Ultima 7 Revisited', 'cpp')
+project(
+  'Ultima 7 Revisited',
+  'cpp',
+  default_options: ['cpp_std=c++20']
+)
 
 cmake = import('cmake')
 
@@ -47,6 +51,28 @@ executable('U7Revisited',
   'Source/U7Gump.cpp',
   'Source/U7Object.cpp',
   'Source/WorldEditorState.cpp',
+
+  dependencies: deps,
+)
+
+executable('model-viewer',
+  'Examples/ModelViewer.cpp',
+
+  dependencies: deps,
+)
+
+executable('model-viewer-2',
+  'Examples/ModelViewer2.cpp',
+
+  dependencies: deps,
+)
+
+executable('object-database',
+  'Examples/ObjectDatabase.cpp',
+)
+
+executable('scene-test',
+  'Examples/SceneTest.cpp',
 
   dependencies: deps,
 )

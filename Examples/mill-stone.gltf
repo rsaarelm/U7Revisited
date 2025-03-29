@@ -1,0 +1,346 @@
+{
+  "accessors": [
+    {
+      "bufferView": 0,
+      "count": 2,
+      "componentType": 5126,
+      "type": "MAT4"
+    },
+    {
+      "bufferView": 1,
+      "count": 990,
+      "componentType": 5123,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "count": 433,
+      "componentType": 5126,
+      "type": "VEC3",
+      "min": [
+        -0.699999988079071,
+        0.0,
+        -1.0
+      ],
+      "max": [
+        0.699999988079071,
+        0.8799999356269836,
+        1.0
+      ]
+    },
+    {
+      "bufferView": 3,
+      "count": 433,
+      "componentType": 5126,
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 4,
+      "count": 433,
+      "componentType": 5126,
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 5,
+      "count": 433,
+      "componentType": 5121,
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 6,
+      "count": 433,
+      "componentType": 5126,
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 7,
+      "count": 2,
+      "componentType": 5126,
+      "type": "SCALAR",
+      "min": [
+        0.0
+      ],
+      "max": [
+        9.0
+      ]
+    },
+    {
+      "bufferView": 8,
+      "count": 2,
+      "componentType": 5126,
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 9,
+      "count": 3,
+      "componentType": 5126,
+      "type": "SCALAR",
+      "min": [
+        0.0
+      ],
+      "max": [
+        9.0
+      ]
+    },
+    {
+      "bufferView": 10,
+      "count": 3,
+      "componentType": 5126,
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 11,
+      "count": 2,
+      "componentType": 5126,
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 12,
+      "count": 2,
+      "componentType": 5126,
+      "type": "VEC4"
+    }
+  ],
+  "animations": [
+    {
+      "channels": [
+        {
+          "sampler": 0,
+          "target": {
+            "node": 1,
+            "path": "translation"
+          }
+        },
+        {
+          "sampler": 1,
+          "target": {
+            "node": 1,
+            "path": "rotation"
+          }
+        },
+        {
+          "sampler": 2,
+          "target": {
+            "node": 2,
+            "path": "translation"
+          }
+        },
+        {
+          "sampler": 3,
+          "target": {
+            "node": 2,
+            "path": "rotation"
+          }
+        }
+      ],
+      "name": "idle",
+      "samplers": [
+        {
+          "input": 7,
+          "interpolation": "LINEAR",
+          "output": 8
+        },
+        {
+          "input": 9,
+          "interpolation": "LINEAR",
+          "output": 10
+        },
+        {
+          "input": 7,
+          "interpolation": "LINEAR",
+          "output": 11
+        },
+        {
+          "input": 7,
+          "interpolation": "LINEAR",
+          "output": 12
+        }
+      ]
+    }
+  ],
+  "asset": {
+    "generator": "gltfunroll v0.1.0",
+    "version": "2.0"
+  },
+  "buffers": [
+    {
+      "byteLength": 24772,
+      "uri": "mill-stone.bin"
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 128,
+      "byteOffset": 0
+    },
+    {
+      "buffer": 0,
+      "byteLength": 1980,
+      "byteOffset": 128,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 5196,
+      "byteOffset": 2108,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 5196,
+      "byteOffset": 7304,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 3464,
+      "byteOffset": 12500,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 1732,
+      "byteOffset": 15964,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 6928,
+      "byteOffset": 17696,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 8,
+      "byteOffset": 24624
+    },
+    {
+      "buffer": 0,
+      "byteLength": 24,
+      "byteOffset": 24632
+    },
+    {
+      "buffer": 0,
+      "byteLength": 12,
+      "byteOffset": 24656
+    },
+    {
+      "buffer": 0,
+      "byteLength": 48,
+      "byteOffset": 24668
+    },
+    {
+      "buffer": 0,
+      "byteLength": 24,
+      "byteOffset": 24716
+    },
+    {
+      "buffer": 0,
+      "byteLength": 32,
+      "byteOffset": 24740
+    }
+  ],
+  "scene": 0,
+  "images": [
+    {
+      "uri": "mill-stone.png"
+    }
+  ],
+  "materials": [
+    {
+      "alphaMode": "OPAQUE",
+      "doubleSided": false,
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ],
+        "baseColorTexture": {
+          "index": 0,
+          "texCoord": 0
+        },
+        "metallicFactor": 1.0,
+        "roughnessFactor": 1.0
+      },
+      "emissiveFactor": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 2,
+            "NORMAL": 3,
+            "TEXCOORD_0": 4,
+            "JOINTS_0": 5,
+            "WEIGHTS_0": 6
+          },
+          "indices": 1,
+          "material": 0
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1,
+        2
+      ],
+      "mesh": 0,
+      "name": "mill-stone",
+      "skin": 0
+    },
+    {
+      "name": "rotor",
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "translation": [
+        0.0,
+        0.0,
+        -0.2
+      ]
+    },
+    {
+      "name": "inert"
+    }
+  ],
+  "scenes": [
+    {
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "skins": [
+    {
+      "inverseBindMatrices": 0,
+      "joints": [
+        1,
+        2
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "source": 0
+    }
+  ]
+}
